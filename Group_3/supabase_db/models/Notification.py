@@ -104,7 +104,9 @@ class NotificationModel:
 
         self.__recursiveNotifHistory(timeFrame=timeFrame)
 
-    def GetBunchOfNotifications(self):
+        return self.__GetBunchOfNotifications()
+
+    def __GetBunchOfNotifications(self):
         notifications_dict = {}
 
         response = self.client.from_(
@@ -167,5 +169,3 @@ if __name__ == '__main__':
     results = NotifModel.CreateNotification(notiforigin='Test2', longitude=10.0, latitude=20.0, city='Waterloo', disastertype='Hurricane', disasterlevel=3, notifdate=str(date(2024, 9, 12)))
 
     print(NotifModel.GetNotifToDisplayForHistory("6 months ago"))
-
-    print(NotifModel.NotifIDHistory)
