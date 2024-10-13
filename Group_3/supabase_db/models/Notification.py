@@ -1,13 +1,13 @@
 import os
 from supabase import create_client, Client
 from dotenv import load_dotenv
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 load_dotenv()
 
 
 class NotificationModel:
-    def __init__(self, tableName: str = "Notification"):
+    def __init__(self, tableName: str = "notifications"):
         self.supabase_url = os.getenv("SUPABASE_URL")
         self.supabase_key = os.getenv("SUPABASE_KEY")
         self.client: Client = create_client(
@@ -35,7 +35,7 @@ class NotificationModel:
     def GetNotifToDisplayImmediately(self):
         # Fetch the latest notification based on highest NotifID
         response = self.client.from_(self.tableName).select(
-            "*").order("NotifID", desc=True).limit(1).execute()
+            "*").order("notifid", desc=True).limit(1).execute()
 
         if (response.data):
             print(f"Latest Notification Retrieved Successfully")
@@ -69,10 +69,10 @@ class NotificationModel:
 
     def __recursiveNotifHistory(self, timeFrame: str, latestNotifID: int = None):
         query = self.client.from_(self.tableName).select(
-            "*").order("NotifID", desc=True).limit(1)
+            "*").order("notifid", desc=True).limit(1)
 
         if latestNotifID:
-            query = query.lt("NotifID", latestNotifID)
+            query = query.lt("notifid", latestNotifID)
 
         response = query.execute()
 
@@ -82,8 +82,8 @@ class NotificationModel:
             return None
 
         latestNotification = response.data[0]
-        NotifID = latestNotification['NotifID']
-        NotifDate = latestNotification['NotifDate']
+        NotifID = latestNotification['notifid']
+        NotifDate = latestNotification['notifdate']
 
         currentDate = datetime.now().date()
         NotifAge = (currentDate - datetime.strptime(NotifDate,
@@ -99,17 +99,16 @@ class NotificationModel:
         else:
             return None
 
-    def GetNotifToDisplayForHistory(self, timeFrame: str, latestNotifID: int = None):
+    def GetNotifToDisplayForHistory(self, timeFrame: str = "1 month ago"):
         self.NotifIDHistory = []
 
-        self.__recursiveNotifHistory(
-            timeFrame=timeFrame, latestNotifID=latestNotifID)
+        self.__recursiveNotifHistory(timeFrame=timeFrame)
 
     def GetBunchOfNotifications(self):
         notifications_dict = {}
 
         response = self.client.from_(
-            self.tableName).select("NotifOrigin, Longitude, Latitude, City, DisasterType, DisasterLevel, NotifDate").in_("NotifID", self.NotifIDHistory).execute()
+            self.tableName).select("notiforigin, longitude, latitude, city, disastertype, disasterlevel, notifdate").in_("notifid", self.NotifIDHistory).execute()
 
         if (response.data):
             for notification, NotifID in zip(response.data, self.NotifIDHistory):
@@ -125,28 +124,48 @@ class NotificationModel:
 
     def DeleteNotification(self, timeFrame: str = "6 months ago", latestNotifID: int = None):
         query = self.client.from_(
-            self.tableName).select("NotifID, NotifDate").order("NotifID").limit(1)
+            self.tableName).select("notifid, notifdate").order("notifid").limit(1)
 
         if latestNotifID:
-            query = query.gt("NotifID", latestNotifID)
+            query = query.gt("notifid", latestNotifID)
 
         response = query.execute()
 
-        latestNotification = response.data[0]
-        NotifID = latestNotification['NotifID']
-        NotifDate = latestNotification['NotifDate']
+        if response.data:
+            latestNotification = response.data[0]
+            NotifID = latestNotification['notifid']
+            NotifDate = latestNotification['notifdate']
 
-        currentDate = datetime.now().date()
-        NotifAge = (currentDate - datetime.strptime(NotifDate,
-                    '%Y-%m-%d').date()).days
+            currentDate = datetime.now().date()
+            NotifAge = (currentDate - datetime.strptime(NotifDate,
+                        '%Y-%m-%d').date()).days
 
-        NotifTimeFrameInDays = self.__ConvertTimeFrameToDays(timeFrame)
+            NotifTimeFrameInDays = self.__ConvertTimeFrameToDays(timeFrame)
 
-        if (NotifAge > NotifTimeFrameInDays):
-            response_del = self.client.from_(
-                self.tableName).delete().eq("NotifID", NotifID).execute()
+            if (NotifAge > NotifTimeFrameInDays):
+                response_del = self.client.from_(
+                    self.tableName).delete().eq("notifid", NotifID).execute()
 
-            return self.DeleteNotification(timeFrame=timeFrame, latestNotifID=NotifID)
+                return self.DeleteNotification(timeFrame=timeFrame, latestNotifID=NotifID)
 
-        else:
-            return None
+            else:
+                return None
+
+        
+
+if __name__ == '__main__':
+    NotifModel = NotificationModel()
+
+    results = NotifModel.CreateNotification(notiforigin='Test1', longitude=10.0, latitude=20.0, city='Waterloo', disastertype='Tornado', disasterlevel=3, notifdate=str(date(2024, 7, 12)))
+    results = NotifModel.CreateNotification(notiforigin='Test2', longitude=10.0, latitude=20.0, city='Waterloo', disastertype='Hurricane', disasterlevel=3, notifdate=str(date(2024, 9, 12)))
+
+    print(NotifModel.GetNotifToDisplayImmediately())
+
+    NotifModel.DeleteNotification("1 week ago")
+
+    results = NotifModel.CreateNotification(notiforigin='Test1', longitude=10.0, latitude=20.0, city='Waterloo', disastertype='Tornado', disasterlevel=3, notifdate=str(date(2024, 7, 12)))
+    results = NotifModel.CreateNotification(notiforigin='Test2', longitude=10.0, latitude=20.0, city='Waterloo', disastertype='Hurricane', disasterlevel=3, notifdate=str(date(2024, 9, 12)))
+
+    print(NotifModel.GetNotifToDisplayForHistory("6 months ago"))
+
+    print(NotifModel.NotifIDHistory)

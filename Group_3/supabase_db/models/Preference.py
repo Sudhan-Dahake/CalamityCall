@@ -6,7 +6,7 @@ load_dotenv()
 
 
 class PreferencesModel:
-    def __init__(self, tableName: str = "Preferences"):
+    def __init__(self, tableName: str = "preferences"):
         self.supabase_url = os.getenv("SUPABASE_URL")
         self.supabase_key = os.getenv("SUPABASE_KEY")
         self.client: Client = create_client(
@@ -17,12 +17,12 @@ class PreferencesModel:
 
     def CreatePreference(self, NotificationType: str = "Push", DisasterType: str = "All", SeverityType: int = 3, NotifFlashing: bool = True, TextToSpeech: bool = True, NotifTimeFrame: str = "6 months ago"):
         preference = {
-            "NotificationType": NotificationType,
-            "DisasterType": DisasterType,
-            "SeverityType": SeverityType,
-            "NotifFlashing": NotifFlashing,
-            "TextToSpeech": TextToSpeech,
-            "NotifTimeFrame": NotifTimeFrame
+            "notificationtype": NotificationType,
+            "disastertype": DisasterType,
+            "severitytype": SeverityType,
+            "notifflashing": NotifFlashing,
+            "texttospeech": TextToSpeech,
+            "notiftimeframe": NotifTimeFrame
         }
 
         response = self.client.from_(
@@ -30,7 +30,7 @@ class PreferencesModel:
 
         if response.data:
             print(f"Preferences created Successfully")
-            self.preference_id = response.data[0]['PreferenceID']
+            self.preference_id = response.data[0]['preferenceid']
 
             return True
 
@@ -42,7 +42,7 @@ class PreferencesModel:
     def GetPreference(self):
         if (self.preference_id):
             response = self.client.from_(self.tableName).select(
-                "*").eq("PreferenceID", self.preference_id).execute()
+                "*").eq("preferenceid", self.preference_id).execute()
 
             if (response.data):
                 print(f"Preferences Retrieved Successfully")
@@ -64,7 +64,7 @@ class PreferencesModel:
     def UpdatePreference(self, **updatedPreferences: dict[str, any]) -> bool:
         if (self.preference_id):
             response = self.client.from_(self.tableName).update(
-                updatedPreferences).eq("PreferenceID", self.preference_id).execute()
+                updatedPreferences).eq("preferenceid", self.preference_id).execute()
 
             if (response.data):
                 print(

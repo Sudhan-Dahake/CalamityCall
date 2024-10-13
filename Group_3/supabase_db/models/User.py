@@ -6,7 +6,7 @@ load_dotenv()
 
 
 class UserModel:
-    def __init__(self, tableName: str = "Credentials"):
+    def __init__(self, tableName: str = "credentials"):
         self.supabase_url = os.getenv("SUPABASE_URL")
         self.supabase_key = os.getenv("SUPABASE_KEY")
         self.client: Client = create_client(
@@ -30,7 +30,7 @@ class UserModel:
             updated_fields["password"] = password
 
         response = self.client.from_(self.tableName).update(
-            updated_fields).eq("UserID", user_id).execute()
+            updated_fields).eq("userid", user_id).execute()
 
         if (response.status_code == 204):
             print(f"User {user_id} updated successfully.")
@@ -42,7 +42,7 @@ class UserModel:
 
     def DeleteUser(self, user_id: int):
         response = self.client.from_(self.tableName).delete().eq(
-            "UserID", user_id).execute()
+            "userid", user_id).execute()
 
         if response.status_code == 204:
             print(f"User {user_id} deleted successfully.")
