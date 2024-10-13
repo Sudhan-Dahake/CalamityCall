@@ -13,7 +13,6 @@ class PreferencesModel:
             self.supabase_url, self.supabase_key)
 
         self.tableName = tableName
-        self.preference_id = None
 
     def CreatePreference(self, NotificationType: str = "Push", DisasterType: str = "All", SeverityType: int = 3, NotifFlashing: bool = True, TextToSpeech: bool = True, NotifTimeFrame: str = "6 months ago"):
         preference = {
@@ -30,19 +29,18 @@ class PreferencesModel:
 
         if response.data:
             print(f"Preferences created Successfully")
-            self.preference_id = response.data[0]['preferenceid']
 
-            return True
+            return response.data[0]['preferenceid']
 
         else:
             print(f"Error Creating Preferences")
 
-            return False
+            return None
 
-    def GetPreference(self):
-        if (self.preference_id):
+    def GetPreference(self, preference_id: int):
+        if (preference_id):
             response = self.client.from_(self.tableName).select(
-                "*").eq("preferenceid", self.preference_id).execute()
+                "*").eq("preferenceid", preference_id).execute()
 
             if (response.data):
                 print(f"Preferences Retrieved Successfully")
@@ -51,7 +49,7 @@ class PreferencesModel:
                 return response.data[0]
 
             else:
-                print(f"PreferenceID: {self.preference_id} not found.")
+                print(f"PreferenceID: {preference_id} not found.")
 
                 return None
 
@@ -61,28 +59,42 @@ class PreferencesModel:
 
             return None
 
-    def UpdatePreference(self, **updatedPreferences: dict[str, any]) -> bool:
-        if (self.preference_id):
-            response = self.client.from_(self.tableName).update(
-                updatedPreferences).eq("preferenceid", self.preference_id).execute()
+    def UpdatePreference(self, preference_id: int, **updatedPreferences: dict[str, any]) -> bool:
+        response = self.client.from_(self.tableName).update(
+            updatedPreferences).eq("preferenceid", preference_id).execute()
 
-            if (response.data):
-                print(
-                    f"Preference with ID: {self.preference_id} updated successfully")
+        if (response.data):
+            print(
+                f"Preference with ID: {preference_id} updated successfully")
 
-                return True
-
-            else:
-                print(
-                    f"Error updating preference with ID: {self.preference_id}")
-
-                return False
+            return True
 
         else:
             print(
-                f"PreferenceID is set to None. Please create a Default Preference for the current user first.")
+                f"Error updating preference with ID: {preference_id}")
 
             return False
 
     def DeletePreference(self):
         pass
+
+
+
+if __name__ == '__main__':
+    Preference = PreferencesModel()
+
+    Preference_id = Preference.CreatePreference()
+
+    print(Preference_id)
+
+    print()
+    print()
+
+    print(Preference.GetPreference(Preference_id))
+
+    print()
+    print()
+
+    updatePreferenceResult = Preference.UpdatePreference(Preference_id, notificationtype="Pop", disastertype="Tornado", severitytype=2, notifflashing=True, texttospeech=True, notiftimeframe="6 months ago")
+
+    print(updatePreferenceResult)
