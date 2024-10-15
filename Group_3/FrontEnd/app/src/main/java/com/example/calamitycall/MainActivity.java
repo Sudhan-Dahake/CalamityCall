@@ -25,6 +25,7 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RemoteViews;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,28 +43,38 @@ public class MainActivity extends AppCompatActivity {
 
     public void notificationButtonCritical(View view){
 
+        // Collapsed - layout for the push notification
+        RemoteViews collapsedLayout = new RemoteViews(getPackageName(), R.layout.basic_notif_critical_collapsed);
+
+        // Update data dynamically disaster level and type
+        collapsedLayout.setTextViewText(R.id.disaster_level, "Critical Alert");
+        collapsedLayout.setTextViewText(R.id.disaster_type, "Tornado Spotted");
+
+        // Expanded - layout for the push notification
+        RemoteViews expandedLayout = new RemoteViews(getPackageName(), R.layout.basic_notif_critical_expanded);
+
+        // Expanded - Update data dynamically disaster level and type
+        expandedLayout.setTextViewText(R.id.disaster_level, "Critical Alert");
+        expandedLayout.setTextViewText(R.id.disaster_type, "Tornado Spotted");
+
+        // Expanded - Update the addtional details text dynamically
+        expandedLayout.setTextViewText(R.id.notification_details,
+                "Location: Kitchener\nSent From: Emergency Services\nLatitude: 43.4516\nLongitude: 43.4516");
+
         final String CHANNEL_ID = "channel1";
-
-        Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.critical_icon);
-
 
         Intent activityCancelIntent = new Intent(this,MainActivity.class);
         PendingIntent cancelContentIntent = PendingIntent.getActivity(this,0,activityCancelIntent, PendingIntent.FLAG_IMMUTABLE);
 
+        expandedLayout.setOnClickPendingIntent(R.id.action_button, cancelContentIntent);
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.logo)
-                .setContentTitle("Critical Alert")
-                //.setContentTitle("Tornado Spotted")
-//                .setContentText("Tornado Spotted")
-                .setLargeIcon(largeIcon)
-                .addAction(R.mipmap.ic_launcher,"Go to the app",cancelContentIntent)
+                .setCustomContentView(collapsedLayout)
+                .setCustomBigContentView(expandedLayout)
                 .setColor(Color.BLUE)
-                .setStyle(new NotificationCompat.BigTextStyle()
-                        .setBigContentTitle("Critical Alert")
-                        .bigText("Tornado Spotted                                                                  " +
-                                "\n\nLocation: Kitchener \nSent From: Emergency Services" +
-                                "\n Latitude: 43.4516\nLongitude: 43.4516"))
-                .setPriority(NotificationCompat.PRIORITY_HIGH);
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setStyle(new NotificationCompat.DecoratedCustomViewStyle());
 
 
         NotificationManager notificationManager = getSystemService(NotificationManager.class);
