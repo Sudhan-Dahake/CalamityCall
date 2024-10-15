@@ -125,32 +125,41 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
-
-
     public void notificationButtonWarning(View view){
 
-        final String CHANNEL_ID = "channel1";
+        // Collapsed - layout for the push notification
+        RemoteViews collapsedLayout = new RemoteViews(getPackageName(), R.layout.basic_notif_warning_collapsed);
 
-        Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.warning_icon);
+        // Collapsed - Update data dynamically disaster level and type
+        collapsedLayout.setTextViewText(R.id.disaster_level, "Warning Alert");
+        collapsedLayout.setTextViewText(R.id.disaster_type, "Medium Chance of Tornado");
+
+        // Expanded - layout for the push notification
+        RemoteViews expandedLayout = new RemoteViews(getPackageName(), R.layout.basic_notif_warning_expanded);
+
+        // Expanded - Update data dynamically disaster level and type
+        expandedLayout.setTextViewText(R.id.disaster_level, "Warning Alert");
+        expandedLayout.setTextViewText(R.id.disaster_type, "Medium Chance of Tornado");
+
+        // Expanded - Update the additional details text dynamically
+        expandedLayout.setTextViewText(R.id.notification_details,
+                "Location: Kitchener\nSent From: Emergency Services\nLatitude: 43.4516\nLongitude: 43.4516");
+
+        final String CHANNEL_ID = "channel1";
 
 
         Intent activityCancelIntent = new Intent(this,MainActivity.class);
         PendingIntent cancelContentIntent = PendingIntent.getActivity(this,0,activityCancelIntent, PendingIntent.FLAG_IMMUTABLE);
 
+        expandedLayout.setOnClickPendingIntent(R.id.action_button, cancelContentIntent);
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.logo)
-                .setContentTitle("Warning Alert")
-                .setLargeIcon(largeIcon)
-                .addAction(R.mipmap.ic_launcher,"Go to the app",cancelContentIntent)
+                .setCustomContentView(collapsedLayout)
+                .setCustomBigContentView(expandedLayout)
                 .setColor(Color.BLUE)
-                .setStyle(new NotificationCompat.BigTextStyle()
-                        .setBigContentTitle("Warning Alert")
-                        .bigText("Medium Chance of Tornado                                                                  " +
-                                "\n\nLocation: Kitchener \nSent From: Natural Weather System" +
-                                "\n Latitude: 43.4516\nLongitude: 43.4516"))
-                .setPriority(NotificationCompat.PRIORITY_HIGH);
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setStyle(new NotificationCompat.DecoratedCustomViewStyle());
 
 
         NotificationManager notificationManager = getSystemService(NotificationManager.class);
