@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         Intent activityCancelIntent = new Intent(this,MainActivity.class);
-        PendingIntent cancelContentIntent = PendingIntent.getActivity(this,0,activityCancelIntent,0);
+        PendingIntent cancelContentIntent = PendingIntent.getActivity(this,0,activityCancelIntent, PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.logo)
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         Intent activityCancelIntent = new Intent(this,MainActivity.class);
-        PendingIntent cancelContentIntent = PendingIntent.getActivity(this,0,activityCancelIntent,0);
+        PendingIntent cancelContentIntent = PendingIntent.getActivity(this,0,activityCancelIntent, PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.logo)
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         Intent activityCancelIntent = new Intent(this,MainActivity.class);
-        PendingIntent cancelContentIntent = PendingIntent.getActivity(this,0,activityCancelIntent,0);
+        PendingIntent cancelContentIntent = PendingIntent.getActivity(this,0,activityCancelIntent, PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.logo)
@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         Intent activityCancelIntent = new Intent(this,MainActivity.class);
-        PendingIntent cancelContentIntent = PendingIntent.getActivity(this,0,activityCancelIntent,0);
+        PendingIntent cancelContentIntent = PendingIntent.getActivity(this,0,activityCancelIntent, PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.logo)
