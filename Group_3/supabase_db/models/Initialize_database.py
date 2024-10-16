@@ -16,35 +16,35 @@ supabase: Client = create_client(supabase_url, supabase_key)
 # creating tables
 def CreateTables():
     table_Collection = """
-    -- Table 1: Notification
-    CREATE TABLE IF NOT EXISTS Notification (
-        NotifID SERIAL PRIMARY KEY,
-        NotifOrigin VARCHAR(30) NOT NULL,
-        Longitude FLOAT NOT NULL,
-        Latitude FLOAT NOT NULL,
-        City VARCHAR(30) NOT NULL,
-        DisasterType VARCHAR(30) NOT NULL,
-        DisasterLevel INTEGER NOT NULL,
-        NotifDate DATE NOT NULL
+    -- Table 1: notifications
+    CREATE TABLE IF NOT EXISTS notifications (
+        notifid SERIAL PRIMARY KEY,
+        notiforigin VARCHAR(30) NOT NULL,
+        longitude FLOAT NOT NULL,
+        latitude FLOAT NOT NULL,
+        city VARCHAR(30) NOT NULL,
+        disastertype VARCHAR(30) NOT NULL,
+        disasterlevel INTEGER NOT NULL,
+        notifdate DATE NOT NULL
     );
 
-    -- Table 2: Preferences
-    CREATE TABLE IF NOT EXISTS Preferences (
-        PreferenceID SERIAL PRIMARY KEY,
-        NotificationType VARCHAR(30) NOT NULL,
-        DisasterType VARCHAR(30) NOT NULL,
-        SeverityType INTEGER NOT NULL,
-        NotifFlashing BOOLEAN NOT NULL,
-        TextToSpeech BOOLEAN NOT NULL,
-        NotifTimeFrame VARCHAR(30) NOT NULL
+    -- Table 2: preferences
+    CREATE TABLE IF NOT EXISTS preferences (
+        preferenceid SERIAL PRIMARY KEY,
+        notificationtype VARCHAR(30) NOT NULL,
+        disastertype VARCHAR(30) NOT NULL,
+        severitytype INTEGER NOT NULL,
+        notifflashing BOOLEAN NOT NULL,
+        texttospeech BOOLEAN NOT NULL,
+        notiftimeframe VARCHAR(30) NOT NULL
     );
 
-    -- Table 3: Credentials
-    CREATE TABLE IF NOT EXISTS Credentials (
-        UserID SERIAL PRIMARY KEY,
-        Username VARCHAR(30) NOT NULL,
-        Password VARCHAR(30) NOT NULL,
-        PreferenceID INTEGER REFERENCES Preferences(PreferenceID)
+    -- Table 3: credentials
+    CREATE TABLE IF NOT EXISTS credentials (
+        userid SERIAL PRIMARY KEY,
+        username VARCHAR(30) NOT NULL,
+        password VARCHAR(30) NOT NULL,
+        preferenceid INTEGER REFERENCES preferences(preferenceid)
     );
     """
 
