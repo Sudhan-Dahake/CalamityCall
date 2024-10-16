@@ -25,7 +25,7 @@ def CreateTables():
         City VARCHAR(30) NOT NULL,
         DisasterType VARCHAR(30) NOT NULL,
         DisasterLevel INTEGER NOT NULL,
-        NotifTimeFrame VARCHAR(30) NOT NULL
+        NotifDate DATE NOT NULL
     );
 
     -- Table 2: Preferences
@@ -35,11 +35,12 @@ def CreateTables():
         DisasterType VARCHAR(30) NOT NULL,
         SeverityType INTEGER NOT NULL,
         NotifFlashing BOOLEAN NOT NULL,
-        TextToSpeech BOOLEAN NOT NULL
+        TextToSpeech BOOLEAN NOT NULL,
+        NotifTimeFrame VARCHAR(30) NOT NULL
     );
 
-    -- Table 3: Username
-    CREATE TABLE IF NOT EXISTS Username (
+    -- Table 3: Credentials
+    CREATE TABLE IF NOT EXISTS Credentials (
         UserID SERIAL PRIMARY KEY,
         Username VARCHAR(30) NOT NULL,
         Password VARCHAR(30) NOT NULL,
@@ -48,7 +49,6 @@ def CreateTables():
     """
 
     response = supabase.rpc('execute_sql', {'sql': table_Collection}).execute()
-
 
     if response.data is None:
         print(
