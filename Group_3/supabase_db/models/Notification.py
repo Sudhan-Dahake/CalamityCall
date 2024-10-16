@@ -34,8 +34,7 @@ class NotificationModel:
 
     def GetNotifToDisplayImmediately(self):
         # Fetch the latest notification based on highest NotifID
-        response = self.client.from_(self.tableName).select(
-            "*").order("notifid", desc=True).limit(1).execute()
+        response = self.client.from_(self.tableName).select("*").order("notifid", desc=True).limit(1).execute()
 
         if (response.data):
             print(f"Latest Notification Retrieved Successfully")
@@ -68,8 +67,7 @@ class NotificationModel:
     # private function
 
     def __recursiveNotifHistory(self, timeFrame: str, latestNotifID: int = None):
-        query = self.client.from_(self.tableName).select(
-            "*").order("notifid", desc=True).limit(1)
+        query = self.client.from_(self.tableName).select("*").order("notifid", desc=True).limit(1)
 
         if latestNotifID:
             query = query.lt("notifid", latestNotifID)
@@ -99,6 +97,7 @@ class NotificationModel:
         else:
             return None
 
+
     def GetNotifToDisplayForHistory(self, timeFrame: str = "1 month ago"):
         self.NotifIDHistory = []
 
@@ -125,8 +124,7 @@ class NotificationModel:
         pass
 
     def DeleteNotification(self, timeFrame: str = "6 months ago", latestNotifID: int = None):
-        query = self.client.from_(
-            self.tableName).select("notifid, notifdate").order("notifid").limit(1)
+        query = self.client.from_(self.tableName).select("notifid, notifdate").order("notifid").limit(1)
 
         if latestNotifID:
             query = query.gt("notifid", latestNotifID)

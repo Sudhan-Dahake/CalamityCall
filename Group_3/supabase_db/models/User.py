@@ -9,8 +9,7 @@ class UserModel:
     def __init__(self, tableName: str = "credentials"):
         self.supabase_url = os.getenv("SUPABASE_URL")
         self.supabase_key = os.getenv("SUPABASE_KEY")
-        self.client: Client = create_client(
-            self.supabase_url, self.supabase_key)
+        self.client: Client = create_client(self.supabase_url, self.supabase_key)
 
         self.id = None
         self.username = None
@@ -29,8 +28,7 @@ class UserModel:
         if password:
             updated_fields["password"] = password
 
-        response = self.client.from_(self.tableName).update(
-            updated_fields).eq("userid", user_id).execute()
+        response = self.client.from_(self.tableName).update(updated_fields).eq("userid", user_id).execute()
 
         if (response.status_code == 204):
             print(f"User {user_id} updated successfully.")
@@ -41,8 +39,7 @@ class UserModel:
             return False
 
     def DeleteUser(self, user_id: int):
-        response = self.client.from_(self.tableName).delete().eq(
-            "userid", user_id).execute()
+        response = self.client.from_(self.tableName).delete().eq("userid", user_id).execute()
 
         if response.status_code == 204:
             print(f"User {user_id} deleted successfully.")

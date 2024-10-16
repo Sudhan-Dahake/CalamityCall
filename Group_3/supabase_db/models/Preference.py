@@ -9,8 +9,7 @@ class PreferencesModel:
     def __init__(self, tableName: str = "preferences"):
         self.supabase_url = os.getenv("SUPABASE_URL")
         self.supabase_key = os.getenv("SUPABASE_KEY")
-        self.client: Client = create_client(
-            self.supabase_url, self.supabase_key)
+        self.client: Client = create_client(self.supabase_url, self.supabase_key)
 
         self.tableName = tableName
 
@@ -54,30 +53,28 @@ class PreferencesModel:
                 return None
 
         else:
-            print(
-                f"PreferenceID is set to None. Please create a Default Preference for the current user first.")
+            print(f"PreferenceID is set to None. Please create a Default Preference for the current user first.")
 
             return None
+
 
     def UpdatePreference(self, preference_id: int, **updatedPreferences: dict[str, any]) -> bool:
         response = self.client.from_(self.tableName).update(
             updatedPreferences).eq("preferenceid", preference_id).execute()
 
         if (response.data):
-            print(
-                f"Preference with ID: {preference_id} updated successfully")
+            print(f"Preference with ID: {preference_id} updated successfully")
 
             return True
 
         else:
-            print(
-                f"Error updating preference with ID: {preference_id}")
+            print(f"Error updating preference with ID: {preference_id}")
 
             return False
+          
 
     def DeletePreference(self):
         pass
-
 
 
 if __name__ == '__main__':

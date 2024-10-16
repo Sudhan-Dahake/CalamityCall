@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingVertical="16dp"
+    android:paddingHorizontal="36dp"
+    android:id="@+id/notification_layout"
+    android:background="@drawable/notif_bg_sky"
+    android:gravity="center_vertical">
+
+    <!-- Inner container layout -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="start"
+        >
+
+        <!-- Middle section: Watch Alert and Tornado Spotted text -->
+        <FrameLayout
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/circular_bg_white">
+
+            <!-- Tornado icon -->
+            <ImageView
+                android:id="@+id/tornado_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:contentDescription="Watch Icon"
+                android:src="@drawable/watch_icon" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!-- Warning Alert -->
+            <TextView
+                android:id="@+id/disaster_level"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Watch Alert"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <!-- Disaster type (Watch) -->
+            <TextView
+                android:id="@+id/disaster_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Low Chance of Tornado"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
