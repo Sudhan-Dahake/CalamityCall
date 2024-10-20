@@ -90,7 +90,7 @@ class TestPreferencesModel(unittest.TestCase):
         # Call UpdatePreference method
         result = self.preferences_model.UpdatePreference(
             preference_id=1,
-            NotificationType="SMS"
+            NotificationType="Push"
         )
 
         # Assert that the preference was updated successfully
@@ -104,7 +104,7 @@ class TestPreferencesModel(unittest.TestCase):
         # Call UpdatePreference method
         result = self.preferences_model.UpdatePreference(
             preference_id=1,
-            NotificationType="SMS"
+            NotificationType="Push"
         )
 
         # Assert that the preference update failed
