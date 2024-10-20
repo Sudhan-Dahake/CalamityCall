@@ -1,7 +1,13 @@
 import unittest
 from unittest.mock import patch, MagicMock
 from datetime import datetime, date
-from Group_3.supabase_db.models.Notification import NotificationModel
+import os
+import sys
+
+sys.path.append(os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
+
+from Group_3 import NotificationModel
 
 
 class TestNotificationModel(unittest.TestCase):
@@ -22,7 +28,14 @@ class TestNotificationModel(unittest.TestCase):
 
         # Test CreateNotification function
         result = self.notification_model.CreateNotification(
-            NotifOrigin='Test', Longitude=10.0, Latitude=20.0, City='Waterloo', DisasterType='Tornado', DisasterLevel=3, NotifDate=str(date(2024, 6, 12)))
+            notiforigin='Test',
+            longitude=10.0,
+            latitude=20.0,
+            city='Waterloo',
+            disastertype='Tornado',
+            disasterlevel=3,
+            notifdate=str(date(2024, 6, 12))
+        )
 
         # Assert that the notification was created successfully
         self.assertTrue(result)
@@ -35,11 +48,38 @@ class TestNotificationModel(unittest.TestCase):
 
         # Test CreateNotification function
         result = self.notification_model.CreateNotification(
-            NotifOrigin='Test', Longitude=10.0, Latitude=20.0)
+            notiforigin='Test',
+            longitude=10.0,
+            latitude=20.0
+        )
 
         # Assert that the notification creation failed
         self.assertFalse(result)
         self.assertEqual(len(self.notification_model.NotifID), 0)
+
+    def test_get_notif_to_display_immediately_success(self):
+        # Mock a successful response from Supabase client for selecting latest notification
+        self.mock_client.from_().select().order().limit().execute.return_value = MagicMock(
+            data=[{'notifid': 1, 'notifdate': '2024-06-12'}])
+
+        # Test GetNotifToDisplayImmediately function
+        result = self.notification_model.GetNotifToDisplayImmediately()
+
+        # Assert that the correct notification is returned
+        self.assertIsNotNone(result)
+        self.assertEqual(result['notifid'], 1)
+        self.assertEqual(result['notifdate'], '2024-06-12')
+
+    def test_get_notif_to_display_immediately_failure(self):
+        # Mock a failure response from Supabase client (no data returned)
+        self.mock_client.from_().select().order().limit(
+        ).execute.return_value = MagicMock(data=None)
+
+        # Test GetNotifToDisplayImmediately function
+        result = self.notification_model.GetNotifToDisplayImmediately()
+
+        # Assert that None is returned when no notification is found
+        self.assertIsNone(result)
 
 
 if __name__ == '__main__':
