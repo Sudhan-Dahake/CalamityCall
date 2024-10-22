@@ -5,7 +5,7 @@ from ..schemas.Preferences import PreferenceCreateResponse, PreferenceResponse, 
 router = APIRouter()
 
 
-@router.post("/", response_model=PreferenceCreateResponse)
+@router.post("/", response_model=PreferenceCreateResponse, status_code=status.HTTP_201_CREATED)
 async def InitializePreference():
     PreferModel = PreferencesModel()
 
