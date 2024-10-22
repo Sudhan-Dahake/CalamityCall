@@ -24,7 +24,7 @@ jobs:
 
             # Step 3: Build the docker image using the Dockerfile present in Group_3/api directory
             - name: Build the Docker Image
-              run: docker build -t ${{ secrets.DOCKER_USERNAME }}/supabase-fastapi-endpoints:latest -f Group_3/api/Dockerfile ../../
+              run: docker build -t ${{ secrets.DOCKER_USERNAME }}/supabase-fastapi-endpoints:latest -f ../../Group_3/api/Dockerfile ../../
 
 
             # Step 4: Push the docker image to docker hub
