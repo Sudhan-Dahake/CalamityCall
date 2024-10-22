@@ -9,7 +9,7 @@ router = APIRouter()
 async def CreateNotification(notification: NotificationCreate):
     NotifModel = NotificationModel()
 
-    success = NotifModel.CreateNotification(**notification.dict())
+    success = NotifModel.CreateNotification(**notification.model_dump())
 
     if success:
         return {"Message": "Notification created successfully"}
