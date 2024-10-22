@@ -34,8 +34,7 @@ class NotificationModel:
 
     def GetNotifToDisplayImmediately(self):
         # Fetch the latest notification based on highest NotifID
-        response = self.client.from_(self.tableName).select(
-            "*").order("notifid", desc=True).limit(1).execute()
+        response = self.client.from_(self.tableName).select("notiforigin, longitude, latitude, city, disastertype, disasterlevel, notifdate").order("notifid", desc=True).limit(1).execute()
 
         if (response.data):
             print(f"Latest Notification Retrieved Successfully")
@@ -113,7 +112,7 @@ class NotificationModel:
             self.tableName).select("notiforigin, longitude, latitude, city, disastertype, disasterlevel, notifdate").in_("notifid", self.NotifIDHistory).execute()
 
         if (response.data):
-            for notification, NotifID in zip(response.data, self.NotifIDHistory):
+            for notification, NotifID in zip(response.data, reversed(self.NotifIDHistory)):
                 notifications_dict[NotifID] = notification
 
         else:
@@ -162,9 +161,10 @@ if __name__ == '__main__':
 
     print(NotifModel.GetNotifToDisplayImmediately())
 
-    NotifModel.DeleteNotification("1 week ago")
+    print(NotifModel.DeleteNotification("1 week ago"))
 
     results = NotifModel.CreateNotification(notiforigin='Test1', longitude=10.0, latitude=20.0, city='Waterloo', disastertype='Tornado', disasterlevel=3, notifdate=str(date(2024, 7, 12)))
     results = NotifModel.CreateNotification(notiforigin='Test2', longitude=10.0, latitude=20.0, city='Waterloo', disastertype='Hurricane', disasterlevel=3, notifdate=str(date(2024, 9, 12)))
 
+    print("Hello World")
     print(NotifModel.GetNotifToDisplayForHistory("6 months ago"))
