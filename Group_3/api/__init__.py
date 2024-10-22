@@ -1,1 +1,1 @@
-from ..supabase_db import NotificationModel, PreferencesModel
+from ..supabase_db import NotificationModel, PreferencesModel, UserModel

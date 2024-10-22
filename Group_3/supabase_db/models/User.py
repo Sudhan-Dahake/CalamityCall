@@ -37,8 +37,7 @@ class UserModel:
             return None
 
     def GetUser(self, userID: int):
-        response = self.client.from_(self.tableName).select(
-            "*").eq("userid", userID).execute()
+        response = self.client.from_(self.tableName).select("username, password, preferenceid, age, address, zip_code, city").eq("userid", userID).execute()
 
         if (response.data):
             print(f"User Retrieved successfully")
