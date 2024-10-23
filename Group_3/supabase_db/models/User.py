@@ -65,13 +65,13 @@ class UserModel:
     # zip_code: str
     # city: str
 
-    def UpdateUser(self, username: str, **UpdateParams: dict[str, any]):
-        response = self.client.from_(self.tableName).update(UpdateParams).eq("username", username).execute()
+    def UpdateUser(self, currentUsername: str, **UpdateParams: dict[str, any]):
+        response = self.client.from_(self.tableName).update(UpdateParams).eq("username", currentUsername).execute()
         
         # return response
 
         if (response.data):
-            print(f"Information updated successfully for {username}.")
+            print(f"Information updated successfully for {currentUsername}.")
             return True
         else:
             print(f"Error updating user: User not found")

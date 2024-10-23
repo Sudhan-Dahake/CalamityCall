@@ -32,7 +32,7 @@ async def UpdateUser(username: str, NewUserCreds: UserUpdate):
 
     NewUserCreds = NewUserCreds.model_dump(exclude_none=True)
 
-    response = UserModelObj.UpdateUser(username=username, **NewUserCreds)
+    response = UserModelObj.UpdateUser(currentUsername=username, **NewUserCreds)
 
     if response:
         return {"Message": f"Information Updated Successfully for {username}"}
