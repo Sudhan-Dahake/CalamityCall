@@ -8,18 +8,18 @@ router = APIRouter()
 async def CreateUser(user: UserRequest):
     UserModelObj = UserModel()
 
-    userid = UserModelObj.CreateUser(**user.model_dump())
+    isSuccessful = UserModelObj.CreateUser(**user.model_dump())
 
-    if userid:
-        return {"UserID": userid}
+    if isSuccessful:
+        return {"message": "User Created Successfully"}
     
     raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to Create new user")
 
 @router.get("/get", response_model=UserResponse)
-async def GetUser(userid: int):
+async def GetUser(userid: int | None = None, username: str | None = None):
     UserModelObj = UserModel()
 
-    response = UserModelObj.GetUser(userid)
+    response = UserModelObj.GetUser(userID=userid, username=username)
 
     if response:
         return response
@@ -27,14 +27,14 @@ async def GetUser(userid: int):
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User Not Found")
 
 @router.post("/update")
-async def UpdateUser(userid: int, NewUserCreds: UserUpdate):
+async def UpdateUser(username: str, NewUserCreds: UserUpdate):
     UserModelObj = UserModel()
 
     NewUserCreds = NewUserCreds.model_dump(exclude_none=True)
 
-    response = UserModelObj.UpdateUser(user_id=userid, **NewUserCreds)
+    response = UserModelObj.UpdateUser(username=username, **NewUserCreds)
 
     if response:
-        return {"Message": "User Information Updated Successfully"}
+        return {"Message": f"Information Updated Successfully for {username}"}
     
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User Not Found")

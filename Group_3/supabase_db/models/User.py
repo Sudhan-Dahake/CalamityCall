@@ -29,15 +29,24 @@ class UserModel:
         if (response.data):
             print(f"User registered successfully")
 
-            return response.data[0]['userid']         # returns the userID
+            return True                          # response.data[0]['userid']         # returns the userID
 
         else:
             print(f"Error registering user")
 
-            return None
+            return False
 
-    def GetUser(self, userID: int):
-        response = self.client.from_(self.tableName).select("username, password, preferenceid, age, address, zip_code, city").eq("userid", userID).execute()
+    def GetUser(self, userID: int | None = None, username: str | None = None):
+        if userID:
+            response = self.client.from_(self.tableName).select("username, password, preferenceid, age, address, zip_code, city").eq("userid", userID).execute()
+
+        elif username:
+            response = self.client.from_(self.tableName).select("username, password, preferenceid, age, address, zip_code, city").eq("username", username).execute()
+
+        else:
+            print("No user data provided")
+
+            return None
 
         if (response.data):
             print(f"User Retrieved successfully")
@@ -56,14 +65,13 @@ class UserModel:
     # zip_code: str
     # city: str
 
-    def UpdateUser(self, user_id: int, **UpdateParams: dict[str, any]):
-        response = self.client.from_(self.tableName).update(
-            UpdateParams).eq("userid", user_id).execute()
+    def UpdateUser(self, username: str, **UpdateParams: dict[str, any]):
+        response = self.client.from_(self.tableName).update(UpdateParams).eq("username", username).execute()
         
         # return response
 
         if (response.data):
-            print(f"User {user_id} updated successfully.")
+            print(f"Information updated successfully for {username}.")
             return True
         else:
             print(f"Error updating user: User not found")
