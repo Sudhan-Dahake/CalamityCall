@@ -38,10 +38,10 @@ class UserModel:
 
     def GetUser(self, userID: int | None = None, username: str | None = None):
         if userID:
-            response = self.client.from_(self.tableName).select("username, password, preferenceid, age, address, zip_code, city").eq("userid", userID).execute()
+            response = self.client.from_(self.tableName).select("username, preferenceid, age, address, zip_code, city").eq("userid", userID).execute()
 
         elif username:
-            response = self.client.from_(self.tableName).select("username, password, preferenceid, age, address, zip_code, city").eq("username", username).execute()
+            response = self.client.from_(self.tableName).select("username, preferenceid, age, address, zip_code, city").eq("username", username).execute()
 
         else:
             print("No user data provided")

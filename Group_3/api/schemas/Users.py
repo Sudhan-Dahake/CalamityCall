@@ -11,7 +11,6 @@ class UserRequest(BaseModel):
 
 class UserResponse(BaseModel):
     username: str
-    password: str
     preferenceid: int
     age: int
     address: str
