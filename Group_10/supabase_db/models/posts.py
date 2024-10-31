@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-class PostsModel:
+class PostModel:
     def __init__(self, tableName: str = "posts"):
         self.supabase_url = os.getenv("SUPABASE_URL")
         self.supabase_key = os.getenv("SUPABASE_KEY")
@@ -20,19 +20,17 @@ class PostsModel:
         }
         response = self.client.from_(self.tableName).insert(post_data).execute()
 
-        if response.status_code == 201:
+        if response.data:
             print("Post created successfully.")
-            return response.data
+            return response.data[0]
         else:
             print(f"Error creating post: {response.get('message', 'Unknown error')}")
             return None
 
     def UpdatePost(self, post_id: int, content: str = None, image_url: str = None):
         updated_fields = {}
-
         if content:
             updated_fields["content"] = content
-
         if image_url:
             updated_fields["image_url"] = image_url
 

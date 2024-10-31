@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-class TopicsModel:
+class TopicModel:
     def __init__(self, tableName: str = "topics"):
         self.supabase_url = os.getenv("SUPABASE_URL")
         self.supabase_key = os.getenv("SUPABASE_KEY")
@@ -19,19 +19,17 @@ class TopicsModel:
         }
         response = self.client.from_(self.tableName).insert(topic_data).execute()
 
-        if response.status_code == 201:
+        if response.data:
             print("Topic created successfully.")
-            return response.data
+            return response.data[0]
         else:
             print(f"Error creating topic: {response.get('message', 'Unknown error')}")
             return None
 
     def UpdateTopic(self, topic_id: int, title: str = None, description: str = None):
         updated_fields = {}
-
         if title:
             updated_fields["title"] = title
-
         if description:
             updated_fields["description"] = description
 
