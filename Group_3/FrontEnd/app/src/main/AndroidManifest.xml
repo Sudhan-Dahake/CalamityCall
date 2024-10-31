@@ -27,8 +27,12 @@
         <activity
             android:name=".fragments.Boards"
             android:exported="false" />
+        <activity android:name=".NotificationOnActivity" />
+        <activity android:name=".NotificationTypeActivity" />
+        <activity android:name=".FlashingActivity" />
+        <activity android:name=".NoiseActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Settings"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
