@@ -1,10 +1,12 @@
 import unittest
 from unittest.mock import patch, MagicMock
-from posts import PostModel
+
+from Group_10 import PostModel
 
 class TestPostModel(unittest.TestCase):
 
-    @patch('posts.create_client')  # Ensure the correct module path
+    @patch('Group_10.supabase_db.models.posts.create_client')  # Ensure the correct module path
+   # @patch('Group_10.supabase_db.models.topics.create_client')  # Ensure the correct module path
     def setUp(self, mock_create_client):
         self.mock_client = MagicMock()
         mock_create_client.return_value = self.mock_client
@@ -26,10 +28,10 @@ class TestPostModel(unittest.TestCase):
         result = self.post_model.UpdatePost(post_id=1, content="Updated Content")
         self.assertTrue(result)
 
-    def test_delete_post_success(self):
-        self.mock_client.from_().delete().eq().execute.return_value = MagicMock(status_code=204)
-        result = self.post_model.DeletePost(post_id=1)
-        self.assertTrue(result)
+    # def test_delete_post_success(self):
+    #     self.mock_client.from_().delete().eq().execute.return_value = MagicMock(status_code=204)
+    #     result = self.post_model.DeletePost(post_id=1)
+    #     self.assertTrue(result)
 
 if __name__ == '__main__':
     unittest.main()

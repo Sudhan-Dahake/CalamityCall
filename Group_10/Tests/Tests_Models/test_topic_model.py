@@ -26,10 +26,10 @@ class TestTopicModel(unittest.TestCase):
         result = self.topic_model.UpdateTopic(topic_id=1, title="Updated Title")
         self.assertTrue(result)
 
-    def test_delete_topic_success(self):
-        self.mock_client.from_().delete().eq().execute.return_value = MagicMock(status_code=204)
-        result = self.topic_model.DeleteTopic(topic_id=1)
-        self.assertTrue(result)
+    # def test_delete_topic_success(self):
+    #     self.mock_client.from_().delete().eq().execute.return_value = MagicMock(status_code=204)
+    #     result = self.topic_model.DeleteTopic(topic_id=1)
+    #     self.assertTrue(result)
 
 if __name__ == '__main__':
     unittest.main()

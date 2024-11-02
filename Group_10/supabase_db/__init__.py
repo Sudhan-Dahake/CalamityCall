@@ -1,1 +1,1 @@
-from .models import TopicModel
+from .models import TopicModel, PostModel
