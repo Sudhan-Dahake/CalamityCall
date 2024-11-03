@@ -56,9 +56,3 @@ def create_tables():
 
     # Call the function to create tables
 create_tables()
-
-
-
-
-# supabase_url = "https://xihorjyukkfakwrdajkb.supabase.co"
-# supabase_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhpaG9yanl1a2tmYWt3cmRhamtiIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyODU3NDQzOCwiZXhwIjoyMDQ0MTUwNDM4fQ.fAtnbZ6lTvRVi5q5CtzCCvB1hFf5L8k3QygKziCLk-Y"
