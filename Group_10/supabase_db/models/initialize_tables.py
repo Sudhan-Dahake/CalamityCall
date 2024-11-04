@@ -2,14 +2,8 @@ import os
 from supabase import create_client, Client
 from dotenv import load_dotenv
 
-# Change the working directory to the root directory
-os.chdir('..\\..\\..')
-# Load Supabase URL and API key from .env file
-load_dotenv()
-
-# Print to verify
-print("Supabase URL:", os.getenv('SUPABASE_URL'))
-print("Supabase Key:", os.getenv('SUPABASE_KEY'))
+# Load environment variables from .env file in the root directory
+load_dotenv(dotenv_path='../../.env')
 
 # Get Supabase URL and key from environment variables
 supabase_url = os.getenv('SUPABASE_URL')
@@ -34,17 +28,19 @@ def create_tables():
             post_id SERIAL PRIMARY KEY,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             content TEXT NOT NULL,
-            image_url TEXT,
+            image_url TEXT,  -- URL of the image attached by the user
             topic_id INT REFERENCES topics(topic_id) ON DELETE CASCADE
         );
+
 
         -- Table 3: Reactions
         CREATE TABLE IF NOT EXISTS reactions (
             reaction_id SERIAL PRIMARY KEY,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            emoji_type INT NOT NULL,
+            emoji_type INT NOT NULL,  -- Stores the emoji or reaction type
             post_id INT REFERENCES posts(post_id) ON DELETE CASCADE
         );
+
         """
 
         response = supabase.rpc('execute_sql', {'sql': table_collection}).execute()
