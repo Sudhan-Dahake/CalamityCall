@@ -17,16 +17,16 @@
         tools:targetApi="31">
         <activity
             android:name=".fragments.AccountPage"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="Instantiatable" />
         <activity
             android:name=".fragments.HistoryPage"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="Instantiatable" />
         <activity
             android:name=".fragments.BoardsPage"
-            android:exported="false" />
-        <activity
-            android:name=".fragments.Boards"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="Instantiatable" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
