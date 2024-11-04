@@ -6,7 +6,7 @@
     android:background="@color/white"
     tools:context=".Settings">
 
-    <!-- Top Logo and Profile Icon -->
+
     <ImageView
         android:id="@+id/logo"
         android:layout_width="88dp"
@@ -40,20 +40,21 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp" />
 
-    <!-- Settings Title -->
+
     <TextView
         android:id="@+id/settings_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Settings"
+        android:text=" Settings"
         android:textSize="20sp"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/logo"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:drawableLeft="@drawable/nextback"/>
 
-    <!-- Notification On Title -->
+
     <TextView
         android:id="@+id/notification_type_title"
         android:layout_width="wrap_content"
@@ -66,7 +67,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp" />
 
-    <!-- Explanatory Text -->
+
     <TextView
         android:id="@+id/notification_description"
         android:layout_width="0dp"
@@ -81,7 +82,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp" />
 
-    <!-- Settings Options with RadioButtons for Push or Pop-up selection -->
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -92,7 +93,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/notification_description">
 
-        <!-- Watch Option -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -109,6 +110,7 @@
                 android:textColor="@color/black" />
 
             <RadioGroup
+                android:id="@+id/watchGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -127,7 +129,7 @@
             </RadioGroup>
         </LinearLayout>
 
-        <!-- Warning Option -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -144,6 +146,7 @@
                 android:textColor="@color/black" />
 
             <RadioGroup
+                android:id="@+id/warningGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -162,7 +165,7 @@
             </RadioGroup>
         </LinearLayout>
 
-        <!-- Urgent Option -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -179,6 +182,7 @@
                 android:textColor="@color/black" />
 
             <RadioGroup
+                android:id="@+id/urgentGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -197,7 +201,7 @@
             </RadioGroup>
         </LinearLayout>
 
-        <!-- Critical Option -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -214,6 +218,7 @@
                 android:textColor="@color/black" />
 
             <RadioGroup
+                android:id="@+id/criticalGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -233,7 +238,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Bottom Navigation -->
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"

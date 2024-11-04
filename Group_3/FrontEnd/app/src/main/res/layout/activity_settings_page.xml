@@ -6,7 +6,7 @@
     android:background="@color/white"
     tools:context=".Settings">
 
-    <!-- Top Logo and Profile Icon -->
+
     <ImageView
         android:id="@+id/logo"
         android:layout_width="88dp"
@@ -17,8 +17,6 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp" />
-
-    <!-- Top Logo and Profile Icon -->
 
 
     <ImageView
@@ -43,7 +41,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp" />
 
-    <!-- Settings Title -->
+
     <TextView
         android:id="@+id/settings_title"
         android:layout_width="wrap_content"
@@ -55,14 +53,6 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp" />
-
-    <!-- Settings Options -->
-
-
-    <!-- Bottom Navigation -->
-
-
-        <!-- Bottom Navigation -->
 
 
     <LinearLayout
@@ -78,26 +68,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/settings_title">
 
-        <!-- Individual Setting Options -->
+
 
         <Button
             android:id="@+id/notification_on"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/transparent"
-
+            android:background="@drawable/button_background"
             android:drawablePadding="8dp"
             android:gravity="start|center_vertical"
             android:padding="12dp"
             android:text="Notification On"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:drawableEnd="@drawable/next"
+            />
 
         <Button
             android:id="@+id/flashing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/transparent"
-
+            android:background="@drawable/button_background"
+            android:drawableEnd="@drawable/next"
             android:drawablePadding="8dp"
             android:gravity="start|center_vertical"
             android:padding="12dp"
@@ -108,8 +99,8 @@
             android:id="@+id/noise"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/transparent"
-
+            android:background="@drawable/button_background"
+            android:drawableEnd="@drawable/next"
             android:drawablePadding="8dp"
             android:gravity="start|center_vertical"
             android:padding="12dp"
@@ -120,8 +111,8 @@
             android:id="@+id/notification_alert_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/transparent"
-
+            android:background="@drawable/button_background"
+            android:drawableEnd="@drawable/next"
             android:drawablePadding="8dp"
             android:gravity="start|center_vertical"
             android:padding="12dp"

@@ -18,17 +18,14 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_page);
 
-        // Initialize buttons
         notificationOnButton = findViewById(R.id.notification_on);
         notificationAlertTypeButton = findViewById(R.id.notification_alert_type);
         flashingButton = findViewById(R.id.flashing);
         noiseButton = findViewById(R.id.noise);
 
-        // Set onClick listeners for each button
         notificationOnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to NotificationOnActivity
                 Intent intent = new Intent(Settings.this, NotificationOnActivity.class);
                 startActivity(intent);
             }
@@ -37,7 +34,6 @@ public class Settings extends AppCompatActivity {
         notificationAlertTypeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to NotificationAlertTypeActivity
                 Intent intent = new Intent(Settings.this, NotificationTypeActivity.class);
                 startActivity(intent);
             }
