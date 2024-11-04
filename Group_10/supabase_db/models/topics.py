@@ -12,8 +12,9 @@ class TopicModel:
         self.client: Client = create_client(self.supabase_url, self.supabase_key)
         self.tableName = tableName
 
-    def CreateTopic(self, title: str, description: str):
+    def CreateTopic(self, user_id: int, title: str, description: str = ""):
         topic_data = {
+            "user_id": user_id,  # Link topic to user ID
             "title": title,
             "description": description
         }

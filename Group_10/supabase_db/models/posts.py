@@ -12,10 +12,11 @@ class PostModel:
         self.client: Client = create_client(self.supabase_url, self.supabase_key)
         self.tableName = tableName
 
-    def CreatePost(self, content: str, user_id: int, image_url: str = None):
+    def CreatePost(self, user_id: int, content: str, topic_id: int, image_url: str = None):
         post_data = {
-            "content": content,
             "user_id": user_id,
+            "content": content,
+            "topic_id": topic_id,
             "image_url": image_url
         }
         response = self.client.from_(self.tableName).insert(post_data).execute()
