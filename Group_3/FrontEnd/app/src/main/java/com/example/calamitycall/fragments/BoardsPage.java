@@ -3,6 +3,7 @@ package com.example.calamitycall.fragments;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -41,6 +42,9 @@ public class BoardsPage extends Fragment {
         view.findViewById(R.id.urgentTrigger).setOnClickListener(v -> notificationButtonUrgent(v));
         view.findViewById(R.id.warningTrigger).setOnClickListener(v -> notificationButtonWarning(v));
         view.findViewById(R.id.watchTrigger).setOnClickListener(v -> notificationButtonWatch(v));
+
+        // Create notification channel
+        createNotificationChannel();
     }
 
     // Trigger notifications
@@ -86,7 +90,28 @@ public class BoardsPage extends Fragment {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setStyle(new NotificationCompat.DecoratedCustomViewStyle());
 
-        NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(NotificationManager.class);
-        notificationManager.notify(notificationId, builder.build());
+        NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager != null) {
+            notificationManager.notify(notificationId, builder.build());
+        }
+    }
+
+    // Create the notification channel for Android 8.0 and above
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Disaster Alerts";
+            String description = "Channel for disaster alert notifications";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            channel.enableLights(true);
+            channel.setLightColor(Color.RED);
+            channel.enableVibration(true);
+
+            NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
     }
 }

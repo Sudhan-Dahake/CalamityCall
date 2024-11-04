@@ -4,17 +4,17 @@
 
     <item
         android:id="@+id/nav_boards"
-        android:icon="@drawable/baseline_dashboard_24"
+        android:icon="@drawable/boards"
         android:title="Boards"/>
 
     <item
         android:id="@+id/nav_history"
-        android:icon="@drawable/baseline_access_time_24"
+        android:icon="@drawable/history"
         android:title="History"/>
 
     <item
         android:id="@+id/nav_account"
-        android:icon="@drawable/baseline_account_circle_24"
+        android:icon="@drawable/account"
         android:title="Account"/>
 
 </menu>
