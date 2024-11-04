@@ -30,7 +30,7 @@
 
             <!-- Tornado icon -->
             <ImageView
-                android:id="@+id/tornado_icon"
+                android:id="@+id/alert_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
