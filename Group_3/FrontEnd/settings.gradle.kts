@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "CalamityCall"
 include(":app")
+include(":app:libs")
