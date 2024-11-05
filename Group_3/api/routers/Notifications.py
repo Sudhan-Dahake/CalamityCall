@@ -18,7 +18,7 @@ async def CreateNotification(notification: NotificationCreate, username: str = D
     if success:
         return {"Message": "Notification created successfully"}
 
-    raise HTTPException(status_code=500, detail="Failed to create Notification")
+    raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to create Notification")
 
 @router.get("/immediate", response_model=NotificationResponse)
 async def GetImmediateNotification(username: str = Depends(AuthServiceObj.VerifyJWT)):
@@ -29,7 +29,7 @@ async def GetImmediateNotification(username: str = Depends(AuthServiceObj.Verify
     if notification:
         return notification
 
-    raise HTTPException(status_code=404, detail="No notifications found")
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No notifications found")
 
 @router.get("/history", response_model=NotificationHistoryResponse)
 async def GetNotificationHistory(timeframe: str = "1 month ago", username: str = Depends(AuthServiceObj.VerifyJWT)):
@@ -42,7 +42,7 @@ async def GetNotificationHistory(timeframe: str = "1 month ago", username: str =
 
         return {"Notifications": NotifList}
 
-    raise HTTPException(status_code=404, detail="No notifications found for the specified time frame")
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No notifications found for the specified time frame")
 
 @router.get("/delete")
 async def DeleteNotifications(username: str = Depends(AuthServiceObj.VerifyJWT)):
