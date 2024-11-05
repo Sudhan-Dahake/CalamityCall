@@ -3,7 +3,7 @@ from datetime import datetime, timedelta, timezone
 from fastapi import HTTPException, Depends, status
 from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
-from ...supabase_db import UserModel, UserServices
+from ...supabase_db import UserModel
 import os
 from dotenv import load_dotenv
 
@@ -11,6 +11,7 @@ from dotenv import load_dotenv
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 load_dotenv()
+
 
 class AuthService:
     JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
@@ -20,21 +21,26 @@ class AuthService:
     REFRESH_TOKEN_EXPIRE_DAYS = int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS"))
 
     def __init__(self):
+        from ...supabase_db import UserServices
         self.userModelObj = UserModel()
         self.userServices = UserServices(userModelObj=self.userModelObj)
 
     # Login user (authentication)
     def LoginUser(self, username: str, password: str):
         if not self.userServices.AuthenticateUser(username=username, password=password):
-            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid Credentials")
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid Credentials")
 
         user = self.userModelObj.GetUser(username=username)
 
-        user_data = {key: value for key, value in user.items() if key != "password"}
+        user_data = {key: value for key,
+                     value in user.items() if key != "password"}
 
         # Generate tokens after successful authentication
-        access_token = self.CreateAccessToken(data={"sub": user_data['username']})
-        refresh_token = self.CreateRefreshToken(data={"sub": user_data['username']})
+        access_token = self.CreateAccessToken(
+            data={"sub": user_data['username']})
+        refresh_token = self.CreateRefreshToken(
+            data={"sub": user_data['username']})
 
         return {
             "access_token": access_token,
@@ -43,9 +49,8 @@ class AuthService:
             "user": user_data
         }
 
-
-
     # Generate JWT access token
+
     def CreateAccessToken(self, data: dict):
         ToEncode = data.copy()
 
@@ -54,12 +59,13 @@ class AuthService:
 
         ToEncode.update({"exp": expire})
 
-        EncodedJWT = jwt.encode(ToEncode, self.JWT_SECRET_KEY, algorithm=self.ALGORITHM)
+        EncodedJWT = jwt.encode(
+            ToEncode, self.JWT_SECRET_KEY, algorithm=self.ALGORITHM)
 
         return EncodedJWT
 
-
     # Generate Refresh token
+
     def CreateRefreshToken(self, data: dict):
         ToEncode = data.copy()
 
@@ -73,11 +79,12 @@ class AuthService:
 
         return EncodedRefreshToken
 
-
     # Validate JWT
+
     def VerifyJWT(self, token: str = Depends(oauth2_scheme)):
         try:
-            payload = jwt.decode(token, self.JWT_SECRET_KEY, algorithms=[self.ALGORITHM])
+            payload = jwt.decode(token, self.JWT_SECRET_KEY,
+                                 algorithms=[self.ALGORITHM])
 
             username = payload.get("sub")
 
@@ -95,8 +102,8 @@ class AuthService:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid JWT", headers={"error_code": "Invalid_JWT"})
 
-
     # Generate New JWT using valid Refresh token
+
     def RefreshToken(self, refresh_token: str):
         try:
             payload = jwt.decode(
