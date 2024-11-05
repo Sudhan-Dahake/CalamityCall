@@ -1,6 +1,6 @@
 # reaction_services.py
 from fastapi import HTTPException, status
-from .models.reactions import ReactionsModel
+from ..models.reactions import ReactionsModel
 
 # Initialize ReactionsModel
 reactions_model = ReactionsModel()
