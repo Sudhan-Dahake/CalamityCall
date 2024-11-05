@@ -1,10 +1,10 @@
 import unittest
 from unittest.mock import patch, MagicMock
-from posts import PostModel
+from Group_10 import PostModel
 
 class TestPostModel(unittest.TestCase):
 
-    @patch('posts.create_client')  # Ensure the correct module path
+    @patch('Group_10.supabase_db.models.posts.create_client')  # Ensure the correct module path
     def setUp(self, mock_create_client):
         self.mock_client = MagicMock()
         mock_create_client.return_value = self.mock_client
