@@ -1,13 +1,18 @@
 package com.example.calamitycall;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import com.example.calamitycall.fragments.AccountPage;
 import com.example.calamitycall.fragments.BoardsPage;
 import com.example.calamitycall.fragments.HistoryPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import androidx.fragment.app.Fragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,10 +31,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-        bottomNav.setSelectedItemId(R.id.nav_boards);
+        bottomNav.setSelectedItemId(R.id.nav_forum);
         bottomNav.setOnItemSelectedListener(navListener);
-
-
 
         Fragment selectedFragment = new BoardsPage();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
@@ -37,20 +40,20 @@ public class MainActivity extends AppCompatActivity {
 
     private NavigationBarView.OnItemSelectedListener navListener =
             item -> {
-        int itemId = item.getItemId();
+                int itemId = item.getItemId();
                 Fragment selectedFragment = null;
 
-                if (itemId == R.id.nav_boards) {
+                if (itemId == R.id.nav_forum) {
                     selectedFragment = new BoardsPage();
-                } else if (itemId == R.id.nav_history) {
+                } else if (itemId == R.id.nav_notification) {
                     selectedFragment = new HistoryPage();
-                } else if (itemId == R.id.nav_account) {
+                } else if (itemId == R.id.nav_settings) {
                     selectedFragment = new AccountPage();
-
                 } else {
                     selectedFragment = new BoardsPage();
                 }
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
-        return true;
-    };
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+                return true;
+            };
 }
