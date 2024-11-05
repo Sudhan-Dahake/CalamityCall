@@ -4,3 +4,12 @@ from pydantic import BaseModel
 class LoginRequest(BaseModel):
     username: str
     password: str
+
+class SignupRequest(BaseModel):
+    username: str
+    password: str
+    preferenceid: int = None
+    age: str
+    address: str
+    zip_code: str
+    city: str
