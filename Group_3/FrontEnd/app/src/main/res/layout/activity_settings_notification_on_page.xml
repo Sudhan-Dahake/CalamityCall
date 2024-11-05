@@ -46,27 +46,27 @@
         android:id="@+id/settings_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Settings"
+        android:text=" Settings"
         android:textSize="20sp"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/logo"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:drawableLeft="@drawable/nextback"/>
 
 
     <TextView
         android:id="@+id/notification_on_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="16dp"
         android:text="Notification On"
-        android:textSize="16sp"
         android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/settings_title"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp" />
-
+        app:layout_constraintTop_toBottomOf="@id/settings_title" />
 
     <TextView
         android:id="@+id/notification_description"

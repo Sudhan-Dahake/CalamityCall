@@ -22,10 +22,10 @@ public class NotificationTypeActivity extends AppCompatActivity {
 
         settingsPreferences = new SettingsPreferences(this);
 
-        watchGroup = findViewById(R.id.watchGroup);
-        warningGroup = findViewById(R.id.warningGroup);
-        urgentGroup = findViewById(R.id.urgentGroup);
-        criticalGroup = findViewById(R.id.criticalGroup);
+        watchGroup = findViewById(R.id.watch_Group);
+        warningGroup = findViewById(R.id.warning_Group);
+        urgentGroup = findViewById(R.id.urgent_Group);
+        criticalGroup = findViewById(R.id.critical_Group);
 
         settings = findViewById(R.id.settings_title);
 
@@ -54,24 +54,59 @@ public class NotificationTypeActivity extends AppCompatActivity {
 
     private void setDefaultOrSavedSelection(RadioGroup radioGroup, String notificationType) {
         int radioButtonId;
-        switch (notificationType) {
-            case "Watch":
-                radioButtonId = R.id.watch_popup;
-                break;
-            case "Warning":
-                radioButtonId = R.id.warning_popup;
-                break;
-            case "Urgent":
-                radioButtonId = R.id.urgent_popup;;
-                break;
-            case "Critical":
-                radioButtonId = R.id.urgent_popup;
-                break;
-            default:
-                radioButtonId = R.id.critical_push;
-                break;
+
+        // If there is no saved preference, default to the "Pop-up" option for each notification type
+        if (notificationType == null || notificationType.isEmpty()) {
+            // Default to Pop-up
+            radioButtonId = getPopupRadioButtonId(radioGroup);
+        } else {
+            // Set the selected radio button based on the saved setting
+            switch (notificationType.toLowerCase()) {
+                case "push":
+                    radioButtonId = getPushRadioButtonId(radioGroup);
+                    break;
+                case "popup":
+                    radioButtonId = getPopupRadioButtonId(radioGroup);
+                    break;
+                default:
+                    // If the type is unrecognized, default to Pop-up
+                    radioButtonId = getPopupRadioButtonId(radioGroup);
+                    break;
+            }
         }
-        radioGroup.check(radioButtonId);
+
+        // Check the determined radio button ID
+        if (radioButtonId != -1) {
+            radioGroup.check(radioButtonId);
+        }
+    }
+
+    private int getPushRadioButtonId(RadioGroup radioGroup) {
+        int id = radioGroup.getId();
+        if (id == R.id.watch_Group) {
+            return R.id.watch_push;
+        } else if (id == R.id.warning_Group) {
+            return R.id.warning_push;
+        } else if (id == R.id.urgent_Group) {
+            return R.id.urgent_push;
+        } else if (id == R.id.critical_Group) {
+            return R.id.critical_push;
+        }
+        return -1; // If no match, return -1
+    }
+
+    private int getPopupRadioButtonId(RadioGroup radioGroup) {
+        int id = radioGroup.getId();
+        if (id == R.id.watch_Group) {
+            return R.id.watch_popup;
+        } else if (id == R.id.warning_Group) {
+            return R.id.warning_popup;
+        } else if (id == R.id.urgent_Group) {
+            return R.id.urgent_popup;
+        } else if (id == R.id.critical_Group) {
+            return R.id.critical_popup;
+        }
+        return -1; // If no match, return -1
     }
 
     private void setRadioGroupListener(RadioGroup radioGroup, final String notificationType) {

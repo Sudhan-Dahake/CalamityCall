@@ -24,13 +24,11 @@
         <activity
             android:name=".fragments.BoardsPage"
             android:exported="false" />
-        <activity
-            android:name=".fragments.Boards"
-            android:exported="false" />
         <activity android:name=".NotificationOnActivity" />
         <activity android:name=".NotificationTypeActivity" />
         <activity android:name=".FlashingActivity" />
         <activity android:name=".NoiseActivity" />
+        <activity android:name=".SettingsPreferences" />
         <activity
             android:name=".Settings"
             android:exported="true">

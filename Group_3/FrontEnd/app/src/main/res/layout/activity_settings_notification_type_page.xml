@@ -59,14 +59,13 @@
         android:id="@+id/notification_type_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="12dp"
         android:text="Notification Type"
-        android:textSize="16sp"
         android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/settings_title"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp" />
-
+        app:layout_constraintTop_toBottomOf="@id/settings_title" />
 
     <TextView
         android:id="@+id/notification_description"
@@ -110,22 +109,26 @@
                 android:textColor="@color/black" />
 
             <RadioGroup
-                android:id="@+id/watchGroup"
+                android:id="@+id/watch_Group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                >
+
 
                 <RadioButton
                     android:id="@+id/watch_push"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Push" />
+                    android:text="Push"
+                    android:buttonTint="#FABABA"/>
 
                 <RadioButton
                     android:id="@+id/watch_popup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pop-up" />
+                    android:text="Pop-up"
+                    android:buttonTint="#FABABA"/>
             </RadioGroup>
         </LinearLayout>
 
@@ -146,7 +149,7 @@
                 android:textColor="@color/black" />
 
             <RadioGroup
-                android:id="@+id/warningGroup"
+                android:id="@+id/warning_Group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -155,13 +158,15 @@
                     android:id="@+id/warning_push"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Push" />
+                    android:text="Push"
+                    android:buttonTint="#FABABA"/>
 
                 <RadioButton
                     android:id="@+id/warning_popup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pop-up" />
+                    android:text="Pop-up"
+                    android:buttonTint="#FABABA"/>
             </RadioGroup>
         </LinearLayout>
 
@@ -182,7 +187,7 @@
                 android:textColor="@color/black" />
 
             <RadioGroup
-                android:id="@+id/urgentGroup"
+                android:id="@+id/urgent_Group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -191,13 +196,15 @@
                     android:id="@+id/urgent_push"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Push" />
+                    android:text="Push"
+                    android:buttonTint="#FABABA"/>
 
                 <RadioButton
                     android:id="@+id/urgent_popup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pop-up" />
+                    android:text="Pop-up"
+                    android:buttonTint="#FABABA"/>
             </RadioGroup>
         </LinearLayout>
 
@@ -207,7 +214,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="12dp"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical" >
 
             <TextView
                 android:layout_width="0dp"
@@ -218,7 +225,7 @@
                 android:textColor="@color/black" />
 
             <RadioGroup
-                android:id="@+id/criticalGroup"
+                android:id="@+id/critical_Group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -227,13 +234,15 @@
                     android:id="@+id/critical_push"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Push" />
+                    android:text="Push"
+                    android:buttonTint="#FABABA"/>
 
                 <RadioButton
                     android:id="@+id/critical_popup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pop-up" />
+                    android:text="Pop-up"
+                    android:buttonTint="#FABABA"/>
             </RadioGroup>
         </LinearLayout>
     </LinearLayout>
