@@ -28,6 +28,26 @@ class PostModel:
             print(f"Error creating post: {response.get('message', 'Unknown error')}")
             return None
 
+    def ReadPost(self, post_id: int = None, user_id: int = None, topic_id: int = None):
+        query = self.client.from_(self.tableName).select("*")
+
+        if post_id:
+            query = query.eq("post_id", post_id)
+        if user_id:
+            query = query.eq("user_id", user_id)
+        if topic_id:
+            query = query.eq("topic_id", topic_id)
+
+        response = query.execute()
+
+        if response.data:
+            return response.data
+        else:
+            print(f"No posts found or error: {response.get('message', 'Unknown error')}")
+            return None
+
+
+
     def UpdatePost(self, post_id: int, content: str = None, image_url: str = None):
         updated_fields = {}
         if content:

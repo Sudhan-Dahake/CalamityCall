@@ -27,6 +27,23 @@ class TopicModel:
             print(f"Error creating topic: {response.get('message', 'Unknown error')}")
             return None
 
+    def ReadTopic(self, topic_id: int = None, user_id: int = None):
+            query = self.client.from_(self.tableName).select("*")
+
+            if topic_id:
+                query = query.eq("topic_id", topic_id)
+            if user_id:
+                query = query.eq("user_id", user_id)
+
+            response = query.execute()
+            
+            if response.data:
+                return response.data
+            else:
+                print(f"No topics found or error: {response.get('message', 'Unknown error')}")
+                return None
+
+
     def UpdateTopic(self, topic_id: int, title: str = None, description: str = None):
         updated_fields = {}
         if title:
