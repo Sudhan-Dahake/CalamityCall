@@ -12,24 +12,33 @@ class TestTopicModel(unittest.TestCase):
 
     def test_create_topic_success(self):
         self.mock_client.from_().insert().execute.return_value = MagicMock(data=[{'topic_id': 1}])
-        result = self.topic_model.CreateTopic(title="Test Title", description="Test Description")
+        result = self.topics_model.CreateTopic(
+            user_id=123,
+            title="Disaster Preparedness",
+            description="Discussion on preparing for disasters"
+        )
         self.assertIsNotNone(result)
         self.assertEqual(result['topic_id'], 1)
 
-    def test_create_topic_failure(self):
-        self.mock_client.from_().insert().execute.return_value = MagicMock(data=None)
-        result = self.topic_model.CreateTopic(title="Test Title", description="Test Description")
-        self.assertIsNone(result)
+    def test_read_topic_by_user_id(self):
+        self.mock_client.from_().select().eq().execute.return_value = MagicMock(data=[{'topic_id': 1}])
+        result = self.topics_model.ReadTopic(user_id=123)
+        self.assertIsNotNone(result)
+        self.assertEqual(result[0]['topic_id'], 1)
 
     def test_update_topic_success(self):
         self.mock_client.from_().update().eq().execute.return_value = MagicMock(status_code=204)
-        result = self.topic_model.UpdateTopic(topic_id=1, title="Updated Title")
+        result = self.topics_model.UpdateTopic(
+            topic_id=1,
+            title="Updated Title",
+            description="Updated Description"
+        )
         self.assertTrue(result)
 
-    # def test_delete_topic_success(self):
-    #     self.mock_client.from_().delete().eq().execute.return_value = MagicMock(status_code=204)
-    #     result = self.topic_model.DeleteTopic(topic_id=1)
-    #     self.assertTrue(result)
+    def test_delete_topic_success(self):
+        self.mock_client.from_().delete().eq().execute.return_value = MagicMock(status_code=204)
+        result = self.topics_model.DeleteTopic(topic_id=1)
+        self.assertTrue(result)
 
 if __name__ == '__main__':
     unittest.main()

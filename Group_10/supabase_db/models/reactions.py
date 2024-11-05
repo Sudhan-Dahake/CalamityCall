@@ -19,17 +19,17 @@ class ReactionsModel:
         self.client: Client = create_client(self.supabase_url, self.supabase_key)
         self.tableName = tableName
 
-    def CreateReaction(self, user_id: int, emoji_type: int, post_id: int):
+    def CreateReaction(self, user_id: int, post_id: int, emoji_type: int):
         reaction_data = {
             "user_id": user_id,
-            "emoji_type": emoji_type,
-            "post_id": post_id
+            "post_id": post_id,
+            "emoji_type": emoji_type
         }
         response = self.client.from_(self.tableName).insert(reaction_data).execute()
 
-        if response.status_code == 201:
+        if response.data:
             print("Reaction created successfully.")
-            return response.data
+            return response.data[0]
         elif response.status_code == 409:  # Unique constraint violation
             print("User has already reacted to this post.")
             return None
@@ -37,32 +37,25 @@ class ReactionsModel:
             print(f"Error creating reaction: {response.get('message', 'Unknown error')}")
             return None
 
-    def ReadReaction(self, user_id: int = None, post_id: int = None, reaction_id: int = None):
-            # Start with a query object
-            query = self.client.from_(self.tableName).select("*")
+    def ReadReaction(self, reaction_id: int = None, user_id: int = None, post_id: int = None):
+        query = self.client.from_(self.tableName).select("*")
 
-            # Apply filters based on provided arguments
-            if user_id is not None:
-                query = query.eq("user_id", user_id)
-            if post_id is not None:
-                query = query.eq("post_id", post_id)
-            if reaction_id is not None:
-                query = query.eq("reaction_id", reaction_id)
+        if reaction_id:
+            query = query.eq("reaction_id", reaction_id)
+        if user_id:
+            query = query.eq("user_id", user_id)
+        if post_id:
+            query = query.eq("post_id", post_id)
 
-            # Execute the query
-            response = query.execute()
+        response = query.execute()
+        if response.data:
+            return response.data
+        else:
+            print(f"No reactions found or error: {response.get('message', 'Unknown error')}")
+            return None
 
-            if response.data:
-                return response.data
-            else:
-                print(f"No reactions found or error: {response.get('message', 'Unknown error')}")
-                return None
-
-    def UpdateReaction(self, reaction_id: int, emoji_type: int = None):
-        updated_fields = {}
-
-        if emoji_type is not None:
-            updated_fields["emoji_type"] = emoji_type
+    def UpdateReaction(self, reaction_id: int, emoji_type: int):
+        updated_fields = {"emoji_type": emoji_type}
 
         response = self.client.from_(self.tableName).update(updated_fields).eq("reaction_id", reaction_id).execute()
 
