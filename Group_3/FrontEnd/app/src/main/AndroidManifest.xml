@@ -18,25 +18,25 @@
         tools:targetApi="31">
         <activity
             android:name=".fragments.AccountPage"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="Instantiatable" />
         <activity
             android:name=".fragments.HistoryPage"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="Instantiatable" />
         <activity
             android:name=".fragments.BoardsPage"
-            android:exported="false" />
-        <activity
-            android:name=".fragments.Boards"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+        <activity android:name=".LoginActivity"
+            android:exported="true"
+            tools:ignore="Instantiatable">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity"/>
     </application>
 
 </manifest>
