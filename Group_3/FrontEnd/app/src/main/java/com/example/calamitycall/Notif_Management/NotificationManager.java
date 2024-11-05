@@ -69,7 +69,7 @@ public class NotificationManager {
                     public void onResponse(@NonNull Call<NotificationHistoryResponse> call,
                                            @NonNull Response<NotificationHistoryResponse> response) {
                         // Find the TextView by its ID
-                        TextView textViewHistory = view.findViewById(R.id.textViewHistory);
+                        TextView textViewHistory = view.findViewById(R.id.textViewNotification);
 
                         // Send History to UI if successful, or just log message (could also display error to UI)
                         if (response.isSuccessful() && response.body() != null) {
@@ -90,7 +90,7 @@ public class NotificationManager {
                     public void onFailure(@NonNull Call<NotificationHistoryResponse> call,
                                           @NonNull Throwable t) {
                         // Find the TextView by its ID
-                        TextView textViewHistory = view.findViewById(R.id.textViewHistory);
+                        TextView textViewHistory = view.findViewById(R.id.textViewNotification);
                         Log.d("Notif", "Failed to get History");
                         textViewHistory.setText("Error Fetching History...");
                     }

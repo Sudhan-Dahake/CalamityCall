@@ -21,7 +21,7 @@ import androidx.fragment.app.Fragment;
 import com.example.calamitycall.MainActivity;
 import com.example.calamitycall.R;
 
-public class BoardsPage extends Fragment {
+public class ForumPage extends Fragment {
 
     private static final String CHANNEL_ID = "channel1";
 
@@ -30,7 +30,7 @@ public class BoardsPage extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.activity_board_page, container, false);
+        return inflater.inflate(R.layout.activity_forum_page, container, false);
     }
 
     @Override

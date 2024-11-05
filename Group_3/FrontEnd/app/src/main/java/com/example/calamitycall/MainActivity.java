@@ -8,9 +8,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import com.example.calamitycall.fragments.AccountPage;
-import com.example.calamitycall.fragments.BoardsPage;
-import com.example.calamitycall.fragments.HistoryPage;
+import com.example.calamitycall.fragments.SettingsPage;
+import com.example.calamitycall.fragments.ForumPage;
+import com.example.calamitycall.fragments.NotificationPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNav.setSelectedItemId(R.id.nav_forum);
         bottomNav.setOnItemSelectedListener(navListener);
 
-        Fragment selectedFragment = new BoardsPage();
+        Fragment selectedFragment = new ForumPage();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
     }
 
@@ -44,13 +44,13 @@ public class MainActivity extends AppCompatActivity {
                 Fragment selectedFragment = null;
 
                 if (itemId == R.id.nav_forum) {
-                    selectedFragment = new BoardsPage();
+                    selectedFragment = new ForumPage();
                 } else if (itemId == R.id.nav_notification) {
-                    selectedFragment = new HistoryPage();
+                    selectedFragment = new NotificationPage();
                 } else if (itemId == R.id.nav_settings) {
-                    selectedFragment = new AccountPage();
+                    selectedFragment = new SettingsPage();
                 } else {
-                    selectedFragment = new BoardsPage();
+                    selectedFragment = new ForumPage();
                 }
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
