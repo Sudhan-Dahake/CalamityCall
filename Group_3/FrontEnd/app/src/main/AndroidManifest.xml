@@ -34,13 +34,13 @@
             android:exported="true"
             tools:ignore="Instantiatable"/>
         <activity
-            android:name=".LoginActivity"
+            android:name=".MainActivity"
             android:exported="true"
             tools:ignore="Instantiatable"/>
 
-        <!-- MainActivity as the launcher activity -->
+        <!-- Login Page as the launcher activity -->
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
