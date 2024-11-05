@@ -6,14 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".fragments.HistoryPage">
+    tools:context=".fragments.SettingsPage">
 
 
     <TextView
-        android:id="@+id/textViewHistory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="History Page"
+        android:text="Notification Page"
         android:layout_centerInParent="true"
         android:textSize="40sp"
         android:textColor="@android:color/black"

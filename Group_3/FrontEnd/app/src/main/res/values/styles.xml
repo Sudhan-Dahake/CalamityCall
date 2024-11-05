@@ -45,7 +45,7 @@
 
     <style name="BlackMaterialButton" parent="Widget.MaterialComponents.Button">
         <item name="android:backgroundTint">@android:color/black</item>
-        <item name="android:textColor">@color/primaryTextColor</item> <!-- Adjust text color as needed -->
+        <item name="android:textColor">@color/primaryTextColor</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">50dp</item>
         <item name="android:buttonCornerRadius">50dp</item>
@@ -55,6 +55,12 @@
         <item name="android:textSize">@dimen/newsMoreTextSize</item>
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:paddingLeft">5dp</item>
+    </style>
+
+    <!-- Bottom Navigation Text Appearance -->
+    <style name="BottomNavTextAppearance" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">18sp</item> <!-- Adjust text size as needed -->
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 
 </resources>

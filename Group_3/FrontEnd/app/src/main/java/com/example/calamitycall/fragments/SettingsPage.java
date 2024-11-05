@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.calamitycall.R;
 
-public class AccountPage extends Fragment {
+public class SettingsPage extends Fragment {
 
     View view;
 
@@ -19,7 +19,7 @@ public class AccountPage extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        view = inflater.inflate(R.layout.activity_account_page, container, false);
+        view = inflater.inflate(R.layout.activity_settings_page, container, false);
 
         return view;
     }

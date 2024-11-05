@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 import com.example.calamitycall.Notif_Management.*;
 import com.example.calamitycall.R;
 
-public class HistoryPage extends Fragment {
+public class NotificationPage extends Fragment {
 
     View view;
 
@@ -18,7 +18,7 @@ public class HistoryPage extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        view = inflater.inflate(R.layout.activity_history_page, container, false);
+        view = inflater.inflate(R.layout.activity_notification_page, container, false);
         NotificationManager notifManager = new NotificationManager(RetrofitInstance.getRetrofitInstance().create(ApiService.class));
 
         notifManager.getNotificationHistory("1 month ago", view);
