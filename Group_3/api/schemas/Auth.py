@@ -9,7 +9,7 @@ class SignupRequest(BaseModel):
     username: str
     password: str
     preferenceid: int = None
-    age: str
+    age: int
     address: str
     zip_code: str
     city: str
