@@ -1,0 +1,22 @@
+{
+    "post_id": "Unique post identifier (UUID)",
+    "topic_id": "Unique topic identifier (UUID)",
+    "user_id": "Unique user identifier (UUID)",
+    "content": "The text of the post (max. 4000 chars)",
+    "created_at": "ISO-8601 timestamp, e.g. 2024-10-17T12:31:48Z",
+    "media": [
+        {
+            "type": "image, video, or audio",
+            "url": "https://example.com/path-to-media-file",
+            "description": "Textual description of the media content (max. 250 chars)"
+        }
+    ],
+    "reactions": [
+        {
+            "user_id": "User UUID",
+            "post_id": "Post UUID",
+            "reaction_type": "thumbs_up"
+        }
+    ]
+}
+
