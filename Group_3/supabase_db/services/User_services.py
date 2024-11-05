@@ -23,7 +23,7 @@ class UserServices:
         if not user:
             return False
 
-        elif not self.__VerifyPassword(password=password, hashedPassword=user["password"]):
+        elif not self.__VerifyPassword(plainPassword=password, hashedPassword=user["password"]):
             return False
 
         return True
