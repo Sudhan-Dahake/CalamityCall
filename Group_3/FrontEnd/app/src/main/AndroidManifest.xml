@@ -28,6 +28,9 @@
             android:name=".fragments.BoardsPage"
             android:exported="false"
             tools:ignore="Instantiatable" />
+        <activity android:name=".RegisterActivity"
+            android:exported="true"
+            tools:ignore="Instantiatable"/>
         <activity android:name=".LoginActivity"
             android:exported="true"
             tools:ignore="Instantiatable">

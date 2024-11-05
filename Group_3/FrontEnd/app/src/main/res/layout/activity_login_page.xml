@@ -125,6 +125,7 @@
 
             <!-- New User Registration Text -->
             <TextView
+                android:id="@+id/registerNowText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="New User? Register now!"
