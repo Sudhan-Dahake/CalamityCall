@@ -12,7 +12,6 @@ class TestReactionsModel(unittest.TestCase):
 
     def test_create_reaction_success(self):
         emoji_type = "\U0001F600"  # 😀 emoji
-        # Mock a successful response
         self.mock_client.from_().insert().execute.return_value = MagicMock(status_code=201, data=[{'reaction_id': 1}])
         result = self.reaction_model.CreateReaction(emoji_type=emoji_type, user_id=1, post_id=1)
         self.assertIsNotNone(result)
@@ -20,33 +19,28 @@ class TestReactionsModel(unittest.TestCase):
 
     def test_create_reaction_failure(self):
         emoji_type = "\U0001F600"  # 😀 emoji
-        # Mock a failure response with 400 status and no data
         self.mock_client.from_().insert().execute.return_value = MagicMock(status_code=400, data=None)
         result = self.reaction_model.CreateReaction(emoji_type=emoji_type, user_id=1, post_id=1)
         self.assertIsNone(result)
 
     def test_update_reaction_success(self):
         emoji_type = "\U0001F600"  # 😀 emoji
-        # Mock a successful update response
         self.mock_client.from_().update().eq().execute.return_value = MagicMock(status_code=204)
         result = self.reaction_model.UpdateReaction(reaction_id=1, emoji_type=emoji_type)
         self.assertTrue(result)
 
     def test_update_reaction_failure(self):
         emoji_type = "\U0001F600"  # 😀 emoji
-        # Mock a failure response with status 400 for update
         self.mock_client.from_().update().eq().execute.return_value = MagicMock(status_code=400)
         result = self.reaction_model.UpdateReaction(reaction_id=1, emoji_type=emoji_type)
         self.assertFalse(result)
 
     def test_delete_reaction_success(self):
-        # Mock a successful deletion response
         self.mock_client.from_().delete().eq().execute.return_value = MagicMock(status_code=204)
         result = self.reaction_model.DeleteReaction(reaction_id=1)
         self.assertTrue(result)
 
     def test_delete_reaction_failure(self):
-        # Mock a failure response with status 400 for deletion
         self.mock_client.from_().delete().eq().execute.return_value = MagicMock(status_code=400)
         result = self.reaction_model.DeleteReaction(reaction_id=1)
         self.assertFalse(result)

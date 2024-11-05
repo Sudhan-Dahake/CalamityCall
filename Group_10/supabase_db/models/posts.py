@@ -12,10 +12,11 @@ class PostModel:
         self.client: Client = create_client(self.supabase_url, self.supabase_key)
         self.tableName = tableName
 
-    def CreatePost(self, content: str, user_id: int, image_url: str = None):
+    def CreatePost(self, user_id: int, topic_id: int, content: str, image_url: str = None):
         post_data = {
-            "content": content,
             "user_id": user_id,
+            "topic_id": topic_id,
+            "content": content,
             "image_url": image_url
         }
         response = self.client.from_(self.tableName).insert(post_data).execute()
@@ -25,6 +26,23 @@ class PostModel:
             return response.data[0]
         else:
             print(f"Error creating post: {response.get('message', 'Unknown error')}")
+            return None
+
+    def ReadPost(self, post_id: int = None, user_id: int = None, topic_id: int = None):
+        query = self.client.from_(self.tableName).select("*")
+
+        if post_id:
+            query = query.eq("post_id", post_id)
+        if user_id:
+            query = query.eq("user_id", user_id)
+        if topic_id:
+            query = query.eq("topic_id", topic_id)
+
+        response = query.execute()
+        if response.data:
+            return response.data
+        else:
+            print(f"No posts found or error: {response.get('message', 'Unknown error')}")
             return None
 
     def UpdatePost(self, post_id: int, content: str = None, image_url: str = None):
