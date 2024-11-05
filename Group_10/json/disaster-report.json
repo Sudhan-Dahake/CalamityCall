@@ -1,13 +1,13 @@
 {
-    "report_id": "Unique report identifier (UUID)",
-    "user_id": "Unique user identifier (UUID)",
+    "report_id": "Unique report identifier",
+    "user_id": "Unique user identifier",
     "created_at": "ISO-8601 timestamp, e.g. 2024-10-17T12:31:48Z",
     "location": {
         "latitude": 12.345678,
         "longitude": 98.765432,
         "address": "123 Sesame Street, City, Country"
     },
-    "weather_event": {
+    "event": {
         "type": "avalanche",
         "severity": "moderate, severe, or extreme",
         "description": "User's written description of the event"

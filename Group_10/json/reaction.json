@@ -1,6 +1,6 @@
 {
-    "user_id": "User UUID",
-    "post_id": "Post UUID",
+    "user_id": "User ID",
+    "post_id": "Post ID",
     "reaction_type": "thumbs_up"
 }
 
