@@ -1,16 +1,16 @@
 # posts_services.py
 from fastapi import HTTPException, status
-from .models.posts import PostsModel
-from .models.topics import TopicsModel
+from ..models.posts import PostsModel
+from ..models.topics import TopicsModel
 from datetime import datetime
 
 # Initialize PostsModel and TopicsModel
 posts_model = PostsModel()
-topics_model = TopicsModel()
+topic_model = TopicsModel()
 
 # Get all discussion topics
 def GetDiscussionTopics():
-    topics = topics_model.GetTopics()
+    topics = topic_model.GetTopics()
     if not topics:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No topics available")
     return topics
