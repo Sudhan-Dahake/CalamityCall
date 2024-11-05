@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -6,63 +5,135 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.calamitycall.LoginActivity"
+    android:background="@color/login_bk_color"
     android:focusableInTouchMode="true"
-    android:gravity="center"
-    android:layout_gravity="center"
-    >
+    android:gravity="center">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/login_background"
+        android:scaleType="centerCrop"
+        android:alpha="0.8"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
         android:layout_centerInParent="true"
         android:paddingTop="20dp">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="16dp">
+            android:padding="20dp"
+            android:gravity="center_horizontal">
 
-            <!--    Logo of Login Page-->
-
+            <!-- App Logo and Name -->
             <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="262dp"
-                android:layout_height="185dp"
+                android:layout_width="198dp"
+                android:layout_height="172dp"
                 android:layout_gravity="center"
-                android:layout_marginBottom="40dp"
-                app:srcCompat="@drawable/logo" />
+                android:src="@drawable/logo" />
 
-            <!--    Username EditText-->
+            <!-- Username Input Field -->
+            <TextView
+                android:layout_width="195dp"
+                android:layout_height="50dp"
+                android:fontFamily="@font/jolly_lodger"
+                android:text="CalamityCall"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="50dp"
+                android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/editTextUsername"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputUsername"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:hint="Username"
-                android:inputType="text" />
-
-            <!--    Password EditText-->
-            <EditText
-                android:id="@+id/editTextPassword"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:hint="Password"
-                android:inputType="textPassword" />
-
-            <!--    Login Button-->
-            <Button
-                android:id="@+id/buttonLogin"
-                android:layout_width="249dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:boxBackgroundMode="filled"
+                app:boxBackgroundColor="@android:color/white">
+
+                <EditText
+                    android:id="@+id/editTextUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Username"
+                    android:inputType="text"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Password Input Field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Password"
+                app:endIconMode="password_toggle"
+                app:boxBackgroundMode="filled"
+                app:boxBackgroundColor="@android:color/white"> <!-- Optional: change icon color -->
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:backgroundTint="@android:color/white"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <!-- Forgot Password Text -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Forgot Password?"
+                android:textColor="@color/colorSecondary"
+                android:textSize="14sp"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"/>
+
+            <!-- Login Button with Progress Indicator -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/loginViewsMargin">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnLogin"
+                    style="@style/BlackMaterialButton"
+                    android:layout_width="278dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@android:color/black"
+                    android:text="Login"
+                    android:textColor="@color/primaryTextColor" />
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/progressBar"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:visibility="gone"
+                    app:indicatorColor="@color/colorPrimary"
+                    app:indicatorSize="24dp"
+                    android:layout_gravity="center" />
+            </FrameLayout>
+
+            <!-- New User Registration Text -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New User? Register now!"
+                android:textColor="@color/darkTextColor"
+                android:textSize="14sp"
+                android:textStyle="bold"
                 android:layout_gravity="center"
-                android:text="Login" />
+                android:layout_marginTop="20dp"/>
 
         </LinearLayout>
     </ScrollView>
-
 </RelativeLayout>
