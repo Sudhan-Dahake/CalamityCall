@@ -4,14 +4,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
-class ReactionsModel:
-    def __init__(self, tableName: str = "reactions"):
-        self.supabase_url = os.getenv("SUPABASE_URL")
-        self.supabase_key = os.getenv("SUPABASE_KEY")
-        self.client: Client = create_client(self.supabase_url, self.supabase_key)
-        self.tableName = tableName
-
 class ReactionsModel:
     def __init__(self, tableName: str = "reactions"):
         self.supabase_url = os.getenv("SUPABASE_URL")
