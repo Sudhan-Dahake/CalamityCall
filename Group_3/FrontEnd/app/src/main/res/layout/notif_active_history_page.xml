@@ -19,6 +19,8 @@
     <include
         layout="@layout/active_history_tab_selector" />
 
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
