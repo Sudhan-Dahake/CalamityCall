@@ -27,3 +27,12 @@ class UserServices:
             return False
 
         return True
+
+
+    def GetPreferenceIDFromUser(self, username: str):
+        user = self.userModelObj.GetUser(username=username)
+
+        if not user:
+            return None
+
+        return user["preferenceid"]
