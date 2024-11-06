@@ -40,7 +40,7 @@ dependencies {
     implementation("androidx.activity:activity:1.9.2")
     // widgets
     implementation ("androidx.compose.material3:material3:1.3.1")
-    // Retrofit for network requests
+    // Retrofit for com.example.calamitycall.network requests
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")  // For JSON conversion using Gson
     implementation ("com.squareup.okhttp3:logging-interceptor:4.10.0")
