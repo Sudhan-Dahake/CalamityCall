@@ -23,28 +23,28 @@ public class NotificationOnActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings_notification_on_page);
+        setContentView(R.layout.activity_settings_notification_on_page); //load the notification on page
 
-        settingsPreferences = new SettingsPreferences(this);
+        settingsPreferences = new SettingsPreferences(this); //load the settings preferences
 
-        watchSwitch = findViewById(R.id.watch_switch);
-        warningSwitch = findViewById(R.id.warning_switch);
-        urgentSwitch = findViewById(R.id.urgent_switch);
-        criticalSwitch = findViewById(R.id.critical_switch);
+        watchSwitch = findViewById(R.id.watch_switch); //find the watch switch
+        warningSwitch = findViewById(R.id.warning_switch); //find the warning switch
+        urgentSwitch = findViewById(R.id.urgent_switch); //find the urgent switch
+        criticalSwitch = findViewById(R.id.critical_switch); //find the critical switch
 
-        settings = findViewById(R.id.settings_title);
+        settings = findViewById(R.id.settings_title); //find the settings button
 
         loadPreferences();
 
-        watchSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
-        warningSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
-        urgentSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
-        criticalSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
+        watchSwitch.setOnCheckedChangeListener(this::onSwitchChanged); //setOnCheckedChangeListener for the watch switch
+        warningSwitch.setOnCheckedChangeListener(this::onSwitchChanged); //setOnCheckedChangeListener for the warning switch
+        urgentSwitch.setOnCheckedChangeListener(this::onSwitchChanged); //setOnCheckedChangeListener for the urgent switch
+        criticalSwitch.setOnCheckedChangeListener(this::onSwitchChanged); //setOnCheckedChangeListener for the critical switch
 
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(NotificationOnActivity.this, Settings.class);
+                Intent intent = new Intent(NotificationOnActivity.this, Settings.class); //change to settings layout when the settings button pushed
                 startActivity(intent);
             }
         });
@@ -52,22 +52,22 @@ public class NotificationOnActivity extends AppCompatActivity {
     }
 
     private void loadPreferences() {
-        watchSwitch.setChecked(settingsPreferences.isWatchNotificationOn());
-        warningSwitch.setChecked(settingsPreferences.isWarningNotificationOn());
-        urgentSwitch.setChecked(settingsPreferences.isUrgentNotificationOn());
-        criticalSwitch.setChecked(settingsPreferences.isCriticalNotificationOn());
+        watchSwitch.setChecked(settingsPreferences.isWatchNotificationOn()); //set the watch to saved preferences
+        warningSwitch.setChecked(settingsPreferences.isWarningNotificationOn()); //set the warning to saved preferences
+        urgentSwitch.setChecked(settingsPreferences.isUrgentNotificationOn()); //set the urgent to saved preferences
+        criticalSwitch.setChecked(settingsPreferences.isCriticalNotificationOn()); //set the critical to saved preferences
     }
 
     private void onSwitchChanged(CompoundButton buttonView, boolean isChecked) {
 
         if (buttonView.getId() == R.id.watch_switch) {
-            settingsPreferences.setWatchNotificationOn(isChecked);
+            settingsPreferences.setWatchNotificationOn(isChecked); //switch the watch settings
         } else if (buttonView.getId() == R.id.warning_switch) {
-            settingsPreferences.setWarningNotificationOn(isChecked);
+            settingsPreferences.setWarningNotificationOn(isChecked); //switch the warning settings
         } else if (buttonView.getId() == R.id.urgent_switch) {
-            settingsPreferences.setUrgentNotificationOn(isChecked);
+            settingsPreferences.setUrgentNotificationOn(isChecked); //switch the urgent settings
         } else if (buttonView.getId() == R.id.critical_switch) {
-            settingsPreferences.setCriticalNotificationOn(isChecked);
+            settingsPreferences.setCriticalNotificationOn(isChecked); //switch the critical settings
         }
 
     }
