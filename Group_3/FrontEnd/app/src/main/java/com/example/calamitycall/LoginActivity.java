@@ -17,8 +17,18 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class LoginActivity extends AppCompatActivity {
 
+import com.example.calamitycall.network.auth.LoginService;
+import com.example.calamitycall.models.login.LoginRequest;
+import com.example.calamitycall.models.login.LoginResponse;
+import com.example.calamitycall.utils.TokenManager;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
+public class LoginActivity extends AppCompatActivity {
+    private LoginService loginService;
+    private TokenManager tokenManager;
     private EditText etUsername;
     private EditText etPassword;
 
@@ -27,22 +37,33 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
+        this.loginService = new LoginService(this);
+
+        try {
+            this.tokenManager = TokenManager.getInstance(this);
+        } catch (GeneralSecurityException | IOException e) {
+            e.printStackTrace();
+        }
+
         etUsername = findViewById(R.id.editTextUsername);
         etPassword = findViewById(R.id.editTextPassword);
         Button loginButton = findViewById(R.id.btnLogin);
 
         // Set up the login button click listener
-        loginButton.setOnClickListener(v -> {
-            if (authenticateUser()) {
-                // If authenticated, redirect to MainActivity
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            } else {
-                // Show error message for failed authentication
-                Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
-            }
-        });
+        loginButton.setOnClickListener(v -> handleLogin());
+
+
+//        loginButton.setOnClickListener(v -> {
+//            if (authenticateUser()) {
+//                // If authenticated, redirect to MainActivity
+//                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                startActivity(intent);
+//                finish();
+//            } else {
+//                // Show error message for failed authentication
+//                Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         // Set up the "Register now!" clickable span
         TextView registerNowText = findViewById(R.id.registerNowText);
@@ -69,12 +90,39 @@ public class LoginActivity extends AppCompatActivity {
         registerNowText.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
-    private boolean authenticateUser() {
-        // Retrieve input from the EditText fields
-        String username = etUsername.getText().toString().trim();
-        String password = etPassword.getText().toString().trim();
 
-        // Check if username and password match the specified values
-        return username.equals("hang") && password.equals("12345");
+    private void handleLogin() {
+        LoginRequest loginRequest = new LoginRequest(
+                this.etUsername.getText().toString().trim(),
+                this.etPassword.getText().toString().trim()
+        );
+
+
+        this.loginService.login(loginRequest, new LoginService.LoginCallback() {
+            @Override
+            public void onSuccess(LoginResponse loginResponse) {
+                // Handle successful Login, e.g., navigate to another screen
+                // Toast.makeText(LoginActivity.this, loginResponse.getRefreshToken(), Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                // Handle Login error, e.g., show an error message to the user
+                Toast.makeText(LoginActivity.this, "Login Failed: " + throwable.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
+
+//    private boolean authenticateUser() {
+//        // Retrieve input from the EditText fields
+//        String username = etUsername.getText().toString().trim();
+//        String password = etPassword.getText().toString().trim();
+//
+//        // Check if username and password match the specified values
+//        return username.equals("hang") && password.equals("12345");
+//    }
 }
