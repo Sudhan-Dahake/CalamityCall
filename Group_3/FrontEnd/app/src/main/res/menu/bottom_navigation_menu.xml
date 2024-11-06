@@ -2,10 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
+     <item
         android:id="@+id/nav_boards"
         android:icon="@drawable/boards"
         android:title="Boards"/>
+
+    <!-- <item
+        android:id="@+id/nav_forum"
+        android:icon="@drawable/forum"
+        android:title="Forum"/> -->
+
+    <!-- <item
+        android:id="@+id/nav_notification"
+        android:icon="@drawable/notification"
+        android:title="Notification"/> -->
 
     <item
         android:id="@+id/nav_history"

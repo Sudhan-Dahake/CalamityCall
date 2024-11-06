@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+            android:id="@+id/navigation_boards"
+            android:icon="@drawable/forum_24dp"
+            android:title="@string/title_boards" />
+
+    <item
+            android:id="@+id/navigation_notifications"
+            android:icon="@drawable/notifications_24dp"
+            android:title="@string/title_notifications" />
+
+    <item
+            android:id="@+id/navigation_report"
+            android:icon="@drawable/report_24dp"
+            android:title="@string/title_report" />
+
+    <item
+            android:id="@+id/navigation_settings"
+            android:icon="@drawable/settings_24dp"
+            android:title="@string/title_settings" />
+
+</menu>

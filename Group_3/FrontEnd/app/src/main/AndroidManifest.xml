@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -15,27 +16,71 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CalamityCall"
         tools:targetApi="31">
+
         <activity
-            android:name=".fragments.AccountPage"
-            android:exported="false" />
+            android:name=".fragments.SettingsPage"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
         <activity
-            android:name=".fragments.HistoryPage"
-            android:exported="false" />
+            android:name=".fragments.NotificationPage"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+
         <activity
-            android:name=".fragments.BoardsPage"
-            android:exported="false" />
+            android:name=".NotificationOnActivity"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+
         <activity
-            android:name=".fragments.Boards"
-            android:exported="false" />
+            android:name=".NotificationTypeActivity"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+
+        <activity
+            android:name=".FlashingActivity"
+            android:exported="false"
+            tools:ignore="Instantiatable"  />
+
+        <activity
+            android:name=".NoiseActivity"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+
+        <activity
+            android:name=".SettingsPreferences"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+
+        <activity
+            android:name=".Settings"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+
+        <activity
+            android:name=".fragments.ForumPage"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="true"
+            tools:ignore="Instantiatable"/>
+
         <activity
             android:name=".MainActivity"
+            android:exported="true"
+            tools:ignore="Instantiatable"/>
+
+        <!-- Login Page as the launcher activity -->
+        <activity
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
