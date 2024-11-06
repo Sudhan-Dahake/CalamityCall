@@ -25,14 +25,47 @@
             android:name=".fragments.NotificationPage"
             android:exported="false"
             tools:ignore="Instantiatable" />
+
+        <activity
+            android:name=".NotificationOnActivity"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+
+        <activity
+            android:name=".NotificationTypeActivity"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+
+        <activity
+            android:name=".FlashingActivity"
+            android:exported="false"
+            tools:ignore="Instantiatable"  />
+
+        <activity
+            android:name=".NoiseActivity"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+
+        <activity
+            android:name=".SettingsPreferences"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+
+        <activity
+            android:name=".Settings"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+
         <activity
             android:name=".fragments.ForumPage"
             android:exported="false"
             tools:ignore="Instantiatable" />
+
         <activity
             android:name=".RegisterActivity"
             android:exported="true"
             tools:ignore="Instantiatable"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

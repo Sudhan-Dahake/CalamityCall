@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/nav_notificationon"
+        android:title="Notification On"/>
+
+    <item
+        android:id="@+id/nav_notificationtype"
+        android:title="Notification Type"/>
+
+    <item
+        android:id="@+id/nav_flashing"
+        android:title="Flashing"/>
+
+    <item
+        android:id="@+id/nav_noise"
+        android:title="Noise"/>
+
+
+</menu>
