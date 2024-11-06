@@ -39,12 +39,16 @@ def CreateTables():
         notiftimeframe VARCHAR(30) NOT NULL
     );
 
-    -- Table 3: credentials
-    CREATE TABLE IF NOT EXISTS credentials (
+    -- Table 3: useraccounts
+    CREATE TABLE IF NOT EXISTS useraccounts (
         userid SERIAL PRIMARY KEY,
         username VARCHAR(30) NOT NULL,
         password VARCHAR(30) NOT NULL,
-        preferenceid INTEGER REFERENCES preferences(preferenceid)
+        preferenceid INTEGER REFERENCES preferences(preferenceid),
+        age INTEGER NOT NULL,
+        address TEXT NOT NULL,
+        zip_code TEXT NOT NULL,
+        city TEXT NOT NULL
     );
     """
 

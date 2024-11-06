@@ -1,0 +1,6 @@
+crying_face
+heart
+surprised_face
+thinking_face
+thumbs_down
+thumbs_up
