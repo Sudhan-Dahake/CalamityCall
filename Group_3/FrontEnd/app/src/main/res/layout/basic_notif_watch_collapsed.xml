@@ -8,7 +8,8 @@
     android:paddingHorizontal="36dp"
     android:id="@+id/notification_layout"
     android:background="@drawable/notif_bg_sky"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    android:baselineAligned="false">
 
     <!-- Inner container layout -->
     <LinearLayout
@@ -16,8 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:gravity="start"
-        >
+        android:gravity="start">
 
         <!-- Middle section: Watch Alert and Tornado Spotted text -->
         <FrameLayout
@@ -28,7 +28,7 @@
 
             <!-- Tornado icon -->
             <ImageView
-                android:id="@+id/tornado_icon"
+                android:id="@+id/alert_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"

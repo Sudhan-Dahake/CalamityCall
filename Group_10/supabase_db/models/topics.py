@@ -5,33 +5,47 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-class TopicsModel:
+class TopicModel:
     def __init__(self, tableName: str = "topics"):
         self.supabase_url = os.getenv("SUPABASE_URL")
         self.supabase_key = os.getenv("SUPABASE_KEY")
         self.client: Client = create_client(self.supabase_url, self.supabase_key)
         self.tableName = tableName
 
-    def CreateTopic(self, title: str, description: str):
+    def CreateTopic(self, user_id: int, title: str, description: str = ""):
         topic_data = {
+            "user_id": user_id,
             "title": title,
             "description": description
         }
         response = self.client.from_(self.tableName).insert(topic_data).execute()
 
-        if response.status_code == 201:
+        if response.data:
             print("Topic created successfully.")
-            return response.data
+            return response.data[0]
         else:
             print(f"Error creating topic: {response.get('message', 'Unknown error')}")
             return None
 
+    def ReadTopic(self, topic_id: int = None, user_id: int = None):
+        query = self.client.from_(self.tableName).select("*")
+
+        if topic_id:
+            query = query.eq("topic_id", topic_id)
+        if user_id:
+            query = query.eq("user_id", user_id)
+
+        response = query.execute()
+        if response.data:
+            return response.data
+        else:
+            print(f"No topics found or error: {response.get('message', 'Unknown error')}")
+            return None
+
     def UpdateTopic(self, topic_id: int, title: str = None, description: str = None):
         updated_fields = {}
-
         if title:
             updated_fields["title"] = title
-
         if description:
             updated_fields["description"] = description
 

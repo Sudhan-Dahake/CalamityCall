@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/mobile_navigation"
+        app:startDestination="@+id/navigation_boards">
+
+    <fragment
+            android:id="@+id/navigation_boards"
+            android:name="com.example.nationalweathersystem.ui.boards.BoardsFragment"
+            android:label="@string/title_boards"
+            tools:layout="@layout/fragment_boards" />
+
+    <fragment
+            android:id="@+id/navigation_notifications"
+            android:name="com.example.nationalweathersystem.ui.notifications.NotificationsFragment"
+            android:label="@string/title_notifications"
+            tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+            android:id="@+id/navigation_report"
+            android:name="com.example.nationalweathersystem.ui.report.ReportFragment"
+            android:label="@string/title_report"
+            tools:layout="@layout/fragment_report" />
+
+    <fragment
+            android:id="@+id/navigation_settings"
+            android:name="com.example.nationalweathersystem.ui.settings.SettingsFragment"
+            android:label="@string/title_settings"
+            tools:layout="@layout/fragment_settings" />
+</navigation>
