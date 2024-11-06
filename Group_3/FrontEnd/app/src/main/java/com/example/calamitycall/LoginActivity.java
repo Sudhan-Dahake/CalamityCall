@@ -26,6 +26,8 @@ import com.example.calamitycall.utils.TokenManager;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 
+import android.util.Log;
+
 public class LoginActivity extends AppCompatActivity {
     private LoginService loginService;
     private TokenManager tokenManager;
@@ -111,6 +113,9 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onError(Throwable throwable) {
+                // Log the error to Logcat
+                Log.e("LoginActivity", "Login failed: " + throwable.getMessage(), throwable);
+
                 // Handle Login error, e.g., show an error message to the user
                 Toast.makeText(LoginActivity.this, "Login Failed: " + throwable.getMessage(), Toast.LENGTH_LONG).show();
             }
