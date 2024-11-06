@@ -8,7 +8,7 @@ public class Notification {
     private String origin;
     private String city;
     private Integer level;  // "critical", "urgent", "warning", "watch"
-    private Date timestamp;
+    private Date timeframe;
     private Float longitude;
     private Float latitude;
 
@@ -22,6 +22,7 @@ public class Notification {
         this.level = 0;
         this.longitude = 0.F;
         this.latitude = 0.F;
+        this.timeframe = new Date();
 
     }
 
@@ -33,12 +34,12 @@ public class Notification {
 
 
     // Constructor
-    public Notification(String disaster_type, String origin, String city,  Integer level,  Date timestamp, Float longitude, Float latitude) {
+    public Notification(String disaster_type, String origin, String city,  Integer level,  Date timeframe, Float longitude, Float latitude) {
         this.disaster_type = disaster_type;
         this.origin = origin;
         this.city = city;
         this.level = level;
-        this.timestamp = timestamp;
+        this.timeframe = timeframe;
         this.longitude = longitude;
         this.latitude = latitude;
     }
@@ -69,7 +70,7 @@ public class Notification {
 
     public void setDate(Date timestamp)
     {
-        this.timestamp = timestamp;
+        this.timeframe = timeframe;
     }
 
 
@@ -108,7 +109,7 @@ public class Notification {
 
     public Date getDate()
     {
-        return this.timestamp;
+        return this.timeframe;
     }
 
 

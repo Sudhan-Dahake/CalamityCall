@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CalamityCall</string>
+    <string name="select">Select A Time Frame</string>
 </resources>
