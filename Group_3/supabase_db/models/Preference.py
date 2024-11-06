@@ -9,7 +9,8 @@ class PreferencesModel:
     def __init__(self, tableName: str = "preferences"):
         self.supabase_url = os.getenv("SUPABASE_URL")
         self.supabase_key = os.getenv("SUPABASE_KEY")
-        self.client: Client = create_client(self.supabase_url, self.supabase_key)
+        self.client: Client = create_client(
+            self.supabase_url, self.supabase_key)
 
         self.tableName = tableName
 
@@ -39,7 +40,7 @@ class PreferencesModel:
     def GetPreference(self, preference_id: int):
         if (preference_id):
             response = self.client.from_(self.tableName).select(
-                "*").eq("preferenceid", preference_id).execute()
+                "notificationtype, disastertype, severitytype, notifflashing, texttospeech, notiftimeframe").eq("preferenceid", preference_id).execute()
 
             if (response.data):
                 print(f"Preferences Retrieved Successfully")
@@ -53,10 +54,10 @@ class PreferencesModel:
                 return None
 
         else:
-            print(f"PreferenceID is set to None. Please create a Default Preference for the current user first.")
+            print(
+                f"PreferenceID is set to None. Please create a Default Preference for the current user first.")
 
             return None
-
 
     def UpdatePreference(self, preference_id: int, **updatedPreferences: dict[str, any]) -> bool:
         response = self.client.from_(self.tableName).update(
@@ -71,7 +72,6 @@ class PreferencesModel:
             print(f"Error updating preference with ID: {preference_id}")
 
             return False
-          
 
     def DeletePreference(self):
         pass
@@ -92,6 +92,7 @@ if __name__ == '__main__':
     print()
     print()
 
-    updatePreferenceResult = Preference.UpdatePreference(Preference_id, notificationtype="Pop", disastertype="Tornado", severitytype=2, notifflashing=True, texttospeech=True, notiftimeframe="6 months ago")
+    updatePreferenceResult = Preference.UpdatePreference(
+        Preference_id, notificationtype="Pop", disastertype="Tornado", severitytype=2, notifflashing=True, texttospeech=True, notiftimeframe="6 months ago")
 
     print(updatePreferenceResult)

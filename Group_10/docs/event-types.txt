@@ -1,0 +1,22 @@
+avalanche
+blizzard
+chemical spill
+earthquake
+flood
+fog
+freezing rain
+hailstorm
+heat wave
+hurricane
+landslide
+nuclear accident
+power outage
+sandstorm
+sinkhole
+snowstorm
+thunderstorm
+tornado
+tropical storm
+tsunami
+volcano eruption
+wildfire

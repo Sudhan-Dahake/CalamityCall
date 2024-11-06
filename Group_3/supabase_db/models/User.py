@@ -6,45 +6,88 @@ load_dotenv()
 
 
 class UserModel:
-    def __init__(self, tableName: str = "credentials"):
+    def __init__(self, tableName: str = "useraccounts"):
         self.supabase_url = os.getenv("SUPABASE_URL")
         self.supabase_key = os.getenv("SUPABASE_KEY")
-        self.client: Client = create_client(self.supabase_url, self.supabase_key)
+        self.client: Client = create_client(
+            self.supabase_url, self.supabase_key)
 
-        self.id = None
-        self.username = None
-        self.password = None
         self.tableName = tableName
 
-    def CreateUser(self, username: str, password: str, preference_id: int = None):
-        pass
+    # username: str
+    # password: str
+    # preference_id: int
+    # age: int
+    # address: str
+    # zip_code: str
+    # city: str
 
-    def UpdateUser(self, user_id: int, username: str, password: str):
-        updated_fields = {}
+    def CreateUser(self, **CredParams: dict[str, any]):
+        response = self.client.from_(
+            self.tableName).insert(CredParams).execute()
 
-        if username:
-            updated_fields["username"] = username
+        if (response.data):
+            print(f"User registered successfully")
 
-        if password:
-            updated_fields["password"] = password
+            return True                          # response.data[0]['userid']         # returns the userID
 
-        response = self.client.from_(self.tableName).update(updated_fields).eq("userid", user_id).execute()
+        else:
+            print(f"Error registering user")
 
-        if (response.status_code == 204):
-            print(f"User {user_id} updated successfully.")
+            return False
+
+    def GetUser(self, userID: int | None = None, username: str | None = None):
+        if userID:
+            response = self.client.from_(self.tableName).select("username, password, preferenceid, age, address, zip_code, city").eq("userid", userID).execute()
+
+        elif username:
+            response = self.client.from_(self.tableName).select("username, password, preferenceid, age, address, zip_code, city").eq("username", username).execute()
+
+        else:
+            print("No user data provided")
+
+            return None
+
+        if (response.data):
+            print(f"User Retrieved successfully")
+
+            return response.data[0]
+
+        else:
+            print(f"Error retrieving user")
+
+            return None
+
+    # username: str
+    # password: str
+    # age: int
+    # address: str
+    # zip_code: str
+    # city: str
+
+    def UpdateUser(self, currentUsername: str, **UpdateParams: dict[str, any]):
+        response = self.client.from_(self.tableName).update(UpdateParams).eq("username", currentUsername).execute()
+
+        # return response
+
+        if (response.data):
+            print(f"Information updated successfully for {currentUsername}.")
             return True
         else:
-            print(
-                f"Error updating user: {response.get('message', 'Unknown error')}")
+            print(f"Error updating user: User not found")
             return False
 
     def DeleteUser(self, user_id: int):
-        response = self.client.from_(self.tableName).delete().eq("userid", user_id).execute()
+        pass
 
-        if response.status_code == 204:
-            print(f"User {user_id} deleted successfully.")
-            return True
-        else:
-            print(
-                f"Error deleting user: {response.get('message', 'Unknown error')}")
-            return False
+
+if __name__ == '__main__':
+    user = UserModel()
+
+    Created_useriD = user.CreateUser(username="Sudhan", password="verysEcUrE", preferenceid=1, age=21, address="Home", zip_code="N8G 4O3", city="Waterloo")
+
+    print(user.GetUser(Created_useriD))
+
+    user.UpdateUser(Created_useriD, password="eXtReMeLysEcUrE")
+
+    print(user.GetUser(Created_useriD))
