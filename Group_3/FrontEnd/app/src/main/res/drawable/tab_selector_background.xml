@@ -1,0 +1,16 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/black"/> <!-- Active Tab Background Color -->
+            <corners android:radius="10dp"/>
+            <stroke android:width="1dp" android:color="#B0BEC5"/> <!-- Adding a border -->
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/white"/> <!-- Inactive Tab Background Color -->
+            <corners android:radius="10dp"/>
+            <stroke android:width="1dp" android:color="#B0BEC5"/> <!-- Adding a border -->
+        </shape>
+    </item>
+</selector>
