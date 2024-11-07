@@ -18,12 +18,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.calamitycall.MainActivity;
 import com.example.calamitycall.R;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import com.google.android.material.tabs.TabLayout;  // required for the tab functionality
 import com.google.android.material.textfield.TextInputLayout;
 
-public class NotificationPage extends Fragment {
+public class HistoryPage extends Fragment {
 
 
     private View view;
@@ -104,18 +108,61 @@ public class NotificationPage extends Fragment {
     }
 
 
+
+
+
+
     // Initialize lists for Active and History notifications
     private void initializeNotificationLists() {
+
+        // Create a list of dummy dates
+        List<Date> dummyDates = new ArrayList<>();
+
+
+        // Define the date format
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+        try {
+            // Adding dummy dates to simulate database values
+            dummyDates.add(dateFormat.parse("21-11-2023"));
+            dummyDates.add(dateFormat.parse("22-11-2023"));
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            // In case of parsing issues, the current date will be added
+            dummyDates.add(new Date());
+        }
+
+
         // Active notifications
-
-
         activeNotifications = new ArrayList<>();
-        activeNotifications.add(new Notification("Tornado", 2));
-        activeNotifications.add(new Notification("Rainfall", 3));
+
+        Notification notification1 = new Notification();
+        notification1.ActiveNoitificationSetter("Rainfall", 3);
+        activeNotifications.add(notification1);
+
+        Notification notification2 = new Notification();
+        notification2.ActiveNoitificationSetter("Tornado", 2);
+        activeNotifications.add(notification2);
+
+
+
+
+
 
         // History notifications
         historyNotifications = new ArrayList<>();
-        historyNotifications.add(new Notification("Rainfall", 4));
-        historyNotifications.add(new Notification("Tornado", 1));
+
+        // Creating Notification objects and setting their dates using the dummy dates list
+        Notification notification3 = new Notification();
+        notification3.HistoryNotificationSetter("Rainfall", 4, dummyDates.get(0));
+        historyNotifications.add(notification3);
+
+        Notification notification4 = new Notification();
+        notification4.HistoryNotificationSetter("Tornado", 1, dummyDates.get(1));
+        historyNotifications.add(notification4);
     }
+
+
+
 }
