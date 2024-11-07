@@ -12,15 +12,14 @@ class TestPostModel(unittest.TestCase):
         self.post_model = PostModel()
    
     def test_create_post_success(self):
-        self.mock_client.from_().insert().execute.return_value = MagicMock(data=[{'post_id': 1}])
-        result = self.post_model.CreatePost(
-            user_id=123,
-            topic_id=10,
-            content="This is a test post",
-            #image_url="https://example.com/image.jpg"
-        )
-        self.assertIsNotNone(result)
-        self.assertEqual(result['post_id'], 1)
+            self.mock_client.from_().insert().execute.return_value = MagicMock(data=[{'post_id': 1}])
+            result = self.post_model.CreatePost(
+                user_id=123,
+                topic_id=10,
+                content="This is a test post"
+            )
+            self.assertIsNotNone(result)
+            self.assertEqual(result['post_id'], 1)
 
     def test_create_post_failure(self):
         self.mock_client.from_().insert().execute.return_value = MagicMock(data=None)
@@ -28,7 +27,6 @@ class TestPostModel(unittest.TestCase):
             user_id=123,
             topic_id=10,
             content="This is a test post"
-            #image_url="https://example.com/image.jpg"
         )
         self.assertIsNone(result)
 
@@ -47,8 +45,7 @@ class TestPostModel(unittest.TestCase):
         self.mock_client.from_().update().eq().execute.return_value = MagicMock(status_code=204)
         result = self.post_model.UpdatePost(
             post_id=1,
-            content="Updated content",
-            #image_url="https://example.com/updated_image.jpg"
+            content="Updated content"
         )
         self.assertTrue(result)
 
@@ -57,7 +54,6 @@ class TestPostModel(unittest.TestCase):
         result = self.post_model.UpdatePost(
             post_id=1,
             content="Updated content"
-            #image_url="https://example.com/updated_image.jpg"
         )
         self.assertFalse(result)
 
@@ -67,7 +63,7 @@ class TestPostModel(unittest.TestCase):
         self.assertTrue(result)
 
     def test_delete_post_failure(self):
-        self.mock_client.from_().delete().eq().execute.return_value = MagicMock(status_code=400)
+        self.mock_client.from_().delete().eq().execute.return_value = MagicMock(status_code=404)
         result = self.post_model.DeletePost(post_id=1)
         self.assertFalse(result)
 

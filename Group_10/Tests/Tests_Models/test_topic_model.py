@@ -11,23 +11,23 @@ class TestTopicModel(unittest.TestCase):
         self.topic_model = TopicModel()
 
     def test_create_topic_success(self):
-        self.mock_client.from_().insert().execute.return_value = MagicMock(data=[{'topic_id': 1}])
-        result = self.topic_model.CreateTopic(
-            user_id=123,
-            title="Disaster Preparedness",
-            description="Discussion on preparing for disasters"
-        )
-        self.assertIsNotNone(result)
-        self.assertEqual(result['topic_id'], 1)
+            self.mock_client.from_().insert().execute.return_value = MagicMock(data=[{'topic_id': 1}])
+            result = self.topic_model.CreateTopic(
+                user_id=123,
+                title="Disaster Preparedness",
+                description="Discussion on preparing for disasters"
+            )
+            self.assertIsNotNone(result)
+            self.assertEqual(result['topic_id'], 1)
 
     def test_create_topic_failure(self):
-        self.mock_client.from_().insert().execute.return_value = MagicMock(data=None, status_code=400)
+        self.mock_client.from_().insert().execute.return_value = MagicMock(data=None)
         result = self.topic_model.CreateTopic(
             user_id=123,
-            title="",
+            title="",  # Intentionally invalid to trigger a failure
             description="Discussion on preparing for disasters"
         )
-        self.assertIsNone(result) 
+        self.assertIsNone(result)
 
     def test_read_topic_by_user_id(self):
         self.mock_client.from_().select().eq().execute.return_value = MagicMock(data=[{'topic_id': 1}])
@@ -36,9 +36,9 @@ class TestTopicModel(unittest.TestCase):
         self.assertEqual(result[0]['topic_id'], 1)
 
     def test_read_topic_by_user_id_failure(self):
-        self.mock_client.from_().select().eq().execute.return_value = MagicMock(data=None, status_code=404)
+        self.mock_client.from_().select().eq().execute.return_value = MagicMock(data=None)
         result = self.topic_model.ReadTopic(user_id=999)  # Non-existent user ID
-        self.assertIsNone(result)  
+        self.assertIsNone(result)
 
     def test_update_topic_success(self):
         self.mock_client.from_().update().eq().execute.return_value = MagicMock(status_code=204)

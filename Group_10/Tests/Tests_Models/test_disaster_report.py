@@ -12,20 +12,20 @@ class TestDisasterReportsModel(unittest.TestCase):
         self.disaster_model = DisasterReportsModel()
 
     def test_create_report_success(self):
-        self.mock_client.from_().insert().execute.return_value = MagicMock(data=[{'report_id': 'test-uuid'}])
-        result = self.disaster_model.CreateReport(
-            report_id="test-uuid",
-            user_id=123,  
-            timestamp="2023-10-10T10:00:00Z",
-            latitude=37.7749,
-            longitude=-122.4194,
-            address="123 Main St",
-            weather_event_type="flood",
-            weather_event_severity="severe",
-            weather_event_description="Flooding in the area"
-        )
-        self.assertIsNotNone(result)
-        self.assertEqual(result['report_id'], 'test-uuid')
+            self.mock_client.from_().insert().execute.return_value = MagicMock(data=[{'report_id': 'test-uuid'}])
+            result = self.disaster_model.CreateReport(
+                report_id="test-uuid",
+                user_id=123,  
+                timestamp="2023-10-10T10:00:00Z",
+                latitude=37.7749,
+                longitude=-122.4194,
+                address="123 Main St",
+                weather_event_type="flood",
+                weather_event_severity="severe",
+                weather_event_description="Flooding in the area"
+            )
+            self.assertIsNotNone(result)
+            self.assertEqual(result['report_id'], 'test-uuid')
 
     def test_create_report_failure(self):
         self.mock_client.from_().insert().execute.return_value = MagicMock(data=None)
