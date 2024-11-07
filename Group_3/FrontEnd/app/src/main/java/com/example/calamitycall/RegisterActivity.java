@@ -69,6 +69,10 @@ public class RegisterActivity extends AppCompatActivity {
             public void onSuccess(SignupResponse signupResponse) {
                 // Handle successful signup, e.g., navigate to another screen or show success message
                 Toast.makeText(RegisterActivity.this, "Signup Successful!! Please Login Now", Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
 
             @Override

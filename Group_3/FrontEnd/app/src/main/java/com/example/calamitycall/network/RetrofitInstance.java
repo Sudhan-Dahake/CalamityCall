@@ -2,6 +2,7 @@ package com.example.calamitycall.network;
 
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Dns;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -23,6 +24,7 @@ public class RetrofitInstance {
                     .readTimeout(2, TimeUnit.MINUTES)           // Read Timeout
                     .writeTimeout(2, TimeUnit.MINUTES)          // Write Timeout
                     .addInterceptor(loggingInterceptor) // Add the logging interceptor
+                    .dns(hostname -> Dns.SYSTEM.lookup(hostname))  // Use default DNS
                     .build();
 
 
