@@ -45,6 +45,24 @@ public class Notification {
     }
 
 
+
+
+    public void ActiveNoitificationSetter(String disaster_type, Integer level)
+    {
+        this.disaster_type = disaster_type;
+        this.level = level;
+    }
+
+
+    public void HistoryNotificationSetter(String disaster_type, Integer level, Date timeframe)
+    {
+        this.disaster_type = disaster_type;
+        this.level = level;
+        this.timeframe = timeframe;
+    }
+
+
+
     // Defining the setters and  getters
     public void setDisasterType(String disaster_type)
     {
