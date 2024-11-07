@@ -29,10 +29,12 @@ def add_disaster_report():
         "latitude": 37.7749,
         "longitude": -122.4194,
         "address": "123 Main St",
-        "weather_event_type": "flood",
+        "weather_event_type": "wildfire",
         "weather_event_severity": "severe",
-        "weather_event_description": "Flooding reported near the river banks. Roads are inaccessible."
+        "weather_event_description": "Wildfire reported near the forest area. Evacuations are in progress."
     }
+
+    
     report_response = supabase.from_("disaster_reports").insert(report_data).execute()
 
     if report_response.data:
