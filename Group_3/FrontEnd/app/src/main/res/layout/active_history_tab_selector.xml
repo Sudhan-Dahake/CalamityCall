@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="4dp">
+
+    <!-- TabLayout for the Tab Selector -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="409dp"
+        android:layout_height="54dp"
+        android:background="@drawable/tab_selector_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintVertical_bias="0.5"
+        app:tabSelectedTextColor="#CD6460"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@android:color/darker_gray"
+        app:tabIndicatorHeight="5dp"
+        app:tabMode="fixed">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_active"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Active"
+            tools:layout_editor_absoluteX="10dp"
+            tools:layout_editor_absoluteY="10dp" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="History"
+            tools:layout_editor_absoluteX="10dp"
+            tools:layout_editor_absoluteY="10dp" />
+    </com.google.android.material.tabs.TabLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
