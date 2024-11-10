@@ -10,6 +10,7 @@ from typing import Literal
 #     notiftimeframe: str = "6 months ago"
 
 class NotificationOnRequest(BaseModel):
+    preferenceid: int | None = None
     watch: bool | None = None
     warning: bool | None = None
     urgent: bool | None = None
@@ -17,6 +18,7 @@ class NotificationOnRequest(BaseModel):
 
 
 class NoiseRequest(BaseModel):
+    preferenceid: int | None = None
     watch: bool | None = None
     warning: bool | None = None
     urgent: bool | None = None
@@ -24,6 +26,7 @@ class NoiseRequest(BaseModel):
 
 
 class FlashingRequest(BaseModel):
+    preferenceid: int | None = None
     watch: bool | None = None
     warning: bool | None = None
     urgent: bool | None = None
@@ -31,6 +34,7 @@ class FlashingRequest(BaseModel):
 
 
 class NotificationAlertTypeRequest(BaseModel):
+    preferenceid: int | None = None
     watch: Literal["Push", "Popup", None] = None
     warning: Literal["Push", "Popup", None] = None
     urgent: Literal["Push", "Popup", None] = None
@@ -38,6 +42,7 @@ class NotificationAlertTypeRequest(BaseModel):
 
 
 class TextToSpeechRequest(BaseModel):
+    preferenceid: int | None = None
     watch: bool | None = None
     warning: bool | None = None
     urgent: bool | None = None
