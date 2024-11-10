@@ -3,7 +3,7 @@ from supabase import create_client, Client
 from dotenv import load_dotenv
 
 from . import BasePreference
-from . import NotificationOnValues, NoiseValues, FlashingValues, NotificationAlertTypeValues, TextToSpeechValues, MainPreferenceValues, UpdatedPreferenceValues
+from ...supabase_db import UpdatedPreferenceValues
 
 load_dotenv()
 
@@ -19,6 +19,8 @@ class PreferencesModel:
         self.text_to_speech = TextToSpeechModel()
 
     def __NotificationOnDefaultValue(self):
+        from . import NotificationOnValues
+
         notificationOnValues = NotificationOnValues()
 
         notificationOnValues.watch = True
@@ -29,6 +31,8 @@ class PreferencesModel:
         return notificationOnValues
 
     def __NoiseDefaultValues(self):
+        from . import NoiseValues
+
         noiseValues = NoiseValues()
 
         noiseValues.watch = True
@@ -39,6 +43,8 @@ class PreferencesModel:
         return noiseValues
 
     def __FlashingDefaultValues(self):
+        from . import FlashingValues
+
         flashingValues = FlashingValues()
 
         flashingValues.watch = False
@@ -49,6 +55,8 @@ class PreferencesModel:
         return flashingValues
 
     def __NotificationAlertTypeDefaultValues(self):
+        from . import NotificationAlertTypeValues
+
         notificationAlertTypeValues = NotificationAlertTypeValues()
 
         notificationAlertTypeValues.watch = "Push"
@@ -59,6 +67,8 @@ class PreferencesModel:
         return notificationAlertTypeValues
 
     def __TextToSpeechDefaultValues(self):
+        from . import TextToSpeechValues
+
         textToSpeechValues = TextToSpeechValues()
 
         textToSpeechValues.watch = False
@@ -70,6 +80,8 @@ class PreferencesModel:
 
 
     def CreatePreferenceSet(self):
+        from . import MainPreferenceValues
+
         preference = self.main_preferences.Insert(MainPreferenceValues())
 
         if preference:
