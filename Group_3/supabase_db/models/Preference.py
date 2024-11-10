@@ -129,8 +129,10 @@ class PreferencesModel:
             "text_to_speech": self.text_to_speech
         }
 
+        updatedPreferenceValues.data.preferenceid = updatedPreferenceValues.preferenceid
+
         if updatedPreferenceValues.tableName in table_map:
-            return table_map[updatedPreferenceValues.tableName].Update(updatedPreferenceValues.preferenceid, updatedPreferenceValues.data.model_dump())
+            return table_map[updatedPreferenceValues.tableName].Update(updatedPreferenceValues.data)
 
         else:
             print(f"Table {updatedPreferenceValues.tableName} not found")
