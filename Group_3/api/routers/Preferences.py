@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends, status
 from .. import PreferencesModel
-from ..schemas.Preferences import PreferenceCreateResponse, PreferenceResponse, PreferenceUpdate
+from ..schemas.Preferences import PreferenceResponse, PreferenceUpdate
 from ...supabase_db import AuthService, UserServices
 
 router = APIRouter()
