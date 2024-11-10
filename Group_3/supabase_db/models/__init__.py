@@ -7,5 +7,3 @@ from .Noise import NoiseModel
 from .Flashing import FlashingModel
 from .NotificationAlertType import NotificationAlertTypeModel
 from .TextToSpeech import TextToSpeechModel
-
-from ..schemas import NotificationOnValues, NoiseValues, FlashingValues, NotificationAlertTypeValues, TextToSpeechValues, MainPreferenceValues, UpdatedPreferenceValues
