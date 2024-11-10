@@ -119,7 +119,7 @@ class PreferencesModel:
         }
 
     def UpdatePreference(self, updatedPreferenceValues: UpdatedPreferenceValues):
-        # from . import UpdatedPreferenceValues
+        print(f"Debugging: {updatedPreferenceValues}")
 
         table_map = {
             "notification_on": self.notification_on,
