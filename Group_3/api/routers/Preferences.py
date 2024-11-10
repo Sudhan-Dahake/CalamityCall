@@ -40,7 +40,8 @@ async def GetPreference(username: str = Depends(AuthServiceObj.VerifyJWT)):
 
 @router.post("/update")
 async def UpdatePreference(NewPreferences: PreferenceUpdate, username: str = Depends(AuthServiceObj.VerifyJWT)):
-    userServicesObj = UserServices()
+    userModelObj = UserModel()
+    userServicesObj = UserServices(userModelObj=userModelObj)
 
     preference_id = userServicesObj.GetPreferenceIDFromUser(username=username)
 
