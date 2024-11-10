@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends, status
 from .. import PreferencesModel
 from ..schemas.Preferences import PreferenceResponse, PreferenceUpdate
-from ...supabase_db import AuthService, UserServices
+from ...supabase_db import AuthService, UserServices, UserModel
 
 router = APIRouter()
 
@@ -21,7 +21,8 @@ AuthServiceObj = AuthService()
 
 @router.get("/get", response_model=PreferenceResponse)
 async def GetPreference(username: str = Depends(AuthServiceObj.VerifyJWT)):
-    userServicesObj = UserServices()
+    userModelObj = UserModel()
+    userServicesObj = UserServices(userModelObj=userModelObj)
 
     preference_id = userServicesObj.GetPreferenceIDFromUser(username=username)
 
