@@ -3,7 +3,7 @@ from supabase import create_client, Client
 from dotenv import load_dotenv
 
 from . import BasePreference
-from ...supabase_db import UpdatedPreferenceValues
+from __future__ import annotations
 
 load_dotenv()
 
@@ -129,7 +129,9 @@ class PreferencesModel:
             "text_to_speech": self.text_to_speech.GetByPreferenceID(preferenceid=preferenceid)
         }
 
-    def UpdatePreference(self, updatedPreferenceValues: UpdatedPreferenceValues):
+    def UpdatePreference(self, updatedPreferenceValues: "UpdatedPreferenceValues"):
+        from . import UpdatedPreferenceValues
+
         table_map = {
             "notification_on": self.notification_on,
             "noise": self.noise,
