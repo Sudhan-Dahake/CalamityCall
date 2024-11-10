@@ -8,4 +8,4 @@ from .Flashing import FlashingModel
 from .NotificationAlertType import NotificationAlertTypeModel
 from .TextToSpeech import TextToSpeechModel
 
-from .. import NotificationOnValues, NoiseValues, FlashingValues, NotificationAlertTypeValues, TextToSpeechValues, MainPreferenceValues, UpdatedPreferenceValues
+from ..schemas import NotificationOnValues, NoiseValues, FlashingValues, NotificationAlertTypeValues, TextToSpeechValues, MainPreferenceValues, UpdatedPreferenceValues
