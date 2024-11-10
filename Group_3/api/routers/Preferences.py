@@ -30,7 +30,7 @@ async def GetPreference(username: str = Depends(AuthServiceObj.VerifyJWT)):
 
     PreferModel = PreferencesModel()
 
-    response = PreferModel.GetPreference(preference_id)
+    response = PreferModel.GetFullPreferenceSet(preferenceid=preference_id)
 
     if response:
         return response

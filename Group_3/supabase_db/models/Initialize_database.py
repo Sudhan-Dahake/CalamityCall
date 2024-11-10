@@ -30,9 +30,7 @@ def CreateTables():
 
     -- Table 2: preferences
     CREATE TABLE IF NOT EXISTS preferences (
-        preferenceid SERIAL PRIMARY KEY,
-        texttospeech BOOLEAN NOT NULL,
-        notiftimeframe VARCHAR(30) NOT NULL
+        preferenceid SERIAL PRIMARY KEY
     );
 
     -- Table 3: notification_on
@@ -66,7 +64,7 @@ def CreateTables():
     );
 
     -- Table 6: notification_alert_type
-    CREATE TABLE IF NOT EXISTS notificationalerttype (
+    CREATE TABLE IF NOT EXISTS notification_alert_type (
         notificationalerttypeid SERIAL PRIMARY KEY,
         preferenceid INTEGER REFERENCES preferences(preferenceid),
         watch VARCHAR(10) CHECK (watch IN ('Push', 'Pop-up')) NOT NULL,
@@ -75,7 +73,17 @@ def CreateTables():
         critical VARCHAR(10) CHECK (critical IN ('Push', 'Pop-up')) NOT NULL
     );
 
-    -- Table 7: useraccounts
+    -- Table 7: text_to_speech
+    CREATE TABLE IF NOT EXISTS text_to_speech (
+        texttospeechid SERIAL PRIMARY KEY,
+        preferenceid INTEGER REFERENCES preferences(preferenceid),
+        watch BOOLEAN NOT NULL,
+        warning BOOLEAN NOT NULL,
+        urgent BOOLEAN NOT NULL,
+        critical BOOLEAN NOT NULL
+    );
+
+    -- Table 8: useraccounts
     CREATE TABLE IF NOT EXISTS useraccounts (
         userid SERIAL PRIMARY KEY,
         username VARCHAR(30) NOT NULL UNIQUE,
