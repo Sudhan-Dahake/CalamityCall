@@ -54,7 +54,7 @@ async def UpdatePreference(NewPreferences: PreferenceUpdate, username: str = Dep
 
     NewPreferences = NewPreferences.model_dump(exclude_none=True)
 
-    response = PreferModel.UpdatePreference(**NewPreferences)
+    response = PreferModel.UpdatePreference(NewPreferences.model_dump())
 
     if response:
         return {"Message": "Preference Updated Successfully"}
