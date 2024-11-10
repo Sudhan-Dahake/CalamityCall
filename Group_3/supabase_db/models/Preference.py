@@ -3,7 +3,7 @@ import os
 from supabase import create_client, Client
 from dotenv import load_dotenv
 
-from . import BasePreference
+from .BasePreference import BasePreference
 from ..schemas import UpdatedPreferenceValues, NotificationOnValues, NoiseValues, FlashingValues, NotificationAlertTypeValues, TextToSpeechValues, MainPreferenceValues
 
 load_dotenv()
