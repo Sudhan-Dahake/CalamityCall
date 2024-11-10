@@ -54,5 +54,5 @@ class PreferenceResponse(BaseModel):
 
 class PreferenceUpdate(BaseModel):
     tableName: str
-    preferenceid: int
+    preferenceid: int | None = None
     data: NotificationOnRequest | NoiseRequest | FlashingRequest | NotificationAlertTypeRequest | TextToSpeechRequest
