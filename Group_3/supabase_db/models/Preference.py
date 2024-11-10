@@ -5,12 +5,13 @@ from dotenv import load_dotenv
 
 from . import BasePreference
 from ..schemas import UpdatedPreferenceValues, NotificationOnValues, NoiseValues, FlashingValues, NotificationAlertTypeValues, TextToSpeechValues, MainPreferenceValues
-from . import NotificationOnModel, NoiseModel, FlashingModel, NotificationAlertTypeModel, TextToSpeechModel
 
 load_dotenv()
 
 class PreferencesModel:
     def __init__(self):
+        from . import NotificationOnModel, NoiseModel, FlashingModel, NotificationAlertTypeModel, TextToSpeechModel
+
         self.main_preferences = BasePreference(tableName="preferences")
         self.notification_on = NotificationOnModel()
         self.noise = NoiseModel()
