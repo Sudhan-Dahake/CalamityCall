@@ -27,6 +27,6 @@ class BasePreference:
         pass
 
     def GetByPreferenceID(self, preferenceid: int):
-        response = self.client.from_(self.tableName).selecct("*").eq("preferenceid", preferenceid).execute()
+        response = self.client.from_(self.tableName).select("*").eq("preferenceid", preferenceid).execute()
 
         return response.data[0] if response.data else None
