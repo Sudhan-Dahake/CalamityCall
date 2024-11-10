@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends, status
 from .. import PreferencesModel
 from ..schemas.Preferences import PreferenceResponse, PreferenceUpdate
-from ...supabase_db import AuthService, UserServices, UserModel
+from ...supabase_db import AuthService, UserServices, UserModel, UpdatedPreferenceValues
 
 router = APIRouter()
 
@@ -52,9 +52,9 @@ async def UpdatePreference(NewPreferences: PreferenceUpdate, username: str = Dep
 
     NewPreferences.preferenceid = preference_id
 
-    NewPreferences = NewPreferences.model_dump(exclude_none=True)
+    #NewPreferences = NewPreferences.model_dump(exclude_none=True)
 
-    response = PreferModel.UpdatePreference(**NewPreferences)
+    response = PreferModel.UpdatePreference(NewPreferences)
 
     if response:
         return {"Message": "Preference Updated Successfully"}
