@@ -4,14 +4,13 @@ from supabase import create_client, Client
 from dotenv import load_dotenv
 
 from . import BasePreference
-from ..schemas import UpdatedPreferenceValues
+from ..schemas import UpdatedPreferenceValues, NotificationOnValues, NoiseValues, FlashingValues, NotificationAlertTypeValues, TextToSpeechValues, MainPreferenceValues
+from . import NotificationOnModel, NoiseModel, FlashingModel, NotificationAlertTypeModel, TextToSpeechModel
 
 load_dotenv()
 
 class PreferencesModel:
     def __init__(self):
-        from . import NotificationOnModel, NoiseModel, FlashingModel, NotificationAlertTypeModel, TextToSpeechModel
-
         self.main_preferences = BasePreference(tableName="preferences")
         self.notification_on = NotificationOnModel()
         self.noise = NoiseModel()
@@ -20,8 +19,6 @@ class PreferencesModel:
         self.text_to_speech = TextToSpeechModel()
 
     def __NotificationOnDefaultValue(self):
-        from ..schemas import NotificationOnValues
-
         notificationOnValues = NotificationOnValues()
 
         notificationOnValues.watch = True
@@ -32,8 +29,6 @@ class PreferencesModel:
         return notificationOnValues
 
     def __NoiseDefaultValues(self):
-        from ..schemas import NoiseValues
-
         noiseValues = NoiseValues()
 
         noiseValues.watch = True
@@ -44,8 +39,6 @@ class PreferencesModel:
         return noiseValues
 
     def __FlashingDefaultValues(self):
-        from ..schemas import FlashingValues
-
         flashingValues = FlashingValues()
 
         flashingValues.watch = False
@@ -56,8 +49,6 @@ class PreferencesModel:
         return flashingValues
 
     def __NotificationAlertTypeDefaultValues(self):
-        from ..schemas import NotificationAlertTypeValues
-
         notificationAlertTypeValues = NotificationAlertTypeValues()
 
         notificationAlertTypeValues.watch = "Push"
@@ -68,8 +59,6 @@ class PreferencesModel:
         return notificationAlertTypeValues
 
     def __TextToSpeechDefaultValues(self):
-        from ..schemas import TextToSpeechValues
-
         textToSpeechValues = TextToSpeechValues()
 
         textToSpeechValues.watch = False
@@ -81,8 +70,6 @@ class PreferencesModel:
 
 
     def CreatePreferenceSet(self):
-        from ..schemas import MainPreferenceValues
-
         preference = self.main_preferences.Insert(MainPreferenceValues())
 
         if preference:
