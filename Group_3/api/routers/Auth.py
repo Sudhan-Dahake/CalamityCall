@@ -12,7 +12,7 @@ async def Login(request: LoginRequest):
 async def Signup(request: SignupRequest):
     PreferenceModelObj = PreferencesModel()
 
-    request.preferenceid = PreferenceModelObj.CreatePreference()
+    request.preferenceid = PreferenceModelObj.CreatePreferenceSet()
 
     if request.preferenceid is None:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to Create a Preference for the user.")
