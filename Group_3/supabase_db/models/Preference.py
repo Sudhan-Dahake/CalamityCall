@@ -2,13 +2,15 @@ import os
 from supabase import create_client, Client
 from dotenv import load_dotenv
 
-from . import BasePreference, NotificationOnModel, NoiseModel, FlashingModel, NotificationAlertTypeModel, TextToSpeechModel
+from . import BasePreference, NoiseModel, FlashingModel, NotificationAlertTypeModel, TextToSpeechModel
 from . import NotificationOnValues, NoiseValues, FlashingValues, NotificationAlertTypeValues, TextToSpeechValues, MainPreferenceValues, UpdatedPreferenceValues
 
 load_dotenv()
 
 class PreferencesModel:
     def __init__(self):
+        from . import NotificationOnModel
+
         self.main_preferences = BasePreference(tableName="preferences")
         self.notification_on = NotificationOnModel()
         self.noise = NoiseModel()
