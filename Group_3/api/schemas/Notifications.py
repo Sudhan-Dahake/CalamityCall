@@ -28,7 +28,7 @@ class NotificationResponse(BaseModel):
 
 
 class NotificationHistoryRequest(BaseModel):
-    timeFrame: str = "1 months ago"
+    timeFrame: str = "1 month ago"
 
 
 class NotificationHistoryResponse(BaseModel):
