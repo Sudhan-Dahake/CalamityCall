@@ -1,24 +1,12 @@
 from fastapi import APIRouter, HTTPException, Depends, status
 from .. import NotificationModel
-from ..schemas.Notifications import NotificationCreate, NotificationResponse, NotificationHistoryRequest, NotificationHistoryResponse
+from ..schemas.Notifications import NotificationResponse, NotificationHistoryRequest, NotificationHistoryResponse
 from ...supabase_db import AuthService
 
 
 router = APIRouter()
 
 AuthServiceObj = AuthService()
-
-#Create Notification
-@router.post("/", status_code=status.HTTP_201_CREATED)
-async def CreateNotification(notification: NotificationCreate, username: str = Depends(AuthServiceObj.VerifyJWT)):
-    NotifModel = NotificationModel()
-
-    success = NotifModel.CreateNotification(**notification.model_dump(exclude_none=True))
-
-    if success:
-        return {"Message": "Notification created successfully"}
-
-    raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to create Notification")
 
 @router.get("/immediate", response_model=NotificationResponse, response_model_exclude_none=True)
 async def GetImmediateNotification(username: str = Depends(AuthServiceObj.VerifyJWT)):
@@ -31,11 +19,11 @@ async def GetImmediateNotification(username: str = Depends(AuthServiceObj.Verify
 
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No notifications found")
 
-@router.get("/history", response_model=NotificationHistoryResponse, response_model_exclude_none=True)
-async def GetNotificationHistory(timeframe: str = "1 month ago", username: str = Depends(AuthServiceObj.VerifyJWT)):
+@router.post("/history", response_model=NotificationHistoryResponse, response_model_exclude_none=True)
+async def GetNotificationHistory(historyRequest: NotificationHistoryRequest, username: str = Depends(AuthServiceObj.VerifyJWT)):
     NotifModel = NotificationModel()
 
-    NotifDict = NotifModel.GetNotifToDisplayForHistory(timeFrame=timeframe)
+    NotifDict = NotifModel.GetNotifToDisplayForHistory(timeFrame=historyRequest.timeFrame)
 
     if NotifDict:
         NotifList = list(value for key, value in NotifDict.items())
