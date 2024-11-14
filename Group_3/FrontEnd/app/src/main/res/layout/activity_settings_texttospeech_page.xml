@@ -27,12 +27,12 @@
 
 
     <TextView
-        android:id="@+id/flashing_title"
+        android:id="@+id/texttospeech_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="172dp"
-        android:layout_marginTop="24dp"
-        android:text="Flashing"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="8dp"
+        android:text="Text-To-Speech"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,10 +42,10 @@
         android:id="@+id/notification_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Toggle on or off flashing features for each alert category."
+        android:text="Toggle on or off text-to-speech features for each alert category."
         android:textSize="14sp"
         android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/flashing_title"
+        app:layout_constraintTop_toBottomOf="@id/texttospeech_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="16dp"
@@ -54,7 +54,7 @@
 
 
     <LinearLayout
-        android:id="@+id/linearLayout5"
+        android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -158,9 +158,8 @@
         </LinearLayout>
     </LinearLayout>
 
-
     <Button
-        android:id="@+id/flashing_save"
+        android:id="@+id/text_to_speech_save"
         android:layout_width="147dp"
         android:layout_height="51dp"
         android:backgroundTint="#FABABA"
@@ -172,8 +171,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintVertical_bias="0.107" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -187,7 +186,9 @@
         app:itemTextAppearanceActive="@style/BottomNavTextAppearance"
         app:itemTextAppearanceInactive="@style/BottomNavTextAppearance"
         app:itemTextColor="@drawable/bottom_navigation_selector"
-        app:layout_constraintTop_toBottomOf="@+id/flashing_save"
+        app:layout_constraintTop_toBottomOf="@+id/text_to_speech_save"
         app:menu="@menu/bottom_navigation_menu"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="16dp" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
