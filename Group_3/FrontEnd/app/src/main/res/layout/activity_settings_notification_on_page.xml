@@ -7,6 +7,11 @@
     android:background="@color/white"
     tools:context=".Settings">
 
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout5"/>
 
     <include
         android:id="@+id/include2"
@@ -54,6 +59,7 @@
 
 
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -67,9 +73,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="12dp"
-            android:gravity="center_vertical">
+            android:padding="12dp">
 
             <TextView
                 android:id="@+id/watch_option"
@@ -77,8 +83,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Watch"
-                android:textSize="16sp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
             <Switch
                 android:id="@+id/watch_switch"
@@ -91,9 +97,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="12dp"
-            android:gravity="center_vertical">
+            android:padding="12dp">
 
             <TextView
                 android:id="@+id/warning_option"
@@ -101,8 +107,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Warning"
-                android:textSize="16sp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
             <Switch
                 android:id="@+id/warning_switch"
@@ -115,9 +121,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="12dp"
-            android:gravity="center_vertical">
+            android:padding="12dp">
 
             <TextView
                 android:id="@+id/urgent_option"
@@ -125,8 +131,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Urgent"
-                android:textSize="16sp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
             <Switch
                 android:id="@+id/urgent_switch"
@@ -139,9 +145,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="12dp"
-            android:gravity="center_vertical">
+            android:padding="12dp">
 
             <TextView
                 android:id="@+id/critical_option"
@@ -149,8 +155,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Critical"
-                android:textSize="16sp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
             <Switch
                 android:id="@+id/critical_switch"
@@ -161,5 +167,20 @@
         </LinearLayout>
     </LinearLayout>
 
+    <Button
+        android:id="@+id/notificationon_save"
+        android:layout_width="147dp"
+        android:layout_height="51dp"
+        android:backgroundTint="#FABABA"
+        android:drawablePadding="8dp"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="Save"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+        app:layout_constraintVertical_bias="0.131" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

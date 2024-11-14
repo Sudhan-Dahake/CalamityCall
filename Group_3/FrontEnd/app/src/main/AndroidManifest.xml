@@ -48,6 +48,11 @@
             tools:ignore="Instantiatable" />
 
         <activity
+            android:name=".TexttospeechActivity"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+
+        <activity
             android:name=".SettingsPreferences"
             android:exported="false"
             tools:ignore="Instantiatable" />
