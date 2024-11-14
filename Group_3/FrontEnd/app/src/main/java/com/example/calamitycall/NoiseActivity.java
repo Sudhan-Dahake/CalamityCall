@@ -8,6 +8,9 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.example.calamitycall.fragments.SettingsPage;
 
 public class NoiseActivity extends AppCompatActivity {
 
@@ -43,8 +46,15 @@ public class NoiseActivity extends AppCompatActivity {
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(NoiseActivity.this, Settings.class);
-                startActivity(intent);
+                // Begin the fragment transaction
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+                // Replace the fragment in the container with the SettingsPage fragment
+                transaction.replace(R.id.fragment_container, new SettingsPage());
+
+                // Commit the transaction
+                transaction.commit();
+                finish(); // This will close the FlashingActivity
             }
         });
     }

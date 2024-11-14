@@ -7,6 +7,11 @@
     android:background="@color/white"
     tools:context=".Settings">
 
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout5"/>
 
     <include
         android:id="@+id/include2"
@@ -24,7 +29,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:drawableLeft="@drawable/nextback"/>
-
 
     <TextView
         android:id="@+id/flashing_title"
@@ -52,7 +56,6 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp" />
 
-
     <LinearLayout
         android:id="@+id/linearLayout5"
         android:layout_width="0dp"
@@ -63,7 +66,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/notification_description">
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -158,7 +160,6 @@
         </LinearLayout>
     </LinearLayout>
 
-
     <Button
         android:id="@+id/flashing_save"
         android:layout_width="147dp"
@@ -174,20 +175,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
         app:layout_constraintVertical_bias="0.1" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="72dp"
-        android:background="#FFFFFF"
-        app:itemIconSize="34dp"
-        app:itemIconTint="@drawable/bottom_navigation_selector"
-        app:itemTextAppearanceActive="@style/BottomNavTextAppearance"
-        app:itemTextAppearanceInactive="@style/BottomNavTextAppearance"
-        app:itemTextColor="@drawable/bottom_navigation_selector"
-        app:layout_constraintTop_toBottomOf="@+id/flashing_save"
-        app:menu="@menu/bottom_navigation_menu"
-        tools:layout_editor_absoluteX="0dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
