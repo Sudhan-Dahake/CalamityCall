@@ -13,7 +13,7 @@ AuthServiceObj = AuthService()
 async def CreateNotification(notification: NotificationCreate, username: str = Depends(AuthServiceObj.VerifyJWT)):
     NotifModel = NotificationModel()
 
-    success = NotifModel.CreateNotification(**notification.model_dump())
+    success = NotifModel.CreateNotification(**notification.model_dump(exclude_none=True))
 
     if success:
         return {"Message": "Notification created successfully"}
@@ -27,6 +27,15 @@ async def GetImmediateNotification(username: str = Depends(AuthServiceObj.Verify
     notification = NotifModel.GetNotifToDisplayImmediately()
 
     if notification:
+        if notification.get('preparationsteps') is None:
+            notification.pop('preparationsteps')
+
+        if notification.get('activesteps') is None:
+            notification.pop('activesteps')
+
+        if notification.get('recoverysteps') is None:
+            notification.pop('recoverysteps')
+
         return notification
 
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No notifications found")
@@ -38,6 +47,15 @@ async def GetNotificationHistory(timeframe: str = "1 month ago", username: str =
     NotifDict = NotifModel.GetNotifToDisplayForHistory(timeFrame=timeframe)
 
     if NotifDict:
+        if NotifDict.get('preparationsteps') is None:
+            NotifDict.pop('preparationsteps')
+
+        if NotifDict.get('activesteps') is None:
+            NotifDict.pop('activesteps')
+
+        if NotifDict.get('recoverysteps') is None:
+            NotifDict.pop('recoverysteps')
+
         NotifList = list(value for key, value in NotifDict.items())
 
         return {"Notifications": NotifList}

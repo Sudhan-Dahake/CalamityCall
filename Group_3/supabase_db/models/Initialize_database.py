@@ -25,7 +25,10 @@ def CreateTables():
         city VARCHAR(30) NOT NULL,
         disastertype VARCHAR(30) NOT NULL,
         disasterlevel INTEGER NOT NULL,
-        notifdate DATE NOT NULL
+        notifdate DATE NOT NULL,
+        preparationsteps TEXT,
+        activesteps TEXT,
+        recoverysteps TEXT
     );
 
     -- Table 2: preferences
