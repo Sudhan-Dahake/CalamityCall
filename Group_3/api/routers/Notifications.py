@@ -20,49 +20,24 @@ async def CreateNotification(notification: NotificationCreate, username: str = D
 
     raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to create Notification")
 
-@router.get("/immediate", response_model=NotificationResponse)
+@router.get("/immediate", response_model=NotificationResponse, response_model_exclude_none=True)
 async def GetImmediateNotification(username: str = Depends(AuthServiceObj.VerifyJWT)):
     NotifModel = NotificationModel()
 
     notification = NotifModel.GetNotifToDisplayImmediately()
 
-    print(notification)
-
     if notification:
-        # if notification.get('preparationsteps') is None:
-        #     notification.pop('preparationsteps')
-
-        # if notification.get('activesteps') is None:
-        #     notification.pop('activesteps')
-
-        # if notification.get('recoverysteps') is None:
-        #     notification.pop('recoverysteps')
-
-        response_model = NotificationResponse(**notification).model_dump(exclude_none=True)
-
-        print("Hello World")
-        print(response_model)
-
-        return response_model
+        return notification
 
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No notifications found")
 
-@router.get("/history", response_model=NotificationHistoryResponse)
+@router.get("/history", response_model=NotificationHistoryResponse, response_model_exclude_none=True)
 async def GetNotificationHistory(timeframe: str = "1 month ago", username: str = Depends(AuthServiceObj.VerifyJWT)):
     NotifModel = NotificationModel()
 
     NotifDict = NotifModel.GetNotifToDisplayForHistory(timeFrame=timeframe)
 
     if NotifDict:
-        if NotifDict.get('preparationsteps') is None:
-            NotifDict.pop('preparationsteps')
-
-        if NotifDict.get('activesteps') is None:
-            NotifDict.pop('activesteps')
-
-        if NotifDict.get('recoverysteps') is None:
-            NotifDict.pop('recoverysteps')
-
         NotifList = list(value for key, value in NotifDict.items())
 
         return {"Notifications": NotifList}
