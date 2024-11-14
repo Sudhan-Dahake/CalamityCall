@@ -26,17 +26,24 @@ async def GetImmediateNotification(username: str = Depends(AuthServiceObj.Verify
 
     notification = NotifModel.GetNotifToDisplayImmediately()
 
+    print(notification)
+
     if notification:
-        if notification.get('preparationsteps') is None:
-            notification.pop('preparationsteps')
+        # if notification.get('preparationsteps') is None:
+        #     notification.pop('preparationsteps')
 
-        if notification.get('activesteps') is None:
-            notification.pop('activesteps')
+        # if notification.get('activesteps') is None:
+        #     notification.pop('activesteps')
 
-        if notification.get('recoverysteps') is None:
-            notification.pop('recoverysteps')
+        # if notification.get('recoverysteps') is None:
+        #     notification.pop('recoverysteps')
 
-        return notification
+        response_model = NotificationResponse(**notification).model_dump(exclude_none=True)
+
+        print("Hello World")
+        print(response_model)
+
+        return response_model
 
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No notifications found")
 
