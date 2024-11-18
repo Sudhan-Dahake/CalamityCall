@@ -7,12 +7,6 @@
     android:background="@color/white"
     tools:context=".Settings">
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout5"/>
-
     <include
         android:id="@+id/include2"
         layout="@layout/header" />
@@ -21,15 +15,14 @@
         android:id="@+id/settings_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" Settings"
+        android:text="Settings"
         android:textSize="20sp"
         android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@+id/include2"
+        app:layout_constraintTop_toBottomOf="@id/include2"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:drawableLeft="@drawable/nextback"/>
-
+        android:drawableLeft="@drawable/nextback" />
 
     <TextView
         android:id="@+id/notification_on_title"
@@ -57,6 +50,14 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp" />
 
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="405dp"
+        android:layout_height="13dp"
+        app:layout_constraintBottom_toTopOf="@id/linearLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/notification_description" />
 
     <LinearLayout
         android:id="@+id/linearLayout4"
@@ -67,8 +68,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/notification_description">
-
+        app:layout_constraintTop_toBottomOf="@id/fragment_container">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -180,7 +180,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout4"
         app:layout_constraintVertical_bias="0.131" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
