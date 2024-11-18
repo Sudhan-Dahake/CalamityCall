@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 
+import android.media.RingtoneManager;
 import android.os.Build;
 
 import android.os.Bundle;
@@ -23,11 +24,15 @@ import androidx.fragment.app.Fragment;
 
 import com.example.calamitycall.MainActivity;
 import com.example.calamitycall.R;
+import com.example.calamitycall.SettingsPreferences;
+
+import java.util.Objects;
 
 public class ForumPage extends Fragment {
 
-    private static final String CHANNEL_ID = "channel1";
-
+    //private static final String CHANNEL_ID = "default_sound_channel";
+    // the following functions are for testing on the Forum page,
+    // the Notification creation should and will have its own class/file for firebase to run
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -41,13 +46,10 @@ public class ForumPage extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Set up notification buttons
-        view.findViewById(R.id.criticalTrigger).setOnClickListener(v -> notificationButtonCritical(v));
-        view.findViewById(R.id.urgentTrigger).setOnClickListener(v -> notificationButtonUrgent(v));
-        view.findViewById(R.id.warningTrigger).setOnClickListener(v -> notificationButtonWarning(v));
-        view.findViewById(R.id.watchTrigger).setOnClickListener(v -> notificationButtonWatch(v));
-
-        // Create notification channel
-        createNotificationChannel();
+        view.findViewById(R.id.criticalTrigger).setOnClickListener(this::notificationButtonCritical);
+        view.findViewById(R.id.urgentTrigger).setOnClickListener(this::notificationButtonUrgent);
+        view.findViewById(R.id.warningTrigger).setOnClickListener(this::notificationButtonWarning);
+        view.findViewById(R.id.watchTrigger).setOnClickListener(this::notificationButtonWatch);
     }
 
     // Trigger notifications
@@ -67,15 +69,40 @@ public class ForumPage extends Fragment {
         sendNotification("Watch Alert", "Low Chance of Tornado", R.layout.basic_notif_watch_collapsed, R.layout.basic_notif_watch_expanded, 4);
     }
 
+    // up until this point, the rest of the functions are staying,
+    // they create/manage pushing notifications to users
+
+    //**** THIS FUNCTION STAYS ****
     // Helper method to create and send notifications
     private void sendNotification(String level, String type, int collapsedLayoutId, int expandedLayoutId, int notificationId) {
+
+        SettingsPreferences settingsPreferences = new SettingsPreferences(this.requireContext());
+        boolean isNoiseEnabled = false;
+        switch(level){
+            case "Watch Alert":
+                isNoiseEnabled = settingsPreferences.isWatchNoiseOn();
+                break;
+            case "Warning Alert":
+                isNoiseEnabled = settingsPreferences.isWarningNoiseOn();
+                break;
+            case "Urgent Alert":
+                isNoiseEnabled = settingsPreferences.isUrgentNoiseOn();
+                break;
+            case "Critical Alert":
+                isNoiseEnabled = settingsPreferences.isCriticalNoiseOn();
+                break;
+        }
+        // Create notification channel
+        String channelId = isNoiseEnabled ? "sound_channel" : "silent_channel";
+        createNotificationChannel(channelId, isNoiseEnabled);
+
         // Collapsed layout for the push notification
-        RemoteViews collapsedLayout = new RemoteViews(getActivity().getPackageName(), collapsedLayoutId);
+        RemoteViews collapsedLayout = new RemoteViews(requireActivity().getPackageName(), collapsedLayoutId);
         collapsedLayout.setTextViewText(R.id.disaster_level, level);
         collapsedLayout.setTextViewText(R.id.disaster_type, type);
 
         // Expanded layout for the push notification
-        RemoteViews expandedLayout = new RemoteViews(getActivity().getPackageName(), expandedLayoutId);
+        RemoteViews expandedLayout = new RemoteViews(requireActivity().getPackageName(), expandedLayoutId);
         expandedLayout.setTextViewText(R.id.disaster_level, level);
         expandedLayout.setTextViewText(R.id.disaster_type, type);
         expandedLayout.setTextViewText(R.id.notification_details, "Location: Kitchener\nSent From: Emergency Services\nLatitude: 43.4516\nLongitude: 43.4516");
@@ -85,7 +112,7 @@ public class ForumPage extends Fragment {
 
         expandedLayout.setOnClickPendingIntent(R.id.action_button, cancelContentIntent);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity(), CHANNEL_ID)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity(), channelId)
                 .setSmallIcon(R.drawable.logo)
                 .setCustomContentView(collapsedLayout)
                 .setCustomBigContentView(expandedLayout)
@@ -97,21 +124,31 @@ public class ForumPage extends Fragment {
         if (notificationManager != null) {
             notificationManager.notify(notificationId, builder.build());
         }
+
     }
 
+    // **** THIS FUNCTION STAYS ****
     // Create the notification channel for Android 8.0 and above
-    private void createNotificationChannel() {
+    private void createNotificationChannel(String channelId, boolean isNoiseEnabled) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Disaster Alerts";
+            NotificationManager notificationManager = (NotificationManager) requireActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager != null) {
+                NotificationChannel existingChannel = notificationManager.getNotificationChannel(channelId);
+                if (existingChannel != null) {
+                    notificationManager.deleteNotificationChannel(channelId);
+                }
+            }
+
+            CharSequence name = isNoiseEnabled ? "Sound Channel" : "Silent Channel";
             String description = "Channel for disaster alert notifications";
             int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            NotificationChannel channel = new NotificationChannel(channelId, name, importance);
             channel.setDescription(description);
             channel.enableLights(true);
             channel.setLightColor(Color.RED);
             channel.enableVibration(true);
+            channel.setSound(isNoiseEnabled ? RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION) : null, null);
 
-            NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null) {
                 notificationManager.createNotificationChannel(channel);
             }
