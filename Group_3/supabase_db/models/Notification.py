@@ -34,7 +34,8 @@ class NotificationModel:
 
     def GetNotifToDisplayImmediately(self):
         # Fetch the latest notification based on highest NotifID
-        response = self.client.from_(self.tableName).select("notiforigin, longitude, latitude, city, disastertype, disasterlevel, notifdate").order("notifid", desc=True).limit(1).execute()
+        response = self.client.from_(self.tableName).select(
+            "notiforigin, longitude, latitude, city, disastertype, disasterlevel, notifdate, preparationsteps, activesteps, recoverysteps").order("notifid", desc=True).limit(1).execute()
 
         if (response.data):
             print(f"Latest Notification Retrieved Successfully")
@@ -109,7 +110,7 @@ class NotificationModel:
         notifications_dict = {}
 
         response = self.client.from_(
-            self.tableName).select("notiforigin, longitude, latitude, city, disastertype, disasterlevel, notifdate").in_("notifid", self.NotifIDHistory).execute()
+            self.tableName).select("notiforigin, longitude, latitude, city, disastertype, disasterlevel, notifdate, preparationsteps, activesteps, recoverysteps").in_("notifid", self.NotifIDHistory).execute()
 
         if (response.data):
             for notification, NotifID in zip(response.data, reversed(self.NotifIDHistory)):

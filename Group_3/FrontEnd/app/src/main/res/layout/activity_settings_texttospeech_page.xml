@@ -11,7 +11,7 @@
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout5"/>
+        app:layout_constraintTop_toBottomOf="@id/linearLayout2"/>
 
     <include
         android:id="@+id/include2"
@@ -30,13 +30,14 @@
         android:layout_marginTop="8dp"
         android:drawableLeft="@drawable/nextback"/>
 
+
     <TextView
-        android:id="@+id/flashing_title"
+        android:id="@+id/texttospeech_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="172dp"
-        android:layout_marginTop="24dp"
-        android:text="Flashing"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="8dp"
+        android:text="Text-To-Speech"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,18 +47,19 @@
         android:id="@+id/notification_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Toggle on or off flashing features for each alert category."
+        android:text="Toggle on or off text-to-speech features for each alert category."
         android:textSize="14sp"
         android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/flashing_title"
+        app:layout_constraintTop_toBottomOf="@id/texttospeech_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp" />
 
+
     <LinearLayout
-        android:id="@+id/linearLayout5"
+        android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -66,6 +68,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/notification_description">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -161,7 +164,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/flashing_save"
+        android:id="@+id/text_to_speech_save"
         android:layout_width="147dp"
         android:layout_height="51dp"
         android:backgroundTint="#FABABA"
@@ -173,6 +176,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintVertical_bias="0.107" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

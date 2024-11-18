@@ -12,12 +12,12 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.calamitycall.fragments.SettingsPage;
 
-public class NoiseActivity extends AppCompatActivity {
+public class TexttospeechActivity extends AppCompatActivity {
 
-    private Switch noiseSwitch; // Main switch for watch noise notifications
-    private Switch warningNoiseSwitch;
-    private Switch urgentNoiseSwitch;
-    private Switch criticalNoiseSwitch;
+    private Switch watchSwitch; // Main switch for watch noise notifications
+    private Switch warningSwitch;
+    private Switch urgentSwitch;
+    private Switch criticalSwitch;
     private TextView settings;
 
     private SettingsPreferences settingsPreferences;
@@ -25,23 +25,23 @@ public class NoiseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings_noise_page);
+        setContentView(R.layout.activity_settings_texttospeech_page);
 
         settingsPreferences = new SettingsPreferences(this);
 
-        noiseSwitch = findViewById(R.id.watch_switch);
-        warningNoiseSwitch = findViewById(R.id.warning_switch);
-        urgentNoiseSwitch = findViewById(R.id.urgent_switch);
-        criticalNoiseSwitch = findViewById(R.id.critical_switch);
+        watchSwitch = findViewById(R.id.watch_switch);
+        warningSwitch = findViewById(R.id.warning_switch);
+        urgentSwitch = findViewById(R.id.urgent_switch);
+        criticalSwitch = findViewById(R.id.critical_switch);
 
         settings = findViewById(R.id.settings_title);
 
         loadPreferences();
 
-        noiseSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
-        warningNoiseSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
-        urgentNoiseSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
-        criticalNoiseSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
+        watchSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
+        warningSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
+        urgentSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
+        criticalSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
 
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,10 +60,10 @@ public class NoiseActivity extends AppCompatActivity {
     }
 
     private void loadPreferences() {
-        noiseSwitch.setChecked(settingsPreferences.isWatchNoiseOn());
-        warningNoiseSwitch.setChecked(settingsPreferences.isWarningNoiseOn());
-        urgentNoiseSwitch.setChecked(settingsPreferences.isUrgentNoiseOn());
-        criticalNoiseSwitch.setChecked(settingsPreferences.isCriticalNoiseOn());
+        watchSwitch.setChecked(settingsPreferences.isWatchNoiseOn());
+        warningSwitch.setChecked(settingsPreferences.isWarningNoiseOn());
+        urgentSwitch.setChecked(settingsPreferences.isUrgentNoiseOn());
+        criticalSwitch.setChecked(settingsPreferences.isCriticalNoiseOn());
     }
 
     private void onSwitchChanged(CompoundButton buttonView, boolean isChecked) {

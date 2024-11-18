@@ -12,6 +12,9 @@ public class Settings extends AppCompatActivity {
     private Button notificationAlertTypeButton;
     private Button flashingButton;
     private Button noiseButton;
+    private Button texttospeechButton;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +25,7 @@ public class Settings extends AppCompatActivity {
         notificationAlertTypeButton = findViewById(R.id.notification_alert_type);
         flashingButton = findViewById(R.id.flashing);
         noiseButton = findViewById(R.id.noise);
+        texttospeechButton = findViewById(R.id.text_to_speech);
 
         notificationOnButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +57,15 @@ public class Settings extends AppCompatActivity {
             public void onClick(View v) {
                 // Navigate to NoiseActivity
                 Intent intent = new Intent(Settings.this, NoiseActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        texttospeechButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to Text to speech activity
+                Intent intent = new Intent(Settings.this, TexttospeechActivity.class);
                 startActivity(intent);
             }
         });

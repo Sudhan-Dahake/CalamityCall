@@ -60,12 +60,4 @@ dependencies {
 
     // UI testing with Espresso
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
-    androidTestImplementation("androidx.test.espresso:espresso-intents:3.5.1")
-    androidTestImplementation("androidx.test.ext:junit:1.2.1")
-
-    // Espresso Contrib for testing RecyclerView
-    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.6.1")
-
-    // Espresso Idling Resource for handling asynchronous operations
-    androidTestImplementation("androidx.test.espresso:espresso-idling-resource:3.6.1")
 }

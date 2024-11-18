@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends, status
 from .. import PreferencesModel
-from ..schemas.Preferences import PreferenceCreateResponse, PreferenceResponse, PreferenceUpdate
-from ...supabase_db import AuthService, UserServices
+from ..schemas.Preferences import PreferenceResponse, PreferenceUpdate
+from ...supabase_db import AuthService, UserServices, UserModel, UpdatedPreferenceValues
 
 router = APIRouter()
 
@@ -21,7 +21,8 @@ AuthServiceObj = AuthService()
 
 @router.get("/get", response_model=PreferenceResponse)
 async def GetPreference(username: str = Depends(AuthServiceObj.VerifyJWT)):
-    userServicesObj = UserServices()
+    userModelObj = UserModel()
+    userServicesObj = UserServices(userModelObj=userModelObj)
 
     preference_id = userServicesObj.GetPreferenceIDFromUser(username=username)
 
@@ -30,7 +31,7 @@ async def GetPreference(username: str = Depends(AuthServiceObj.VerifyJWT)):
 
     PreferModel = PreferencesModel()
 
-    response = PreferModel.GetPreference(preference_id)
+    response = PreferModel.GetFullPreferenceSet(preferenceid=preference_id)
 
     if response:
         return response
@@ -39,7 +40,8 @@ async def GetPreference(username: str = Depends(AuthServiceObj.VerifyJWT)):
 
 @router.post("/update")
 async def UpdatePreference(NewPreferences: PreferenceUpdate, username: str = Depends(AuthServiceObj.VerifyJWT)):
-    userServicesObj = UserServices()
+    userModelObj = UserModel()
+    userServicesObj = UserServices(userModelObj=userModelObj)
 
     preference_id = userServicesObj.GetPreferenceIDFromUser(username=username)
 
@@ -48,9 +50,11 @@ async def UpdatePreference(NewPreferences: PreferenceUpdate, username: str = Dep
 
     PreferModel = PreferencesModel()
 
-    NewPreferences = NewPreferences.model_dump(exclude_none=True)
+    NewPreferences.preferenceid = preference_id
 
-    response = PreferModel.UpdatePreference(preference_id=preference_id, **NewPreferences)
+    #NewPreferences = NewPreferences.model_dump(exclude_none=True)
+
+    response = PreferModel.UpdatePreference(NewPreferences)
 
     if response:
         return {"Message": "Preference Updated Successfully"}
