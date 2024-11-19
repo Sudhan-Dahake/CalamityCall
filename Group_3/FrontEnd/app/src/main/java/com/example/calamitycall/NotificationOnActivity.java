@@ -66,19 +66,19 @@ public class NotificationOnActivity extends AppCompatActivity {
 
     private void loadPreferences() {
         // Load switch states from SharedPreferences
-        watchSwitch.setChecked(sharedPreferences.getBoolean("watch_notification", true));
-        warningSwitch.setChecked(sharedPreferences.getBoolean("warning_notification", true));
-        urgentSwitch.setChecked(sharedPreferences.getBoolean("urgent_notification", true));
-        criticalSwitch.setChecked(sharedPreferences.getBoolean("critical_notification", true));
+        watchSwitch.setChecked(sharedPreferences.getBoolean("watch_notification_on", true));
+        warningSwitch.setChecked(sharedPreferences.getBoolean("warning_notification_on", true));
+        urgentSwitch.setChecked(sharedPreferences.getBoolean("urgent_notification_on", true));
+        criticalSwitch.setChecked(sharedPreferences.getBoolean("critical_notification_on", true));
     }
 
     private void savePreferences() {
         // Save switch states to SharedPreferences
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("watch_notification", watchSwitch.isChecked());
-        editor.putBoolean("warning_notification", warningSwitch.isChecked());
-        editor.putBoolean("urgent_notification", urgentSwitch.isChecked());
-        editor.putBoolean("critical_notification", criticalSwitch.isChecked());
+        editor.putBoolean("watch_notification_on", watchSwitch.isChecked());
+        editor.putBoolean("warning_notification_on", warningSwitch.isChecked());
+        editor.putBoolean("urgent_notification_on", urgentSwitch.isChecked());
+        editor.putBoolean("critical_notification_on", criticalSwitch.isChecked());
         editor.apply();
     }
 }
