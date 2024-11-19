@@ -4,9 +4,9 @@ import requests
 from google.oauth2 import service_account
 from dotenv import load_dotenv
 from google.auth.transport.requests import Request
-import google.oauth2.id_token
 
 load_dotenv()
+
 
 class FCMClient:
     def __init__(self):
@@ -16,20 +16,16 @@ class FCMClient:
 
     def __LoadCredentials(self):
         secret_file_path = "/etc/secrets/firebase-credentials.json"
-        return service_account.Credentials.from_service_account_file(secret_file_path)
+        return service_account.Credentials.from_service_account_file(secret_file_path, scopes=["https://www.googleapis.com/auth/firebase.messaging"])
 
-    def SendNotification(self, token, title, body, isPopup = False):
-        # if not self.credentials.valid:
-        #     self.credentials.refresh(Request())
+    def SendNotification(self, token, title, body, isPopup=False):
+        self.credentials.refresh(Request())
 
-        # print(self.credentials.valid)
-
-        auth_req = Request()
-        id_token = google.oauth2.id_token.fetch_id_token(auth_req, self.url)
+        print(self.credentials.valid)
 
         headers = {
-            'Authorization': f"Bearer {id_token}",
-            'Content-type': 'application/json',
+            'Authorization': f"Bearer {self.credentials.token}",
+            'Content-type': 'application/json; UTF-8',
         }
 
         message = {
@@ -46,7 +42,7 @@ class FCMClient:
             }
         }
 
-
-        response = requests.post(self.url, headers=headers, data=json.dumps(message))
+        response = requests.post(
+            self.url, headers=headers, data=json.dumps(message))
 
         return response.json()
