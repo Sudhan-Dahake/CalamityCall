@@ -1,7 +1,7 @@
 <!-- basic_notif_collapsed.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="125dp"
     android:orientation="horizontal"
     android:paddingVertical="16dp"
     android:paddingHorizontal="36dp"
