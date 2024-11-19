@@ -18,7 +18,7 @@ class FirebaseTokenStorageModel:
 
         print(firebaseTokenInformation.model_dump())
 
-        response = self.client.from_(self.tableName).upsert(data, on_conflict=["userid", "deviceid"]).execute()
+        response = self.client.from_(self.tableName).upsert(data, on_conflict=["userid, deviceid"]).execute()
 
         if response.data:
             print(f"Token Stored Successfully")
