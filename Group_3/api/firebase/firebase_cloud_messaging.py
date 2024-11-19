@@ -18,7 +18,13 @@ class FCMClient:
         return service_account.Credentials.from_service_account_file(secret_file_path)
 
     def SendNotification(self, token, title, body, isPopup = False):
-        print(self.credentials.valid)
+
+        # Inspect the credentials object
+        print("Project ID:", self.credentials.project_id)
+        print("Client Email:", self.credentials.service_account_email)
+        print("Token URI:", self.credentials._token_uri)
+        print("Scopes:", self.credentials.scopes)
+        print("token: ", self.credentials.token)
 
         if not self.credentials.valid:
             self.credentials.refresh(Request())
