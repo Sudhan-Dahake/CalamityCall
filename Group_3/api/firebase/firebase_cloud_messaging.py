@@ -4,6 +4,7 @@ import requests
 from google.oauth2 import service_account
 from dotenv import load_dotenv
 from google.auth.transport.requests import Request
+import google.oauth2.id_token
 
 load_dotenv()
 
@@ -18,22 +19,17 @@ class FCMClient:
         return service_account.Credentials.from_service_account_file(secret_file_path)
 
     def SendNotification(self, token, title, body, isPopup = False):
+        # if not self.credentials.valid:
+        #     self.credentials.refresh(Request())
 
-        # Inspect the credentials object
-        print("Project ID:", self.credentials.project_id)
-        print("Client Email:", self.credentials.service_account_email)
-        print("Token URI:", self.credentials._token_uri)
-        print("Scopes:", self.credentials.scopes)
-        print("token: ", self.credentials.token)
+        # print(self.credentials.valid)
 
-        if not self.credentials.valid:
-            self.credentials.refresh(Request())
-
-        print(self.credentials.valid)
+        auth_req = Request()
+        id_token = google.oauth2.id_token.fetch_id_token(auth_req, self.url)
 
         headers = {
-            'Authorization': f"Bearer {self.credentials.token}",
-            'Content-type': 'application/json; UTF-8',
+            'Authorization': f"Bearer {id_token}",
+            'Content-type': 'application/json',
         }
 
         message = {
