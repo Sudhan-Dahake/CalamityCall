@@ -1,8 +1,10 @@
 package com.example.calamitycall;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -20,28 +22,33 @@ public class NoiseActivity extends AppCompatActivity {
     private Switch criticalNoiseSwitch;
     private TextView settings;
 
-    private SettingsPreferences settingsPreferences;
+    private Button saveButton; // Save button
+
+    private SharedPreferences sharedPreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_noise_page);
 
-        settingsPreferences = new SettingsPreferences(this);
 
+
+        sharedPreferences = getSharedPreferences("NotificationPreferences", MODE_PRIVATE);
+
+        // Find UI elements
         noiseSwitch = findViewById(R.id.watch_switch);
         warningNoiseSwitch = findViewById(R.id.warning_switch);
         urgentNoiseSwitch = findViewById(R.id.urgent_switch);
         criticalNoiseSwitch = findViewById(R.id.critical_switch);
-
         settings = findViewById(R.id.settings_title);
+        saveButton = findViewById(R.id.noise_save);
 
+
+
+        // Load saved preferences
         loadPreferences();
 
-        noiseSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
-        warningNoiseSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
-        urgentNoiseSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
-        criticalNoiseSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
 
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,24 +64,31 @@ public class NoiseActivity extends AppCompatActivity {
                 finish(); // This will close the FlashingActivity
             }
         });
+
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                savePreferences();
+            }
+        });
     }
 
     private void loadPreferences() {
-        noiseSwitch.setChecked(settingsPreferences.isWatchNoiseOn());
-        warningNoiseSwitch.setChecked(settingsPreferences.isWarningNoiseOn());
-        urgentNoiseSwitch.setChecked(settingsPreferences.isUrgentNoiseOn());
-        criticalNoiseSwitch.setChecked(settingsPreferences.isCriticalNoiseOn());
+        noiseSwitch.setChecked(sharedPreferences.getBoolean("watch_noise", true));
+        warningNoiseSwitch.setChecked(sharedPreferences.getBoolean("warning_noise", true));
+        urgentNoiseSwitch.setChecked(sharedPreferences.getBoolean("urgent_noise", true));
+        criticalNoiseSwitch.setChecked(sharedPreferences.getBoolean("critical_noise", true));
     }
 
-    private void onSwitchChanged(CompoundButton buttonView, boolean isChecked) {
-        if (buttonView.getId() == R.id.watch_switch) {
-            settingsPreferences.setWatchNoiseOn(isChecked);
-        } else if (buttonView.getId() == R.id.warning_switch) {
-            settingsPreferences.setWarningNoiseOn(isChecked);
-        } else if (buttonView.getId() == R.id.urgent_switch) {
-            settingsPreferences.setUrgentNoiseOn(isChecked);
-        } else if (buttonView.getId() == R.id.critical_switch) {
-            settingsPreferences.setCriticalNoiseOn(isChecked);
-        }
+    private void savePreferences() {
+        // Save switch states to SharedPreferences
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("watch_noise", noiseSwitch.isChecked());
+        editor.putBoolean("warning_noise", warningNoiseSwitch.isChecked());
+        editor.putBoolean("urgent_noise", urgentNoiseSwitch.isChecked());
+        editor.putBoolean("critical_noise", criticalNoiseSwitch.isChecked());
+        editor.apply();
     }
+
 }
