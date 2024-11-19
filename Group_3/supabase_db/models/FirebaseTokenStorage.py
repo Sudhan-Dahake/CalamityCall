@@ -16,6 +16,8 @@ class FirebaseTokenStorageModel:
     def CreateToken(self, firebaseTokenInformation: FirebaseTokenCreate) -> bool:
         data = firebaseTokenInformation.model_dump(exclude_none=True)
 
+        print(firebaseTokenInformation.model_dump())
+
         response = self.client.from_(self.tableName).upsert(data, on_conflict=["userid", "deviceid"]).execute()
 
         if response.data:
