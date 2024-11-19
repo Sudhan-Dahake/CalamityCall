@@ -6,6 +6,7 @@ from .routers import Auth
 from .routers import ProtectedJWTVerificiation
 from .routers import Token
 from .routers import Alerts
+from .routers import FirebaseToken
 
 app = FastAPI()
 
@@ -17,3 +18,4 @@ app.include_router(Users.router, prefix="/users", tags=["Users"])
 app.include_router(Auth.router, prefix="/auth", tags=["Authentication"])
 app.include_router(Token.router, prefix="/generate", tags=["GenerateJWT"])
 app.include_router(ProtectedJWTVerificiation.router, prefix="/protected", tags=["ProtectedJWTVerification"])
+app.include_router(FirebaseToken.router, prefix="/firebase", tags=["Firebase"])

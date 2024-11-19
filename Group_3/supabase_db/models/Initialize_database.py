@@ -97,6 +97,18 @@ def CreateTables():
         zip_code TEXT NOT NULL,
         city TEXT NOT NULL
     );
+
+    -- Table 9: FirebaseTokenStorage
+    CREATE TABLE IF NOT EXISTS firebasetokenstorage (
+        tokenid uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+        fcmtoken TEXT NOT NULL,
+        userid INTEGER REFERENCES useraccounts(userid) ON DELETE SET NULL,
+        deviceid TEXT NOT NULL,
+        notificationtype TEXT DEFAULT 'push',
+        created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+        UNIQUE(userid, deviceid)
+    );
     """
 
     response = supabase.rpc('execute_sql', {'sql': table_Collection}).execute()
