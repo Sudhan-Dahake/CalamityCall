@@ -7,6 +7,11 @@
     android:background="@color/white"
     tools:context=".Settings">
 
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout5"/>
 
     <include
         android:id="@+id/include2"
@@ -24,7 +29,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:drawableLeft="@drawable/nextback"/>
-
 
     <TextView
         android:id="@+id/flashing_title"
@@ -52,24 +56,23 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp" />
 
-
     <LinearLayout
+        android:id="@+id/linearLayout5"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="8dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/notification_description"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
+        app:layout_constraintTop_toBottomOf="@id/notification_description">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="12dp"
-            android:gravity="center_vertical">
+            android:padding="12dp">
 
             <TextView
                 android:id="@+id/watch_option"
@@ -77,8 +80,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Watch"
-                android:textSize="16sp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
             <Switch
                 android:id="@+id/watch_switch"
@@ -90,9 +93,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="12dp"
-            android:gravity="center_vertical">
+            android:padding="12dp">
 
             <TextView
                 android:id="@+id/warning_option"
@@ -100,8 +103,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Warning"
-                android:textSize="16sp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
             <Switch
                 android:id="@+id/warning_switch"
@@ -113,9 +116,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="12dp"
-            android:gravity="center_vertical">
+            android:padding="12dp">
 
             <TextView
                 android:id="@+id/urgent_option"
@@ -123,8 +126,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Urgent"
-                android:textSize="16sp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
             <Switch
                 android:id="@+id/urgent_switch"
@@ -136,9 +139,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="12dp"
-            android:gravity="center_vertical">
+            android:padding="12dp">
 
             <TextView
                 android:id="@+id/critical_option"
@@ -146,8 +149,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Critical"
-                android:textSize="16sp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
             <Switch
                 android:id="@+id/critical_switch"
@@ -157,5 +160,19 @@
         </LinearLayout>
     </LinearLayout>
 
-
+    <Button
+        android:id="@+id/flashing_save"
+        android:layout_width="147dp"
+        android:layout_height="51dp"
+        android:backgroundTint="#FABABA"
+        android:drawablePadding="8dp"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="Save"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+        app:layout_constraintVertical_bias="0.1" />
 </androidx.constraintlayout.widget.ConstraintLayout>

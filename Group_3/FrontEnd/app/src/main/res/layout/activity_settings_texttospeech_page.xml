@@ -7,6 +7,12 @@
     android:background="@color/white"
     tools:context=".Settings">
 
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout2"/>
+
     <include
         android:id="@+id/include2"
         layout="@layout/header" />
@@ -15,22 +21,23 @@
         android:id="@+id/settings_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Settings"
+        android:text=" Settings"
         android:textSize="20sp"
         android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/include2"
+        app:layout_constraintTop_toBottomOf="@+id/include2"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:drawableLeft="@drawable/nextback" />
+        android:drawableLeft="@drawable/nextback"/>
+
 
     <TextView
-        android:id="@+id/notification_on_title"
+        android:id="@+id/texttospeech_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="144dp"
-        android:layout_marginTop="16dp"
-        android:text="Notification On"
+        android:layout_marginTop="8dp"
+        android:text="Text-To-Speech"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,27 +47,19 @@
         android:id="@+id/notification_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Toggle notifications for each category to select the type of alert you receive."
+        android:text="Toggle on or off text-to-speech features for each alert category."
         android:textSize="14sp"
         android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/notification_on_title"
+        app:layout_constraintTop_toBottomOf="@id/texttospeech_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp" />
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="405dp"
-        android:layout_height="13dp"
-        app:layout_constraintBottom_toTopOf="@id/linearLayout4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/notification_description" />
 
     <LinearLayout
-        android:id="@+id/linearLayout4"
+        android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -68,7 +67,8 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_container">
+        app:layout_constraintTop_toBottomOf="@id/notification_description">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -90,8 +90,7 @@
                 android:id="@+id/watch_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
-                android:contentDescription="Enable Watch Notifications" />
+                android:checked="true" />
         </LinearLayout>
 
         <LinearLayout
@@ -114,8 +113,7 @@
                 android:id="@+id/warning_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
-                android:contentDescription="Enable Warning Notifications" />
+                android:checked="true" />
         </LinearLayout>
 
         <LinearLayout
@@ -138,8 +136,7 @@
                 android:id="@+id/urgent_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
-                android:contentDescription="Enable Urgent Notifications" />
+                android:checked="true" />
         </LinearLayout>
 
         <LinearLayout
@@ -162,13 +159,12 @@
                 android:id="@+id/critical_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
-                android:contentDescription="Enable Critical Notifications" />
+                android:checked="true" />
         </LinearLayout>
     </LinearLayout>
 
     <Button
-        android:id="@+id/notificationon_save"
+        android:id="@+id/text_to_speech_save"
         android:layout_width="147dp"
         android:layout_height="51dp"
         android:backgroundTint="#FABABA"
@@ -180,7 +176,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout4"
-        app:layout_constraintVertical_bias="0.131" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintVertical_bias="0.107" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
