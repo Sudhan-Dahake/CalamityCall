@@ -17,6 +17,8 @@ class FCMClient:
         return service_account.Credentials.from_service_account_file(secret_file_path)
 
     def SendNotification(self, token, title, body, isPopup = False):
+        print(self.credentials)
+
         headers = {
             'Authorization': f"Bearer {self.credentials.token}",
             'Content-type': 'application/json; UTF-8',
