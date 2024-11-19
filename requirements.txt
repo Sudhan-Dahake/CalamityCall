@@ -1,4 +1,4 @@
-supabase==2.9.0
+supabase==2.10.0
 python-dotenv==1.0.1
 fastapi[standard]==0.115.2
 pyjwt==2.9.0
