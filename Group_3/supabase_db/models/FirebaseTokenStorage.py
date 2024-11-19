@@ -45,7 +45,7 @@ class FirebaseTokenStorageModel:
 
 
     def getAllRegisteredTokens(self):
-        response = self.client.from_(self.tableName).select("fcmtoken, notificationtype").is_("userid", "not.null").execute()
+        response = self.client.from_(self.tableName).select("fcmtoken, notificationtype").is_("userid", "not.None").execute()
 
         if response.data:
             print(f"Registered token retrieved successfully")
