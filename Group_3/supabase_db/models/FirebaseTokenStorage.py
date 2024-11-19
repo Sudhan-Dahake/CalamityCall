@@ -47,9 +47,23 @@ class FirebaseTokenStorageModel:
     def getAllRegisteredTokens(self):
         # raw_query = f"SELECT fcmtoken, notificationtype FROM {self.tableName} WHERE userid IS NOT NULL;"
         # response = self.client.execute_sql(raw_query)
-        response = self.client.from_(self.tableName).select("fcmtoken, notificationtype").neq("userid", None).execute()
+        # response = self.client.from_(self.tableName).select("fcmtoken, notificationtype").neq("userid", None).execute()
 
-        if response.data:
+        response = self.client.from_(self.tableName).select("fcmtoken, notificationtype, userid").execute()
+
+        if not response or not response.data:
+            print("Error retrieving data or table is empty")
+            return False
+
+        all_rows = response.data
+
+        # Step 2: Separate rows where userid is NULL
+        null_rows = [row for row in all_rows if row["userid"] is None]
+
+        # Step 3: Subtract rows with NULL userid to get rows with NOT NULL userid
+        registered_rows = [row for row in all_rows if row not in null_rows]
+
+        if registered_rows:
             print(f"Registered token retrieved successfully")
 
             return [{"fcmtoken": record["fcmtoken"], "notificationtype": record["notificationtype"]} for record in response.data]
