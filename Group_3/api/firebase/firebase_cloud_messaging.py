@@ -3,6 +3,7 @@ import json
 import requests
 from google.oauth2 import service_account
 from dotenv import load_dotenv
+from google.auth.transport.requests import Request
 
 load_dotenv()
 
@@ -17,6 +18,11 @@ class FCMClient:
         return service_account.Credentials.from_service_account_file(secret_file_path)
 
     def SendNotification(self, token, title, body, isPopup = False):
+        print(self.credentials.valid)
+
+        if not self.credentials.valid:
+            self.credentials.refresh(Request())
+
         print(self.credentials.valid)
 
         headers = {
