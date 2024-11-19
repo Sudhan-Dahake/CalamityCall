@@ -1,5 +1,6 @@
 plugins {
     id("com.android.application")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -60,4 +61,14 @@ dependencies {
 
     // UI testing with Espresso
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+
+
+    // Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
+
+    implementation("com.google.firebase:firebase-analytics")
+
+
+    // Firebase cloud messaging
+    implementation("com.google.firebase:firebase-messaging")
 }

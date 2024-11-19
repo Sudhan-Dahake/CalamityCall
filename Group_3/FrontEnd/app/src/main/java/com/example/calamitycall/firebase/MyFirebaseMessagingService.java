@@ -1,9 +1,9 @@
-package firebase;
+package com.example.calamitycall.firebase;
 
 import com.example.calamitycall.MainActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import android.app.NotificationChannel;
+
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -16,7 +16,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Map<String, String> data = remoteMessage.getData();
 
-        if (data.containsKey("force_popup") && data.get("force_popup").equals("true")) {
+        if (data.containsKey("force_popup") && "true".equals(data.get("force_popup"))) {
             sendPopUpNotification(data);
         }
 
