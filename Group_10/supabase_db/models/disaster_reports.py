@@ -12,25 +12,31 @@ class DisasterReportsModel:
         self.tableName = tableName
 
     def CreateReport(self, report_id, user_id, timestamp, latitude, longitude, address, weather_event_type, 
-                     weather_event_severity, weather_event_description):
+                     weather_event_severity, weather_event_description, media=None):
+        # Format data for insertion
         report_data = {
             "report_id": report_id,
             "user_id": user_id,
-            "timestamp": timestamp,
+            "created_at": timestamp,
             "latitude": latitude,
             "longitude": longitude,
             "address": address,
             "weather_event_type": weather_event_type,
             "weather_event_severity": weather_event_severity,
-            "weather_event_description": weather_event_description
+            "weather_event_description": weather_event_description,
         }
-        response = self.client.from_(self.tableName).insert(report_data).execute()
 
+        # Optional media field
+        if media:
+            report_data["media"] = media
+
+        # Insert data into Supabase
+        response = self.client.from_(self.tableName).insert(report_data).execute()
         if response.data:
             print("Disaster report created successfully.")
             return response.data[0]
         else:
-            print(f"Error creating report: {response.get('message', 'Unknown error')}")
+            print(f"Error creating report: {response}")
             return None
 
     def ReadReport(self, report_id=None, user_id=None):
@@ -44,7 +50,7 @@ class DisasterReportsModel:
         if response.data:
             return response.data
         else:
-            print(f"No reports found or error: {response.get('message', 'Unknown error')}")
+            print(f"No reports found or error: {response}")
             return None
 
     def UpdateReport(self, report_id, latitude=None, longitude=None, address=None, weather_event_type=None, 
@@ -69,7 +75,7 @@ class DisasterReportsModel:
             print(f"Report {report_id} updated successfully.")
             return True
         else:
-            print(f"Error updating report: {response.get('message', 'Unknown error')}")
+            print(f"Error updating report: {response}")
             return False
 
     def DeleteReport(self, report_id):
@@ -79,5 +85,5 @@ class DisasterReportsModel:
             print(f"Report {report_id} deleted successfully.")
             return True
         else:
-            print(f"Error deleting report: {response.get('message', 'Unknown error')}")
+            print(f"Error deleting report: {response}")
             return False
