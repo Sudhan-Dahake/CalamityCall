@@ -12,7 +12,8 @@ class NotificationManager:
 
         if unregisteredTokens:
             for token in unregisteredTokens:
-                self.FCMClient.SendNotification(token=token, title=title, body=body)
+                response = self.FCMClient.SendNotification(token=token, title=title, body=body)
+                print(response)
 
 
         registeredTokens = self.TokenStorage.getAllRegisteredTokens()
