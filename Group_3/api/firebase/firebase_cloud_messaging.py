@@ -36,6 +36,12 @@ class FCMClient:
                     "body": body,
                 },
 
+                "android": {
+                    "notification": {
+                        "tag": "common_tag"         # This tag ensures notifications don't get stacked.
+                    }
+                },
+
                 "data": {
                     "force_popup": "true" if isPopup else "false"
                 }
