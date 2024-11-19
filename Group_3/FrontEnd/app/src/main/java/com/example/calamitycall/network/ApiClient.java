@@ -4,6 +4,8 @@ import com.example.calamitycall.models.signup.SignupRequest;
 import com.example.calamitycall.models.signup.SignupResponse;
 import com.example.calamitycall.models.login.LoginRequest;
 import com.example.calamitycall.models.login.LoginResponse;
+import com.example.calamitycall.models.FirebaseToken.RegisterTokenRequest;
+import com.example.calamitycall.models.FirebaseToken.RegisterTokenResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -18,4 +20,7 @@ public interface ApiClient {
 
     @POST("/auth/login")
     Call<LoginResponse> login(@Body LoginRequest loginRequest);
+
+    @POST("/firebase/registertoken")
+    Call<RegisterTokenResponse> registerToken(@Body RegisterTokenRequest registerTokenRequest);
 }
