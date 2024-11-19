@@ -15,8 +15,6 @@ import com.example.calamitycall.MainActivity;
 import com.example.calamitycall.R;
 import com.example.calamitycall.SettingsPreferences;
 
-import kotlin.random.URandomKt;
-
 public class NotificationConfig {
 
     private final Context context;

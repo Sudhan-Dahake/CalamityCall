@@ -20,7 +20,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:gravity="start">
+        android:gravity="start"
+        android:baselineAligned="false"
+        tools:ignore="UselessParent">
 
         <!-- Middle section: Watch Alert and Tornado Spotted text -->
         <FrameLayout
@@ -37,14 +39,16 @@
                 android:layout_marginTop="2dp"
                 android:layout_gravity="center"
                 android:contentDescription="Watch Icon"
-                android:src="@drawable/watch_icon" />
+                android:src="@drawable/watch_icon"
+                tools:ignore="HardcodedText" />
         </FrameLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="NestedWeights">
 
             <!-- Warning Alert -->
             <TextView
@@ -55,7 +59,8 @@
                 android:gravity="center_vertical"
                 android:textColor="#000000"
                 android:textSize="17sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
             <!-- Disaster type (Watch) -->
             <!-- Disaster type -->
@@ -72,7 +77,7 @@
                 android:paddingEnd="7dp"
                 android:ellipsize="none"
                 android:singleLine="false"
-                tools:ignore="RtlCompat" />
+                tools:ignore="HardcodedText,RtlCompat" />
 
         </LinearLayout>
     </LinearLayout>

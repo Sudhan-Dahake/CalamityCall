@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="125dp"
     android:orientation="horizontal"
@@ -8,7 +9,8 @@
     android:paddingHorizontal="36dp"
     android:id="@+id/notification_layout"
     android:background="@drawable/notif_bg_yellow"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    android:baselineAligned="false">
 
     <!-- Inner container layout -->
     <LinearLayout
@@ -17,9 +19,8 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         android:gravity="start"
-        >
-
-
+        android:baselineAligned="false"
+        tools:ignore="UselessParent">
 
         <!-- Middle section: Warning Alert and Tornado Spotted text -->
         <FrameLayout
@@ -35,14 +36,16 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:contentDescription="Warning Icon"
-                android:src="@drawable/warning_icon" />
+                android:src="@drawable/warning_icon"
+                tools:ignore="HardcodedText" />
         </FrameLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="NestedWeights">
 
             <!-- Warning Alert -->
             <TextView
@@ -54,7 +57,8 @@
                 android:textAlignment="center"
                 android:textColor="#000000"
                 android:textSize="30sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
             <!-- Disaster type (Warning) -->
             <TextView
@@ -64,7 +68,8 @@
                 android:text="Medium Chance of Tornado"
                 android:textAlignment="center"
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
 
         </LinearLayout>
     </LinearLayout>
