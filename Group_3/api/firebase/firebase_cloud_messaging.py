@@ -14,7 +14,7 @@ class FCMClient:
 
     def __LoadCredentials(self):
         secret_file_path = "/etc/secrets/firebase-credentials.json"
-        return service_account.Credentials.from_service_account_file(json.loads(secret_file_path))
+        return service_account.Credentials.from_service_account_file(secret_file_path)
 
     def SendNotification(self, token, title, body, isPopup = False):
         headers = {
