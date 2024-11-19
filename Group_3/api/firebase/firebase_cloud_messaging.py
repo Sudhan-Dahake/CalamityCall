@@ -13,7 +13,8 @@ class FCMClient:
         self.url = f"https://fcm.googleapis.com/v1/projects/{self.firebase_projectID}/messages:send"
 
     def __LoadCredentials(self):
-        return service_account.Credentials.from_service_account_info(json.loads(os.getenv("GOOGLE_APPLICATION_CREDENTIALS_JSON")))
+        secret_file_path = "/etc/secrets/firebase-credentials.json"
+        return service_account.Credentials.from_service_account_file(secret_file_path)
 
     def SendNotification(self, token, title, body, isPopup = False):
         headers = {
