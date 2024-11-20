@@ -1,11 +1,11 @@
 package com.example.calamitycall;
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -16,12 +16,14 @@ import com.example.calamitycall.fragments.SettingsPage;
 
 public class FlashingActivity extends AppCompatActivity {
 
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch flashSwitch;
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch warningFlashSwitch;
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch urgentFlashSwitch;
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch criticalFlashSwitch;
-    private TextView settings;
-    private Button saveButton;  // New save button
 
     private SharedPreferences sharedPreferences;
 
@@ -30,14 +32,18 @@ public class FlashingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_flashing_page);
 
+        getWindow().setStatusBarColor(Color.BLACK);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+
         sharedPreferences = getSharedPreferences("FlashingPreferences", MODE_PRIVATE);
 
         flashSwitch = findViewById(R.id.watch_switch);
         warningFlashSwitch = findViewById(R.id.warning_switch);
         urgentFlashSwitch = findViewById(R.id.urgent_switch);
         criticalFlashSwitch = findViewById(R.id.critical_switch);
-        settings = findViewById(R.id.settings_title);
-        saveButton = findViewById(R.id.flashing_save);  // Initialize save button
+        TextView settings = findViewById(R.id.settings_title);
+        // New save button
+        Button saveButton = findViewById(R.id.flashing_save);  // Initialize save button
 
         loadPreferences();
 
@@ -46,27 +52,20 @@ public class FlashingActivity extends AppCompatActivity {
 //        urgentFlashSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
 //        criticalFlashSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
 
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Begin the fragment transaction
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        settings.setOnClickListener(v -> {
+            // Begin the fragment transaction
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-                // Replace the fragment in the container with the SettingsPage fragment
-                transaction.replace(R.id.fragment_container, new SettingsPage());
+            // Replace the fragment in the container with the SettingsPage fragment
+            transaction.replace(R.id.fragment_container, new SettingsPage());
 
-                // Commit the transaction
-                transaction.commit();
-                finish(); // This will close the FlashingActivity
-            }
+            // Commit the transaction
+            transaction.commit();
+            finish(); // This will close the FlashingActivity
         });
 
-        saveButton.setOnClickListener(new View.OnClickListener() {  // Set listener for save button
-            @Override
-            public void onClick(View v) {
-                savePreferences();
-            }
-        });
+        // Set listener for save button
+        saveButton.setOnClickListener(v -> savePreferences());
     }
 
     private void loadPreferences() {
@@ -76,7 +75,7 @@ public class FlashingActivity extends AppCompatActivity {
         criticalFlashSwitch.setChecked(sharedPreferences.getBoolean("critical_flash", true));
     }
 
-//    private void onSwitchChanged(CompoundButton buttonView, boolean isChecked) {
+    //    private void onSwitchChanged(CompoundButton buttonView, boolean isChecked) {
 //        SharedPreferences.Editor editor = sharedPreferences.edit();
 //
 //        if (buttonView.getId() == R.id.watch_switch) {
@@ -101,5 +100,3 @@ public class FlashingActivity extends AppCompatActivity {
     }
 
 }
-
-

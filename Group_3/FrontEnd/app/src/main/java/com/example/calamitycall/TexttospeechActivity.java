@@ -1,6 +1,7 @@
 package com.example.calamitycall;
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -14,11 +15,14 @@ import com.example.calamitycall.fragments.SettingsPage;
 
 public class TexttospeechActivity extends AppCompatActivity {
 
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch watchSwitch; // Main switch for watch noise notifications
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch warningSwitch;
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch urgentSwitch;
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch criticalSwitch;
-    private TextView settings;
 
     private SettingsPreferences settingsPreferences;
 
@@ -27,6 +31,9 @@ public class TexttospeechActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_texttospeech_page);
 
+        getWindow().setStatusBarColor(Color.BLACK);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+
         settingsPreferences = new SettingsPreferences(this);
 
         watchSwitch = findViewById(R.id.watch_switch);
@@ -34,7 +41,7 @@ public class TexttospeechActivity extends AppCompatActivity {
         urgentSwitch = findViewById(R.id.urgent_switch);
         criticalSwitch = findViewById(R.id.critical_switch);
 
-        settings = findViewById(R.id.settings_title);
+        TextView settings = findViewById(R.id.settings_title);
 
         loadPreferences();
 
@@ -43,19 +50,16 @@ public class TexttospeechActivity extends AppCompatActivity {
         urgentSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
         criticalSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
 
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Begin the fragment transaction
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        settings.setOnClickListener(v -> {
+            // Begin the fragment transaction
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-                // Replace the fragment in the container with the SettingsPage fragment
-                transaction.replace(R.id.fragment_container, new SettingsPage());
+            // Replace the fragment in the container with the SettingsPage fragment
+            transaction.replace(R.id.fragment_container, new SettingsPage());
 
-                // Commit the transaction
-                transaction.commit();
-                finish(); // This will close the FlashingActivity
-            }
+            // Commit the transaction
+            transaction.commit();
+            finish(); // This will close the FlashingActivity
         });
     }
 

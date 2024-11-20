@@ -8,6 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="115dp"
     android:padding="16dp"
+    android:layout_marginTop="36dp"
     android:background="@color/white">
 
 
@@ -20,7 +21,8 @@
         app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/complete_logo"
         tools:layout_editor_absoluteX="-19dp"
-        tools:layout_editor_absoluteY="-47dp" />
+        tools:layout_editor_absoluteY="-47dp"
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/profileIcon"
@@ -31,5 +33,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.771" />
+        app:layout_constraintVertical_bias="0.771"
+        tools:ignore="ContentDescription" />
 </androidx.constraintlayout.widget.ConstraintLayout>

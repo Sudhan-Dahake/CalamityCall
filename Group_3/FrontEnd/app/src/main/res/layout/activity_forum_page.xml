@@ -17,7 +17,8 @@
         app:layout_constraintHorizontal_bias="0.455"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.179" />
+        app:layout_constraintVertical_bias="0.179"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/urgentTrigger"
@@ -30,7 +31,8 @@
         app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.385" />
+        app:layout_constraintVertical_bias="0.385"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/warningTrigger"
@@ -43,18 +45,21 @@
         app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.587" />
+        app:layout_constraintVertical_bias="0.587"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/watchTrigger"
-        android:layout_width="250dp"
-        android:layout_height="65dp"
+        android:layout_width="254dp"
+        android:layout_height="64dp"
         android:onClick="notificationButtonWatch"
         android:text="Trigger Watch Notification"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.455"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.774" />
+        app:layout_constraintVertical_bias="0.781"
+        tools:ignore="HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

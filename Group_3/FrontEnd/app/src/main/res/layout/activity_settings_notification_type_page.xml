@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".Settings">
+    tools:context=".Settings"
+    android:layout_marginTop="50dp">
 
     <FrameLayout
         android:id="@+id/fragment_container"
@@ -21,12 +22,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:drawableLeft="@drawable/nextback"
+        android:drawableStart="@drawable/nextback"
         android:text=" Settings"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2" />
+        app:layout_constraintTop_toBottomOf="@+id/include2"
+        tools:ignore="HardcodedText,UseCompatTextViewDrawableXml" />
 
 
     <TextView
@@ -39,7 +41,8 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settings_title" />
+        app:layout_constraintTop_toBottomOf="@id/settings_title"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/notification_description"
@@ -53,7 +56,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        tools:ignore="HardcodedText" />
 
 
     <LinearLayout
@@ -81,7 +85,8 @@
                 android:layout_weight="1"
                 android:text="Watch"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
 
             <RadioGroup
                 android:id="@+id/watch_Group"
@@ -95,14 +100,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="#FABABA"
-                    android:text="Push" />
+                    android:text="Push"
+                    tools:ignore="HardcodedText" />
 
                 <RadioButton
                     android:id="@+id/watch_popup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="#FABABA"
-                    android:text="Pop-up" />
+                    android:text="Pop-up"
+                    tools:ignore="HardcodedText" />
             </RadioGroup>
         </LinearLayout>
 
@@ -120,7 +127,8 @@
                 android:layout_weight="1"
                 android:text="Warning"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
 
             <RadioGroup
                 android:id="@+id/warning_Group"
@@ -133,14 +141,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="#FABABA"
-                    android:text="Push" />
+                    android:text="Push"
+                    tools:ignore="HardcodedText" />
 
                 <RadioButton
                     android:id="@+id/warning_popup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="#FABABA"
-                    android:text="Pop-up" />
+                    android:text="Pop-up"
+                    tools:ignore="HardcodedText" />
             </RadioGroup>
         </LinearLayout>
 
@@ -158,7 +168,8 @@
                 android:layout_weight="1"
                 android:text="Urgent"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
 
             <RadioGroup
                 android:id="@+id/urgent_Group"
@@ -171,14 +182,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="#FABABA"
-                    android:text="Push" />
+                    android:text="Push"
+                    tools:ignore="HardcodedText" />
 
                 <RadioButton
                     android:id="@+id/urgent_popup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="#FABABA"
-                    android:text="Pop-up" />
+                    android:text="Pop-up"
+                    tools:ignore="HardcodedText" />
             </RadioGroup>
         </LinearLayout>
 
@@ -196,7 +209,8 @@
                 android:layout_weight="1"
                 android:text="Critical"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
 
             <RadioGroup
                 android:id="@+id/critical_Group"
@@ -209,14 +223,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="#FABABA"
-                    android:text="Push" />
+                    android:text="Push"
+                    tools:ignore="HardcodedText" />
 
                 <RadioButton
                     android:id="@+id/critical_popup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="#FABABA"
-                    android:text="Pop-up" />
+                    android:text="Pop-up"
+                    tools:ignore="HardcodedText" />
             </RadioGroup>
         </LinearLayout>
     </LinearLayout>
@@ -236,6 +252,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.095" />
+        app:layout_constraintVertical_bias="0.095"
+        tools:ignore="HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
