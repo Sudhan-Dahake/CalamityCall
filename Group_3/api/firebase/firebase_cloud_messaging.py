@@ -37,10 +37,7 @@ class FCMClient:
                 "data": NotificationModel.model_dump(exclude_none=True),
 
                 "android": {
-                    "notification": {
-                        "tag": NotificationModel.notiforigin,         # This tag ensures notifications don't get stacked.
-                        "priority": "high"
-                    }
+                    "priority": "high"
                 }
             }
         }
