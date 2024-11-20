@@ -14,7 +14,7 @@ public class SignupResponseTest {
         String expectedMessage = "Signup successful";
 
         // Act: Create a SignupResponse object and set the message
-        SignupResponse signupResponse = new SignupResponse();
+        SignupResponse signupResponse = new SignupResponse(expectedMessage);
         signupResponse.setMessage(expectedMessage);
 
         // Assert: Verify that the getter method returns the correct message

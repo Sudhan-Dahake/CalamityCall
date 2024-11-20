@@ -54,6 +54,7 @@ dependencies {
 
     // Unit testing dependencies
     testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
 
     // Mockito for mocking
     testImplementation("org.mockito:mockito-core:4.5.1")
