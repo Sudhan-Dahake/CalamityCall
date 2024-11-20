@@ -58,10 +58,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
+                    android:singleLine="true"
                     android:text="Urgent Alert"
                     android:textAlignment="center"
                     android:textColor="#000000"
-                    android:textSize="30sp"
+                    android:textSize="25sp"
                     android:textStyle="bold"
                     tools:ignore="HardcodedText" />
 
