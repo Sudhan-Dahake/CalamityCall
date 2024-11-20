@@ -15,6 +15,10 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4.class)
 public class LoginActivityTest {
     private static final String PACKAGE_NAME = "com.example.calamitycall";
@@ -41,6 +45,17 @@ public class LoginActivityTest {
     }
 
     @Test
+    public void testRegisterNavigation() {
+        // Click the "Register now!" text
+        device.findObject(By.res(PACKAGE_NAME, "registerNowText"))
+                .click();
+
+        // Wait for RegisterActivity to load
+        boolean registerActivityLoaded = device.wait(Until.hasObject(By.pkg(PACKAGE_NAME).depth(0)), TIMEOUT);
+        assertTrue("RegisterActivity not loaded", registerActivityLoaded);
+    }
+
+    @Test
     public void testSuccessfulLogin() {
         // Input username
         device.findObject(By.res(PACKAGE_NAME, "editTextUsername"))
@@ -57,16 +72,5 @@ public class LoginActivityTest {
         // Wait for MainActivity to load
         boolean mainActivityLoaded = device.wait(Until.hasObject(By.pkg(PACKAGE_NAME).depth(0)), TIMEOUT);
         assertTrue("MainActivity not loaded", mainActivityLoaded);
-    }
-
-    @Test
-    public void testRegisterNavigation() {
-        // Click the "Register now!" text
-        device.findObject(By.res(PACKAGE_NAME, "registerNowText"))
-                .click();
-
-        // Wait for RegisterActivity to load
-        boolean registerActivityLoaded = device.wait(Until.hasObject(By.pkg(PACKAGE_NAME).depth(0)), TIMEOUT);
-        assertTrue("RegisterActivity not loaded", registerActivityLoaded);
     }
 }

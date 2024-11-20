@@ -18,7 +18,7 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
-public class TabSelectorTest {
+public class NotificationActivityTest {
 
     private static final String PACKAGE_NAME = "com.example.calamitycall";
     private static final long TIMEOUT = 5000;
@@ -106,4 +106,28 @@ public class TabSelectorTest {
             assertTrue("History tab is not selected", historyTab.isSelected());
         }
     }
+
+    @Test
+    public void testNotificationPageLoadsSuccessfully() {
+        // Arrange: Locate a key element unique to the notification page
+        UiObject2 notificationTitle = device.findObject(By.text("Notifications"));
+
+        // Act & Assert: Verify the title is displayed
+        assertTrue("Notification page title is not displayed", notificationTitle != null);
+    }
+
+    @Test
+    public void testNavigateBackToHomePage() {
+        // Arrange: Locate the Home menu item
+        UiObject2 homeMenuItem = device.findObject(By.res(PACKAGE_NAME, "nav_forum"));
+
+        // Act: Click the Home menu item
+        homeMenuItem.click();
+
+        // Assert: Verify the Home page loads successfully
+        UiObject2 homePageTitle = device.findObject(By.text("Forum"));
+        assertTrue("Failed to navigate back to Home page", homePageTitle != null);
+    }
+
+
 }
