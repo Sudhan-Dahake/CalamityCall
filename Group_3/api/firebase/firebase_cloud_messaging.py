@@ -30,11 +30,14 @@ class FCMClient:
             'Content-type': 'application/json; UTF-8',
         }
 
+         # Convert all values in the data payload to strings
+        data_payload = {key: str(value) for key, value in NotificationModel.model_dump(exclude_none=True).items()}
+
         message = {
             "message": {
                 "token": token,
 
-                "data": NotificationModel.model_dump(exclude_none=True),
+                "data": data_payload,
 
                 "android": {
                     "priority": "high"
