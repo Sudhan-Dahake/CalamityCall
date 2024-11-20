@@ -44,4 +44,6 @@ class FCMClient:
 
         response = requests.post(self.url, headers=headers, data=json.dumps(message))
 
+        print(response.json())
+
         return response.json()
