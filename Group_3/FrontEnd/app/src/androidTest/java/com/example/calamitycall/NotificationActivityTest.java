@@ -110,7 +110,7 @@ public class NotificationActivityTest {
     @Test
     public void testNotificationPageLoadsSuccessfully() {
         // Arrange: Locate a key element unique to the notification page
-        UiObject2 notificationTitle = device.findObject(By.text("Notifications"));
+        UiObject2 notificationTitle = device.findObject(By.text("Alerts"));
 
         // Act & Assert: Verify the title is displayed
         assertTrue("Notification page title is not displayed", notificationTitle != null);
