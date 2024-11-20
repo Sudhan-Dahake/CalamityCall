@@ -15,7 +15,7 @@ import com.example.calamitycall.models.signup.SignupResponse;
 import com.example.calamitycall.network.auth.SignupService;
 
 public class RegisterActivity extends AppCompatActivity {
-    private SignupService signupService;
+    SignupService signupService;
 
     private EditText etUsername;
     private EditText etPassword;
