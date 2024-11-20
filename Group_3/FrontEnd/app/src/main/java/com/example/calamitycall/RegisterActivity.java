@@ -1,7 +1,6 @@
 package com.example.calamitycall;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -15,7 +14,7 @@ import com.example.calamitycall.models.signup.SignupResponse;
 import com.example.calamitycall.network.auth.SignupService;
 
 public class RegisterActivity extends AppCompatActivity {
-    SignupService signupService;
+    private SignupService signupService;
 
     private EditText etUsername;
     private EditText etPassword;
@@ -30,9 +29,6 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_page);
-
-        getWindow().setStatusBarColor(Color.BLACK);
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
 
         signupService = new SignupService();
 

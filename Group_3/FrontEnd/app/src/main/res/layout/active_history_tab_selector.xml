@@ -9,7 +9,7 @@
     <!-- TabLayout for the Tab Selector -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
-        android:layout_width="403dp"
+        android:layout_width="409dp"
         android:layout_height="54dp"
         android:background="@drawable/tab_selector_background"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,8 +28,7 @@
             android:layout_height="wrap_content"
             android:text="Active"
             tools:layout_editor_absoluteX="10dp"
-            tools:layout_editor_absoluteY="10dp"
-            tools:ignore="HardcodedText" />
+            tools:layout_editor_absoluteY="10dp" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab_history"
@@ -37,8 +36,7 @@
             android:layout_height="wrap_content"
             android:text="History"
             tools:layout_editor_absoluteX="10dp"
-            tools:layout_editor_absoluteY="10dp"
-            tools:ignore="HardcodedText" />
+            tools:layout_editor_absoluteY="10dp" />
     </com.google.android.material.tabs.TabLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

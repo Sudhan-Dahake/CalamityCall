@@ -8,14 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.ActionBar">
-        <item name="windowActionBar">true</item>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="DropdownInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
-        <item name="boxStrokeColor">#557</item>
-        <item name="boxStrokeWidth">1dp</item>
     </style>
 
     <!-- The launcher theme. It sets the main window background to the launch_screen drawable -->

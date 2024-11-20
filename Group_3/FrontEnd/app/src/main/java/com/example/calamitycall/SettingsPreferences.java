@@ -11,26 +11,21 @@ public class SettingsPreferences {
     private static final String WATCH_NOISE_KEY = "watch_noise";
     private static final String WATCH_NOTIFICATION_ON_KEY = "watch_notification_on";
     private static final String WATCH_NOTIFICATION_TYPE_KEY = "watch_notification_type";
-    private static final String WATCH_TTS_KEY = "watch_tts";
-
 
     private static final String WARNING_FLASHING_KEY = "warning_flashing";
     private static final String WARNING_NOISE_KEY = "warning_noise";
     private static final String WARNING_NOTIFICATION_ON_KEY = "warning_notification_on";
     private static final String WARNING_NOTIFICATION_TYPE_KEY = "warning_notification_type";
-    private static final String WARNING_TTS_KEY = "warning_tts";
 
     private static final String URGENT_FLASHING_KEY = "urgent_flashing";
     private static final String URGENT_NOISE_KEY = "urgent_noise";
     private static final String URGENT_NOTIFICATION_ON_KEY = "urgent_notification_on";
     private static final String URGENT_NOTIFICATION_TYPE_KEY = "urgent_notification_type";
-    private static final String URGENT_TTS_KEY = "urgent_tts";
 
     private static final String CRITICAL_FLASHING_KEY = "critical_flashing";
     private static final String CRITICAL_NOISE_KEY = "critical_noise";
     private static final String CRITICAL_NOTIFICATION_ON_KEY = "critical_notification_on";
     private static final String CRITICAL_NOTIFICATION_TYPE_KEY = "critical_notification_type";
-    private static final String CRITICAL_TTS_KEY = "critical_tts";
 
     private SharedPreferences sharedPreferences;
 
@@ -44,7 +39,7 @@ public class SettingsPreferences {
     }
 
     public boolean isWatchNoiseOn() {
-        return sharedPreferences.getBoolean(WATCH_NOISE_KEY, true);
+        return sharedPreferences.getBoolean(WATCH_NOISE_KEY, false);
     }
 
     public boolean isWatchNotificationOn() {
@@ -52,7 +47,7 @@ public class SettingsPreferences {
     }
 
     public String getWatchNotificationType() {
-        return sharedPreferences.getString(WATCH_NOTIFICATION_TYPE_KEY, "Pop-up");
+        return sharedPreferences.getString(WATCH_NOTIFICATION_TYPE_KEY, "push");
     }
 
     public void setWatchFlashingOn(boolean isOn) {
@@ -71,24 +66,13 @@ public class SettingsPreferences {
         sharedPreferences.edit().putString(WATCH_NOTIFICATION_TYPE_KEY, type).apply();
     }
 
-    public boolean isWatchTTSEnabled() {
-        return sharedPreferences.getBoolean(WATCH_TTS_KEY, false);
-    }
-
-
-    public void setWatchTTSEnabled(boolean isOn) {
-        sharedPreferences.edit().putBoolean(WATCH_TTS_KEY, isOn).apply();
-    }
-
-
-
     // Warning settings
     public boolean isWarningFlashingOn() {
         return sharedPreferences.getBoolean(WARNING_FLASHING_KEY, false);
     }
 
     public boolean isWarningNoiseOn() {
-        return sharedPreferences.getBoolean(WARNING_NOISE_KEY, true);
+        return sharedPreferences.getBoolean(WARNING_NOISE_KEY, false);
     }
 
     public boolean isWarningNotificationOn() {
@@ -96,7 +80,7 @@ public class SettingsPreferences {
     }
 
     public String getWarningNotificationType() {
-        return sharedPreferences.getString(WARNING_NOTIFICATION_TYPE_KEY, "Pop-up");
+        return sharedPreferences.getString(WARNING_NOTIFICATION_TYPE_KEY, "push");
     }
 
     public void setWarningFlashingOn(boolean isOn) {
@@ -115,23 +99,13 @@ public class SettingsPreferences {
         sharedPreferences.edit().putString(WARNING_NOTIFICATION_TYPE_KEY, type).apply();
     }
 
-    public boolean isWarningTTSEnabled() {
-        return sharedPreferences.getBoolean(WARNING_TTS_KEY, false);
-    }
-
-    public void setWarningTTSEnabled(boolean isOn) {
-        sharedPreferences.edit().putBoolean(WARNING_TTS_KEY, isOn).apply();
-    }
-
-
-
     // Urgent settings
     public boolean isUrgentFlashingOn() {
         return sharedPreferences.getBoolean(URGENT_FLASHING_KEY, false);
     }
 
     public boolean isUrgentNoiseOn() {
-        return sharedPreferences.getBoolean(URGENT_NOISE_KEY, true);
+        return sharedPreferences.getBoolean(URGENT_NOISE_KEY, false);
     }
 
     public boolean isUrgentNotificationOn() {
@@ -139,7 +113,7 @@ public class SettingsPreferences {
     }
 
     public String getUrgentNotificationType() {
-        return sharedPreferences.getString(URGENT_NOTIFICATION_TYPE_KEY, "Pop-up");
+        return sharedPreferences.getString(URGENT_NOTIFICATION_TYPE_KEY, "push");
     }
 
     public void setUrgentFlashingOn(boolean isOn) {
@@ -158,23 +132,13 @@ public class SettingsPreferences {
         sharedPreferences.edit().putString(URGENT_NOTIFICATION_TYPE_KEY, type).apply();
     }
 
-    public boolean isUrgentTTSEnabled() {
-        return sharedPreferences.getBoolean(URGENT_TTS_KEY, false);
-    }
-
-    public void setUrgentTTSEnabled(boolean isOn) {
-        sharedPreferences.edit().putBoolean(URGENT_TTS_KEY, isOn).apply();
-    }
-
-
-
     // Critical settings
     public boolean isCriticalFlashingOn() {
         return sharedPreferences.getBoolean(CRITICAL_FLASHING_KEY, false);
     }
 
     public boolean isCriticalNoiseOn() {
-        return sharedPreferences.getBoolean(CRITICAL_NOISE_KEY, true);
+        return sharedPreferences.getBoolean(CRITICAL_NOISE_KEY, false);
     }
 
     public boolean isCriticalNotificationOn() {
@@ -182,7 +146,7 @@ public class SettingsPreferences {
     }
 
     public String getCriticalNotificationType() {
-        return sharedPreferences.getString(CRITICAL_NOTIFICATION_TYPE_KEY, "Pop-up");
+        return sharedPreferences.getString(CRITICAL_NOTIFICATION_TYPE_KEY, "push");
     }
 
     public void setCriticalFlashingOn(boolean isOn) {
@@ -199,16 +163,5 @@ public class SettingsPreferences {
 
     public void setCriticalNotificationType(String type) {
         sharedPreferences.edit().putString(CRITICAL_NOTIFICATION_TYPE_KEY, type).apply();
-    }
-
-
-
-    public boolean isCriticalTTSEnabled() {
-        return sharedPreferences.getBoolean(CRITICAL_TTS_KEY, false);
-    }
-
-
-    public void setCriticalTTSEnabled(boolean isOn) {
-        sharedPreferences.edit().putBoolean(CRITICAL_TTS_KEY, isOn).apply();
     }
 }

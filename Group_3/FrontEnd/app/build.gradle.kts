@@ -51,9 +51,11 @@ dependencies {
 
     // Local Java libraries
     implementation(files("libs/javax.ws.rs-api-2.1.1.jar"))
+    implementation("androidx.test.ext:junit:1.2.1")
 
     // Unit testing dependencies
     testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test:rules:1.5.0")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
 
     // Mockito for mocking
@@ -62,7 +64,7 @@ dependencies {
 
     // UI testing with Espresso
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
-
+    androidTestImplementation("androidx.test.uiautomator:uiautomator:2.2.0")
 
     // Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:33.5.1"))

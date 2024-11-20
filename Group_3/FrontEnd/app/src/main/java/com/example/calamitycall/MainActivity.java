@@ -1,14 +1,9 @@
 package com.example.calamitycall;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
-
-import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,10 +22,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Request notification permission (Android 13+)
+        // Check and request notification permission if on Android 13 or higher
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            getWindow().setStatusBarColor(Color.BLACK);
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
                     != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this,
@@ -39,38 +32,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-
-        // Set NotificationPage as the default fragment
-        Fragment selectedFragment = new NotificationPage();
-        bottomNav.setSelectedItemId(R.id.nav_notification);
-
-        // Handle intent extras for selecting a tab
-        String openTab = getIntent().getStringExtra("open_tab");
-        if ("forum".equals(openTab)) {
-            selectedFragment = new ForumPage();
-            bottomNav.setSelectedItemId(R.id.nav_forum);
-        }
-
-        // Set the selected fragment
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
-
+        bottomNav.setSelectedItemId(R.id.nav_forum);
         bottomNav.setOnItemSelectedListener(navListener);
-    }
 
-    // Handle new intents if the app is already running
-    @Override
-    protected void onNewIntent(@NonNull Intent intent) {
-        super.onNewIntent(intent);
-
-        String openTab = intent.getStringExtra("open_tab");
-        if ("notifications".equals(openTab)) {
-            Fragment selectedFragment = new NotificationPage();
-            BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-            bottomNav.setSelectedItemId(R.id.nav_notification);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, selectedFragment)
-                    .commit();
-        }
+        Fragment selectedFragment = new ForumPage();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
     }
 
     private NavigationBarView.OnItemSelectedListener navListener =
@@ -90,9 +56,7 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment = new ForumPage();
                 }
 
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, selectedFragment)
-                        .commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
                 return true;
             };
 }
