@@ -29,7 +29,7 @@ public class ForumPage extends Fragment {
         view.findViewById(R.id.urgentTrigger).setOnClickListener(this::notificationButtonUrgent);
         view.findViewById(R.id.warningTrigger).setOnClickListener(this::notificationButtonWarning);
         view.findViewById(R.id.watchTrigger).setOnClickListener(this::notificationButtonWatch);
-    }
+}
 
     // Trigger notifications
     public void notificationButtonCritical(View view) {

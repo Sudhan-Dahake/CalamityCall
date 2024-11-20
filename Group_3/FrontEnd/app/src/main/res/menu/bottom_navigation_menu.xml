@@ -4,17 +4,22 @@
 
     <item
         android:id="@+id/nav_forum"
-        android:icon="@drawable/forum"
-        android:title="Forum"/>
+        android:icon="@drawable/forum_24dp"
+        android:title="@string/title_forum"/>
+
+    <item
+            android:id="@+id/nav_report"
+            android:icon="@drawable/report_24dp"
+            android:title="@string/title_report"/>
 
     <item
         android:id="@+id/nav_notification"
-        android:icon="@drawable/notification"
-        android:title="Notification"/>
+        android:icon="@drawable/notifications_24dp"
+        android:title="@string/title_notifications"/>
 
     <item
         android:id="@+id/nav_settings"
-        android:icon="@drawable/settings"
-        android:title="Settings"/>
+        android:icon="@drawable/settings_24dp"
+        android:title="@string/title_settings"/>
 
 </menu>

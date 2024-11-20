@@ -8,9 +8,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import com.example.calamitycall.fragments.SettingsPage;
 import com.example.calamitycall.fragments.ForumPage;
+import com.example.calamitycall.fragments.ReportPage;
 import com.example.calamitycall.fragments.NotificationPage;
+import com.example.calamitycall.fragments.SettingsPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
                 if (itemId == R.id.nav_forum) {
                     selectedFragment = new ForumPage();
+                } else if (itemId == R.id.nav_report) {
+                    selectedFragment = new ReportPage();
                 } else if (itemId == R.id.nav_notification) {
                     selectedFragment = new NotificationPage();
                 } else if (itemId == R.id.nav_settings) {

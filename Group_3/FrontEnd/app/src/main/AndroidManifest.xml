@@ -59,6 +59,11 @@
             tools:ignore="Instantiatable" />
 
         <activity
+            android:name=".fragments.ReportPage"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+
+        <activity
             android:name=".Settings"
             android:exported="false"
             tools:ignore="Instantiatable" />
