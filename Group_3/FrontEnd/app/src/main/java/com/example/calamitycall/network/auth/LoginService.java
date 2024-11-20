@@ -29,6 +29,12 @@ public class LoginService {
         }
     }
 
+    // Constructor for testing (allows mock ApiClient injection)
+    public LoginService(ApiClient apiClient, TokenManager tokenManager) {
+        this.apiClient = apiClient;
+        this.tokenManager = tokenManager;
+    }
+
     public void login(LoginRequest loginRequest, final LoginCallback callback) {
         Call<LoginResponse> call = this.apiClient.login(loginRequest);
 
