@@ -1,5 +1,6 @@
 package com.example.calamitycall;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,13 +18,13 @@ public class ReportActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_page);
-        Spinner spinner = findViewById(R.id.spinner_incident_type);
-        Spinner spinner1 = findViewById(R.id.spinner_incident_severity);
+        @SuppressLint("WrongViewCast") Spinner spinner = findViewById(R.id.spinner_incident_type);
+        @SuppressLint("WrongViewCast") Spinner spinner1 = findViewById(R.id.spinner_incident_severity);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
 
-                String item = adapterView.getItemAtPosition(position).toString();
+               // String item = adapterView.getItemAtPosition(position).toString();
                 Toast.makeText(ReportActivity.this, "Selected Incident", Toast.LENGTH_SHORT).show();
             }
 

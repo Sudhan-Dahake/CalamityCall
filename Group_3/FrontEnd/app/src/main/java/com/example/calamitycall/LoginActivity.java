@@ -30,7 +30,6 @@ import android.util.Log;
 
 public class LoginActivity extends AppCompatActivity {
     private LoginService loginService;
-    private TokenManager tokenManager;
     private EditText etUsername;
     private EditText etPassword;
 
@@ -39,12 +38,15 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
+        getWindow().setStatusBarColor(Color.BLACK);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+
         this.loginService = new LoginService(this);
 
         try {
-            this.tokenManager = TokenManager.getInstance(this);
+            TokenManager tokenManager = TokenManager.getInstance(this);
         } catch (GeneralSecurityException | IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         etUsername = findViewById(R.id.editTextUsername);

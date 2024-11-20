@@ -1,6 +1,8 @@
 package com.example.calamitycall;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,12 +16,14 @@ import com.example.calamitycall.fragments.SettingsPage;
 
 public class NotificationOnActivity extends AppCompatActivity {
 
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch watchSwitch;
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch warningSwitch;
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch urgentSwitch;
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch criticalSwitch;
-    private TextView settings;
-    private Button saveButton; // Save button
 
     private SharedPreferences sharedPreferences;
 
@@ -27,7 +31,8 @@ public class NotificationOnActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_notification_on_page);
-
+        getWindow().setStatusBarColor(Color.BLACK);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences("NotificationPreferences", MODE_PRIVATE);
 
@@ -36,32 +41,25 @@ public class NotificationOnActivity extends AppCompatActivity {
         warningSwitch = findViewById(R.id.warning_switch);
         urgentSwitch = findViewById(R.id.urgent_switch);
         criticalSwitch = findViewById(R.id.critical_switch);
-        settings = findViewById(R.id.settings_title);
-        saveButton = findViewById(R.id.notificationon_save);
+        TextView settings = findViewById(R.id.settings_title);
+        // Save button
+        Button saveButton = findViewById(R.id.notificationon_save);
 
 
         // Load saved preferences
         loadPreferences();
 
         // Set up the settings button listener
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Start fragment transaction to open settings page
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, new SettingsPage());
-                transaction.commit();
-                finish(); // Close current activity
-            }
+        settings.setOnClickListener(v -> {
+            // Start fragment transaction to open settings page
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, new SettingsPage());
+            transaction.commit();
+            finish(); // Close current activity
         });
 
         // Set up save button listener
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                savePreferences();
-            }
-        });
+        saveButton.setOnClickListener(v -> savePreferences());
     }
 
     private void loadPreferences() {

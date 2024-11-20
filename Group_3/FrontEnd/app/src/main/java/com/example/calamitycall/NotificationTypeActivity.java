@@ -1,6 +1,6 @@
 package com.example.calamitycall;
 
-import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
@@ -15,13 +15,15 @@ import com.example.calamitycall.fragments.SettingsPage;
 public class NotificationTypeActivity extends AppCompatActivity {
 
     private RadioGroup watchGroup, warningGroup, urgentGroup, criticalGroup;
-    private TextView settings;
     private SettingsPreferences settingsPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_notification_type_page);
+
+        getWindow().setStatusBarColor(Color.BLACK);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
 
         settingsPreferences = new SettingsPreferences(this);
 
@@ -30,7 +32,7 @@ public class NotificationTypeActivity extends AppCompatActivity {
         urgentGroup = findViewById(R.id.urgent_Group);
         criticalGroup = findViewById(R.id.critical_Group);
 
-        settings = findViewById(R.id.settings_title);
+        TextView settings = findViewById(R.id.settings_title);
 
         loadPreferences();
 
@@ -39,19 +41,16 @@ public class NotificationTypeActivity extends AppCompatActivity {
         setRadioGroupListener(urgentGroup, "Urgent");
         setRadioGroupListener(criticalGroup, "Critical");
 
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Begin the fragment transaction
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        settings.setOnClickListener(v -> {
+            // Begin the fragment transaction
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-                // Replace the fragment in the container with the SettingsPage fragment
-                transaction.replace(R.id.fragment_container, new SettingsPage());
+            // Replace the fragment in the container with the SettingsPage fragment
+            transaction.replace(R.id.fragment_container, new SettingsPage());
 
-                // Commit the transaction
-                transaction.commit();
-                finish(); // This will close the FlashingActivity
-            }
+            // Commit the transaction
+            transaction.commit();
+            finish(); // This will close the FlashingActivity
         });
     }
 

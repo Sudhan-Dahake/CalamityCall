@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".Settings">
+    tools:context=".Settings"
+    android:layout_marginTop="50dp">
 
     <FrameLayout
         android:id="@+id/fragment_container"
@@ -28,7 +29,8 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:drawableLeft="@drawable/nextback"/>
+        android:drawableStart="@drawable/nextback"
+        tools:ignore="HardcodedText,UseCompatTextViewDrawableXml" />
 
     <TextView
         android:id="@+id/flashing_title"
@@ -40,7 +42,8 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settings_title" />
+        app:layout_constraintTop_toBottomOf="@id/settings_title"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/notification_description"
@@ -54,7 +57,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        tools:ignore="HardcodedText" />
 
     <LinearLayout
         android:id="@+id/linearLayout5"
@@ -81,13 +85,15 @@
                 android:layout_weight="1"
                 android:text="Watch"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
 
             <Switch
                 android:id="@+id/watch_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true" />
+                android:checked="true"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
         </LinearLayout>
 
         <LinearLayout
@@ -104,13 +110,15 @@
                 android:layout_weight="1"
                 android:text="Warning"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
 
             <Switch
                 android:id="@+id/warning_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true" />
+                android:checked="true"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
         </LinearLayout>
 
         <LinearLayout
@@ -127,13 +135,15 @@
                 android:layout_weight="1"
                 android:text="Urgent"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
 
             <Switch
                 android:id="@+id/urgent_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true" />
+                android:checked="true"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
         </LinearLayout>
 
         <LinearLayout
@@ -150,13 +160,15 @@
                 android:layout_weight="1"
                 android:text="Critical"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
 
             <Switch
                 android:id="@+id/critical_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true" />
+                android:checked="true"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
         </LinearLayout>
     </LinearLayout>
 
@@ -174,5 +186,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintVertical_bias="0.1"
+        tools:ignore="HardcodedText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

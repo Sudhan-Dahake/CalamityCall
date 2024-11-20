@@ -6,6 +6,7 @@
     android:ellipsize="end"
     android:maxLines="1"
     android:textAppearance="?attr/textAppearanceSubtitle1"
->
+    android:textColor="@android:color/black"
+    >
 
 </TextView>

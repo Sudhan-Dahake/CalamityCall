@@ -1,6 +1,7 @@
 package com.example.calamitycall;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -23,12 +24,13 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText etPostalCode;
     private EditText etCity;
 
-    private Button signupButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_page);
+
+        getWindow().setStatusBarColor(Color.BLACK);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
 
         signupService = new SignupService();
 
@@ -38,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
         this.etAddress = findViewById(R.id.editTextAddress);
         this.etPostalCode = findViewById(R.id.editTextPostalCode);
         this.etCity = findViewById(R.id.editTextCity);
-        this.signupButton = findViewById(R.id.btnRegister);
+        Button signupButton = findViewById(R.id.btnRegister);
 
         signupButton.setOnClickListener(v -> handleSignup());
 

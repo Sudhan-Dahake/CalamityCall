@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.os.Build;
+import android.text.Html;
 import android.widget.RemoteViews;
 import androidx.core.app.NotificationCompat;
 
@@ -32,8 +33,8 @@ public class NotificationConfig {
         SettingsPreferences settingsPreferences = new SettingsPreferences(context);
         boolean isNoiseEnabled = false;
         boolean isNotifEnabled = true;
-        boolean isTTSEnabled = false;
-        boolean isFlashingEnabled = false;
+        //boolean isTTSEnabled = false;
+        //boolean isFlashingEnabled = false;
         int collapsedLayoutId = 0;
         int expandedLayoutId = 0;
         String lvlString = "Alert";
@@ -45,7 +46,7 @@ public class NotificationConfig {
                 isNoiseEnabled = settingsPreferences.isWatchNoiseOn();
                 isNotifEnabled = settingsPreferences.isWatchNotificationOn();
                 //isTTSEnabled = settingsPreferences.isWatchTTSEnabled();
-                isFlashingEnabled = settingsPreferences.isWatchFlashingOn();
+                //isFlashingEnabled = settingsPreferences.isWatchFlashingOn();
                 break;
             case 2:
                 lvlString = "Warning Alert";
@@ -54,7 +55,7 @@ public class NotificationConfig {
                 isNoiseEnabled = settingsPreferences.isWarningNoiseOn();
                 isNotifEnabled = settingsPreferences.isWarningNotificationOn();
                 //isTTSEnabled = settingsPreferences.isWatchTTSEnabled();
-                isFlashingEnabled = settingsPreferences.isWarningFlashingOn();
+                //isFlashingEnabled = settingsPreferences.isWarningFlashingOn();
                 break;
             case 3:
                 lvlString = "Urgent Alert";
@@ -63,7 +64,7 @@ public class NotificationConfig {
                 isNoiseEnabled = settingsPreferences.isUrgentNoiseOn();
                 isNotifEnabled = settingsPreferences.isUrgentNotificationOn();
                 //isTTSEnabled = settingsPreferences.isWatchTTSEnabled();
-                isFlashingEnabled = settingsPreferences.isUrgentFlashingOn();
+                //isFlashingEnabled = settingsPreferences.isUrgentFlashingOn();
                 break;
             case 4:
                 lvlString = "Critical Alert";
@@ -72,7 +73,7 @@ public class NotificationConfig {
                 isNoiseEnabled = settingsPreferences.isCriticalNoiseOn();
                 isNotifEnabled = settingsPreferences.isCriticalNotificationOn();
                 //isTTSEnabled = settingsPreferences.isWatchTTSEnabled();
-                isFlashingEnabled = settingsPreferences.isCriticalFlashingOn();
+                //isFlashingEnabled = settingsPreferences.isCriticalFlashingOn();
                 break;
         }
         // Create notification channel
@@ -85,36 +86,42 @@ public class NotificationConfig {
         collapsedLayout.setTextViewText(R.id.disaster_type, type);
 
         String notifDetails =
-                (city != null ? city + "\n" : "") +
-                (notifOrigin != null ? notifOrigin + "\n" : "") +
-                (latitude != null ? latitude + "\n" : "") +
-                (longitude != null ? longitude + "\n" : "") +
-                (prepSteps != null ? prepSteps + "\n" : "") +
-                (activeSteps != null ? activeSteps + "\n" : "") +
-                (recoverySteps != null ? recoverySteps + "\n" : "");
+                "<b>Location:</b> " + (city != null ? city + "<br>" : "Unknown") +
+                        "<b>Notified From:</b> " + (notifOrigin != null ? notifOrigin + "<br>" : "Unknown") +
+                        "<b>Longitude:</b> " + (longitude != null ? longitude + "<br>" : "Unknown") +
+                        "<b>Latitude:</b> " + (latitude != null ? latitude + "<br>" : "Unknown") +
+                        (prepSteps != null ? "<b>Preparation Steps:</b> " + prepSteps + "<br>" : "") +
+                        (activeSteps != null ? "<b>Active Steps:</b> " + activeSteps + "<br>" : "") +
+                        (recoverySteps != null ? "<b>Recovery Steps:</b> " + recoverySteps + "<br>" : "");
+
         // Expanded layout for the push notification
         RemoteViews expandedLayout = new RemoteViews(context.getPackageName(), expandedLayoutId);
         expandedLayout.setTextViewText(R.id.disaster_level, lvlString);
         expandedLayout.setTextViewText(R.id.disaster_type, type);
-        expandedLayout.setTextViewText(R.id.notification_details, notifDetails);
+        expandedLayout.setTextViewText(R.id.notification_details, Html.fromHtml(notifDetails, Html.FROM_HTML_MODE_LEGACY));
 
-        Intent activityCancelIntent = new Intent(context, MainActivity.class);
-        PendingIntent cancelContentIntent = PendingIntent.getActivity(context, 0, activityCancelIntent, PendingIntent.FLAG_IMMUTABLE);
+        // Intent to open MainActivity and clear the notification
+        Intent activityIntent = new Intent(context, MainActivity.class);
+        activityIntent.putExtra("open_tab", "notifications");
+        PendingIntent contentIntent = PendingIntent.getActivity(context, 0, activityIntent, PendingIntent.FLAG_IMMUTABLE);
 
-        expandedLayout.setOnClickPendingIntent(R.id.action_button, cancelContentIntent);
-
+// Build the notification
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId)
                 .setSmallIcon(R.drawable.logo)
                 .setCustomContentView(collapsedLayout)
                 .setCustomBigContentView(expandedLayout)
                 .setColor(Color.BLUE)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setStyle(new NotificationCompat.DecoratedCustomViewStyle());
+                .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
+                .setContentIntent(contentIntent) // Make the entire notification clickable
+                .setAutoCancel(true);           // Clear the notification when clicked
 
+// Show the notification
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (notificationManager != null && isNotifEnabled) {
             notificationManager.notify(notificationId++, builder.build());
         }
+
 
     }
 

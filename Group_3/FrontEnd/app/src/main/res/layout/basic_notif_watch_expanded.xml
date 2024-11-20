@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:maxHeight="512dp"
     android:orientation="vertical"
     android:gravity="center_vertical">
 
@@ -16,7 +17,8 @@
         android:paddingHorizontal="36dp"
         android:id="@+id/notification_layout"
         android:background="@drawable/notif_bg_sky"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        tools:ignore="UselessParent">
 
         <!-- Inner container layout -->
         <LinearLayout
@@ -60,9 +62,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="Watch Alert"
+                    android:singleLine="true"
                     android:textAlignment="center"
                     android:textColor="#000000"
-                    android:textSize="30sp"
+                    android:textSize="25sp"
                     android:textStyle="bold"
                     tools:ignore="HardcodedText" />
 
@@ -89,17 +92,4 @@
             android:textSize="12sp"
             tools:ignore="HardcodedText" />
     </LinearLayout>
-
-
-    <!-- Action Button -->
-    <TextView
-        android:id="@+id/action_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:text="Go to the app"
-        android:textColor="?android:attr/textColorLink"
-        tools:ignore="HardcodedText" />
-
 </LinearLayout>
