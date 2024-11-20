@@ -34,6 +34,11 @@ class FCMClient:
             "message": {
                 "token": token,
 
+                "notification": {
+                    "title": "Tornado Alert",
+                    "body": "Level 3",
+                },
+
                 "data": NotificationModel.model_dump(exclude_none=True),
 
                 "android": {
