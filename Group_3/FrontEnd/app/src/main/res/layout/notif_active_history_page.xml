@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -35,15 +34,15 @@
         <!-- based on the previous design-->
 
         <!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Choose a time frame:"-->
-<!--            android:textSize="16dp"-->
-<!--            android:paddingRight="8dp"-->
-<!--            android:paddingTop="10dp"-->
-<!--            android:layout_marginLeft="30dp"-->
-<!--            android:layout_marginBottom="5dp"-->
-<!--            android:paddingBottom="10dp"/>-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="Choose a time frame:"-->
+        <!--            android:textSize="16dp"-->
+        <!--            android:paddingRight="8dp"-->
+        <!--            android:paddingTop="10dp"-->
+        <!--            android:layout_marginLeft="30dp"-->
+        <!--            android:layout_marginBottom="5dp"-->
+        <!--            android:paddingBottom="10dp"/>-->
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -51,20 +50,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:paddingRight="10dp"
             android:hint="@string/select"
+            android:textColorHint="@android:color/darker_gray"
             android:visibility="gone"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            >
+            style="@style/DropdownInputLayoutStyle">
+
 
             <AutoCompleteTextView
                 android:id="@+id/timeFrameDropdown"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none"/>
-
-
+                android:inputType="none"
+                android:backgroundTint="@color/white"
+                android:popupBackground="@color/white"
+                android:textColor="@android:color/black"
+                tools:ignore="LabelFor" />
         </com.google.android.material.textfield.TextInputLayout>
+
 
 
 

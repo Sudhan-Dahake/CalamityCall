@@ -1,42 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/report"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
-        tools:context=".ReportActivity">
+        android:padding="0dp"
+        tools:context=".ReportActivity"
+        android:layout_marginTop="50dp">
+
+    <!-- Including the header layout -->
+    <include
+        layout="@layout/header"
+        android:layout_width="match_parent"
+        android:layout_height="115dp"/>
 
     <LinearLayout
-            android:layout_width="379dp"
-            android:layout_height="715dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
             android:background="#ffffff"
             android:orientation="vertical"
             android:padding="10dp">
 
-        <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="start">
-
-            <!-- Logo -->
-            <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="-30dp"
-                    android:src="@drawable/logo" />
-
-
-            <!-- Account icon -->
-            <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="195dp"
-                    android:src="@drawable/account" />
-
-        </LinearLayout>
 
         <TextView
                 android:layout_width="wrap_content"
@@ -46,7 +31,8 @@
                 android:text="Report an Incident"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                tools:ignore="HardcodedText" />
 
         <TextView
                 android:layout_width="wrap_content"
@@ -56,15 +42,18 @@
                 android:text="Incident Type"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                tools:ignore="HardcodedText" />
         <!-- Incident Type Spinner -->
-        <Spinner
+        <EditText
                 android:id="@+id/spinner_incident_type"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginTop="7dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="8dp"
+                android:paddingHorizontal="10dp"
                 android:background="@drawable/rounded_edittext"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                tools:ignore="Autofill,LabelFor,TextFields" />
 
         <TextView
                 android:layout_width="wrap_content"
@@ -74,15 +63,18 @@
                 android:text="Incident Severity"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                tools:ignore="HardcodedText" />
 
-        <Spinner
+        <EditText
                 android:id="@+id/spinner_incident_severity"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginTop="7dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="8dp"
+                android:paddingHorizontal="10dp"
                 android:background="@drawable/rounded_edittext"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                tools:ignore="Autofill,LabelFor,TextFields" />
 
         <TextView
                 android:layout_width="wrap_content"
@@ -92,15 +84,18 @@
                 android:text="Location"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                tools:ignore="HardcodedText" />
         <!-- Location Spinner -->
         <EditText
                 android:id="@+id/spinner_location"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="35dp"
                 android:layout_marginTop="8dp"
+                android:paddingHorizontal="10dp"
                 android:background="@drawable/rounded_edittext"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                tools:ignore="Autofill,LabelFor,TextFields" />
 
         <TextView
                 android:layout_width="wrap_content"
@@ -110,7 +105,8 @@
                 android:text="Description"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                tools:ignore="HardcodedText" />
 
         <!-- Description -->
         <EditText
@@ -120,8 +116,9 @@
                 android:layout_marginTop="8dp"
                 android:inputType="textMultiLine"
                 android:background="@drawable/rounded_edittext"
-                android:padding="12dp"
-                android:textColor="@color/black"/>
+                android:padding="10dp"
+                android:textColor="@color/black"
+                tools:ignore="Autofill,LabelFor" />
 
         <TextView
                 android:layout_width="wrap_content"
@@ -131,17 +128,20 @@
                 android:text="Contact Information"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                tools:ignore="HardcodedText" />
 
         <!-- Contact Information -->
         <EditText
                 android:id="@+id/edit_contact"
                 android:layout_width="match_parent"
                 android:layout_marginTop="8dp"
-                android:layout_height="30dp"
+                android:layout_height="35dp"
+                android:paddingHorizontal="10dp"
                 android:background="@drawable/rounded_edittext"
                 android:inputType="text"
-                />
+                android:textColor="@color/black"
+                tools:ignore="Autofill,LabelFor" />
 
         <TextView
                 android:layout_width="wrap_content"
@@ -151,30 +151,37 @@
                 android:text="Upload Media"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                tools:ignore="HardcodedText" />
 
         <!-- Media Upload Button -->
         <Button
 
                 android:id="@+id/upload_button"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="58dp"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/rounded_button"
+                style="@drawable/rounded_button"
+                android:backgroundTint="#050"
                 android:padding="16dp"
+                android:layout_gravity="center"
                 android:text="Upload photos/videos"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF"
+                tools:ignore="HardcodedText" />
 
         <!-- Submit Report Button -->
         <Button
                 android:id="@+id/btn_submit_report"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/rounded_button"
+                style="@drawable/rounded_button"
                 android:backgroundTint="#7C0A02"
+                android:paddingHorizontal="16dp"
+                android:layout_gravity="center"
                 android:text="Submit Report"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF"
+                tools:ignore="HardcodedText" />
     </LinearLayout>
 
 </RelativeLayout>
