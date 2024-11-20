@@ -33,18 +33,26 @@ public class ForumPage extends Fragment {
 
     // Trigger notifications
     public void notificationButtonCritical(View view) {
-        notificationConfig.sendNotification(4, "Tornado Spotted", R.layout.basic_notif_critical_collapsed, R.layout.basic_notif_critical_expanded, 1);
+        notificationConfig.sendNotification(
+                4, "Tornado Spotted", "Kitchener", "Emergency Services",
+                12.432341F, 11.4321F, "Leave area immediately", "Get inside and go to the basement", "Recover any missing parts, call for recovery agencies");
     }
 
     public void notificationButtonUrgent(View view) {
-        notificationConfig.sendNotification(3, "High Chance of Tornado", R.layout.basic_notif_urgent_collapsed, R.layout.basic_notif_urgent_expanded, 2);
+        notificationConfig.sendNotification(
+                3, "High Chance of Tornado", "Waterloo", "National Weather System",
+                12.432341F, 11.4321F, null, null, null);
     }
 
     public void notificationButtonWarning(View view) {
-        notificationConfig.sendNotification(2, "Medium Chance of Tornado", R.layout.basic_notif_warning_collapsed, R.layout.basic_notif_warning_expanded, 3);
+        notificationConfig.sendNotification(
+                2, "Medium Chance of Tornado", "Cambridge", "National Weather System",
+                12.432341F, 11.4321F, null, null, null);
     }
 
     public void notificationButtonWatch(View view) {
-        notificationConfig.sendNotification(1, "Low Chance of Tornado", R.layout.basic_notif_watch_collapsed, R.layout.basic_notif_watch_expanded, 4);
+        notificationConfig.sendNotification(
+                1, "Low Chance of Tornado", "Guelph", "National Weather System",
+                12.432341F, 11.4321F, null, null, null);
     }
 }
