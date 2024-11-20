@@ -1,9 +1,14 @@
 package com.example.calamitycall;
 
 import android.content.Intent;
+
+import android.content.SharedPreferences;
+
 import android.graphics.Color;
+
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -15,37 +20,35 @@ import com.example.calamitycall.fragments.SettingsPage;
 
 public class TexttospeechActivity extends AppCompatActivity {
 
-    private Switch watchSwitch; // Main switch for watch noise notifications
-    private Switch warningSwitch;
-    private Switch urgentSwitch;
-    private Switch criticalSwitch;
+    private Switch watchTTSSwitch; // Main switch for watch noise notifications
+    private Switch warningTTSSwitch;
+    private Switch urgentTTSSwitch;
+    private Switch criticalTTSSwitch;
     private TextView settings;
 
-    private SettingsPreferences settingsPreferences;
+    private Button saveButton;  // New save button
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_texttospeech_page);
 
+        sharedPreferences = getSharedPreferences("NotificationPreferences", MODE_PRIVATE);
+
         getWindow().setStatusBarColor(Color.BLACK);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
 
-        settingsPreferences = new SettingsPreferences(this);
 
-        watchSwitch = findViewById(R.id.watch_switch);
-        warningSwitch = findViewById(R.id.warning_switch);
-        urgentSwitch = findViewById(R.id.urgent_switch);
-        criticalSwitch = findViewById(R.id.critical_switch);
 
+        watchTTSSwitch = findViewById(R.id.watch_switch);
+        warningTTSSwitch = findViewById(R.id.warning_switch);
+        urgentTTSSwitch = findViewById(R.id.urgent_switch);
+        criticalTTSSwitch = findViewById(R.id.critical_switch);
+        saveButton = findViewById(R.id.text_to_speech_save);
         settings = findViewById(R.id.settings_title);
 
         loadPreferences();
-
-        watchSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
-        warningSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
-        urgentSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
-        criticalSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
 
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,24 +64,28 @@ public class TexttospeechActivity extends AppCompatActivity {
                 finish(); // This will close the FlashingActivity
             }
         });
+
+        saveButton.setOnClickListener(new View.OnClickListener() {  // Set listener for save button
+            @Override
+            public void onClick(View v) {
+                savePreferences();
+            }
+        });
     }
 
     private void loadPreferences() {
-        watchSwitch.setChecked(settingsPreferences.isWatchNoiseOn());
-        warningSwitch.setChecked(settingsPreferences.isWarningNoiseOn());
-        urgentSwitch.setChecked(settingsPreferences.isUrgentNoiseOn());
-        criticalSwitch.setChecked(settingsPreferences.isCriticalNoiseOn());
+        watchTTSSwitch.setChecked(sharedPreferences.getBoolean("tts_watch", false));
+        warningTTSSwitch.setChecked(sharedPreferences.getBoolean("tts_warning", false));
+        urgentTTSSwitch.setChecked(sharedPreferences.getBoolean("tts_urgent", false));
+        criticalTTSSwitch.setChecked(sharedPreferences.getBoolean("tts_critical", false));
     }
 
-    private void onSwitchChanged(CompoundButton buttonView, boolean isChecked) {
-        if (buttonView.getId() == R.id.watch_switch) {
-            settingsPreferences.setWatchNoiseOn(isChecked);
-        } else if (buttonView.getId() == R.id.warning_switch) {
-            settingsPreferences.setWarningNoiseOn(isChecked);
-        } else if (buttonView.getId() == R.id.urgent_switch) {
-            settingsPreferences.setUrgentNoiseOn(isChecked);
-        } else if (buttonView.getId() == R.id.critical_switch) {
-            settingsPreferences.setCriticalNoiseOn(isChecked);
-        }
+    private void savePreferences() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("tts_watch", watchTTSSwitch.isChecked());
+        editor.putBoolean("tts_warning", warningTTSSwitch.isChecked());
+        editor.putBoolean("tts_urgent", urgentTTSSwitch.isChecked());
+        editor.putBoolean("tts_critical", criticalTTSSwitch.isChecked());
+        editor.apply();
     }
 }
