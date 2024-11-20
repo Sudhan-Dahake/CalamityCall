@@ -8,11 +8,10 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import com.example.calamitycall.models.login.LoginResponse.UserData;
 import com.example.calamitycall.network.auth.LoginService;
 import com.example.calamitycall.models.login.LoginRequest;
 import com.example.calamitycall.models.login.LoginResponse;
-
-import java.lang.reflect.Field;
 
 public class LoginActivityUnitTest {
 
@@ -23,22 +22,17 @@ public class LoginActivityUnitTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    // test for successful login (simulated a happy path)
+    // Test for successful login (simulated happy path)
     @Test
-    public void testLoginPerformance() throws NoSuchFieldException, IllegalAccessException {
+    public void testLoginPerformance() {
         // Mock input data
         LoginRequest request = new LoginRequest("hang", "password123");
 
-        // Create LoginResponse object and use reflection to set private fields
-        LoginResponse response = new LoginResponse();
-
-        Field accessTokenField = LoginResponse.class.getDeclaredField("access_token");
-        accessTokenField.setAccessible(true);
-        accessTokenField.set(response, "dummyAccessToken");
-
-        Field refreshTokenField = LoginResponse.class.getDeclaredField("refresh_token");
-        refreshTokenField.setAccessible(true);
-        refreshTokenField.set(response, "dummyRefreshToken");
+        // Create LoginResponse object with valid data
+        UserData userData = new UserData(
+                "testUser", 101, 25, "123 Test Street", "12345", "Test City");
+        LoginResponse response = new LoginResponse(
+                "dummyAccessToken", "dummyRefreshToken", "Bearer", userData);
 
         // Mock the login behavior
         doAnswer(invocation -> {
@@ -67,9 +61,9 @@ public class LoginActivityUnitTest {
         assert (endTime - startTime) < 500 : "Login performance exceeded acceptable threshold";
     }
 
-    // Test for Invalid Username/Password - simulated a failed login due to invalid info
+    // Test for invalid username/password (simulated failed login due to invalid credentials)
     @Test
-    public void testLoginInvalidCredentials() throws NoSuchFieldException, IllegalAccessException {
+    public void testLoginInvalidCredentials() {
         // Mock input data
         LoginRequest request = new LoginRequest("invalidUser", "wrongPassword");
 
@@ -94,7 +88,7 @@ public class LoginActivityUnitTest {
         });
     }
 
-    // test for empty username/password - validation logic when either username/password is empty
+    // Test for empty username/password (validation logic for empty fields)
     @Test
     public void testLoginEmptyUsernameOrPassword() {
         // Empty username
@@ -111,6 +105,4 @@ public class LoginActivityUnitTest {
         assert !emptyPasswordRequest.getUsername().isEmpty() : "Username is valid";
         assert emptyPasswordRequest.getPassword().isEmpty() : "Password should not be empty";
     }
-
-
 }
