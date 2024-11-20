@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".MyApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -22,66 +21,71 @@
         <activity
             android:name=".fragments.SettingsPage"
             android:exported="false"
-            tools:ignore="Instantiatable" />
+            android:theme="@style/Theme.CalamityCall" />
+
         <activity
             android:name=".fragments.NotificationPage"
             android:exported="false"
-            tools:ignore="Instantiatable" />
+            android:theme="@style/Theme.CalamityCall" />
 
         <activity
             android:name=".NotificationOnActivity"
             android:exported="false"
-            tools:ignore="Instantiatable" />
+            android:theme="@style/Theme.CalamityCall" />
 
         <activity
             android:name=".NotificationTypeActivity"
             android:exported="false"
-            tools:ignore="Instantiatable" />
+            android:theme="@style/Theme.CalamityCall" />
 
         <activity
             android:name=".FlashingActivity"
             android:exported="false"
-            tools:ignore="Instantiatable"  />
+            android:theme="@style/Theme.CalamityCall" />
 
         <activity
             android:name=".NoiseActivity"
             android:exported="false"
-            tools:ignore="Instantiatable" />
+            android:theme="@style/Theme.CalamityCall" />
 
         <activity
             android:name=".TexttospeechActivity"
             android:exported="false"
-            tools:ignore="Instantiatable" />
+            android:theme="@style/Theme.CalamityCall" />
 
         <activity
             android:name=".SettingsPreferences"
+            android:exported="false" />
+
+        <activity
+            android:name=".fragments.ReportPage"
             android:exported="false"
             tools:ignore="Instantiatable" />
 
         <activity
             android:name=".Settings"
             android:exported="false"
-            tools:ignore="Instantiatable" />
+            android:theme="@style/Theme.CalamityCall" />
 
         <activity
             android:name=".fragments.ForumPage"
-            android:exported="false"
-            tools:ignore="Instantiatable" />
+            android:exported="false" />
 
         <activity
             android:name=".RegisterActivity"
             android:exported="true"
-            tools:ignore="Instantiatable"/>
+            android:theme="@style/Theme.CalamityCall"
+            android:windowSoftInputMode="adjustPan"/>
 
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            tools:ignore="Instantiatable"/>
+            android:exported="true" />
 
         <!-- Login Page as the launcher activity -->
         <activity
             android:name=".LoginActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.CalamityCall">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -89,7 +93,8 @@
         </activity>
 
         <!-- Firebase Messaging Service -->
-        <service android:name=".firebase.MyFirebaseMessagingService" android:exported="true">
+        <service android:name=".firebase.MyFirebaseMessagingService" android:exported="true"
+            tools:ignore="ExportedService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>

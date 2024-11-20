@@ -1,4 +1,4 @@
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,198 +7,218 @@
     tools:context="com.example.calamitycall.RegisterActivity"
     android:background="@color/login_bk_color"
     android:focusableInTouchMode="true"
+    android:fitsSystemWindows="true"
     android:gravity="center">
 
     <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/login_background"
+        android:alpha="0.8"
         android:scaleType="centerCrop"
-        android:alpha="0.8"/>
+        android:src="@drawable/login_background"
+        tools:ignore="ContentDescription" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:paddingTop="20dp">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp"
-            android:gravity="center_horizontal">
+            android:layout_height="wrap_content">
 
-            <!-- App Logo and Name -->
-            <ImageView
-                android:layout_width="198dp"
-                android:layout_height="172dp"
-                android:layout_gravity="center"
-                android:src="@drawable/logo" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/jolly_lodger"
-                android:text="CalamityCall"
-                android:textAlignment="center"
-                android:textColor="@android:color/black"
-                android:textSize="50dp"
-                android:textStyle="bold" />
-
-            <!-- Username Input Field -->
-            <com.google.android.material.textfield.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:boxBackgroundMode="filled"
-                app:boxBackgroundColor="@android:color/white">
+                android:orientation="vertical"
+                android:paddingHorizontal="20dp"
+                android:paddingBottom="300dp"
+                android:gravity="center_horizontal"
+                tools:ignore="UselessParent">
 
-                <EditText
-                    android:id="@+id/editTextUsername"
+                <!-- App Logo and Name -->
+                <ImageView
+                    android:layout_width="198dp"
+                    android:layout_height="172dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/logo"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/jolly_lodger"
+                    android:text="CalamityCall"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="50dp"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText,SpUsage" />
+
+                <!-- Username Input Field -->
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Username"
-                    android:inputType="text"
-                    android:maxLines="1" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="20dp"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="@android:color/white">
 
-            <!-- Password Input Field -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:endIconMode="password_toggle"
-                app:boxBackgroundMode="filled"
-                app:boxBackgroundColor="@android:color/white">
+                    <EditText
+                        android:id="@+id/editTextUsername"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Username"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        tools:ignore="Autofill,HardcodedText" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextPassword"
+                <!-- Password Input Field -->
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Password"
-                    android:inputType="textPassword"
-                    android:maxLines="1"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="10dp"
+                    app:endIconMode="password_toggle"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="@android:color/white">
 
-            <!-- Confirm Password Input Field -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:endIconMode="password_toggle"
-                app:boxBackgroundMode="filled"
-                app:boxBackgroundColor="@android:color/white">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editTextPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Password"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        tools:ignore="HardcodedText" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextConfirmPassword"
+                <!-- Confirm Password Input Field -->
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Confirm Password"
-                    android:inputType="textPassword"
-                    android:maxLines="1"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="10dp"
+                    app:endIconMode="password_toggle"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="@android:color/white">
 
-            <!-- Age Input Field -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:boxBackgroundMode="filled"
-                app:boxBackgroundColor="@android:color/white">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editTextConfirmPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Confirm Password"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        tools:ignore="HardcodedText" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/editTextAge"
+                <!-- Age Input Field -->
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Age"
-                    android:inputType="number"
-                    android:maxLines="1"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="10dp"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="@android:color/white">
 
-            <!-- Address Input Field -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:boxBackgroundMode="filled"
-                app:boxBackgroundColor="@android:color/white">
+                    <EditText
+                        android:id="@+id/editTextAge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Age"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        tools:ignore="Autofill,HardcodedText" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/editTextAddress"
+                <!-- Address Input Field -->
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Address"
-                    android:inputType="textPostalAddress"
-                    android:maxLines="1"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="10dp"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="@android:color/white">
 
-            <!-- Zip/Postal Code Input Field -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:boxBackgroundMode="filled"
-                app:boxBackgroundColor="@android:color/white">
+                    <EditText
+                        android:id="@+id/editTextAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Address"
+                        android:inputType="textPostalAddress"
+                        android:maxLines="1"
+                        tools:ignore="Autofill,HardcodedText" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/editTextPostalCode"
+                <!-- Zip/Postal Code Input Field -->
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Zip/Postal Code"
-                    android:inputType="textPostalAddress"
-                    android:maxLines="1"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="10dp"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="@android:color/white">
 
-            <!-- City Input Field -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:boxBackgroundMode="filled"
-                app:boxBackgroundColor="@android:color/white">
+                    <EditText
+                        android:id="@+id/editTextPostalCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Zip/Postal Code"
+                        android:inputType="textPostalAddress"
+                        android:maxLines="1"
+                        tools:ignore="Autofill,HardcodedText" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/editTextCity"
+                <!-- City Input Field -->
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="City"
-                    android:inputType="text"
-                    android:maxLines="1"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="10dp"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="@android:color/white">
 
-            <!-- Register Button -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnRegister"
-                style="@style/BlackMaterialButton"
-                android:layout_width="278dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:backgroundTint="@android:color/black"
-                android:text="Register"
-                android:textColor="@color/primaryTextColor"
-                android:layout_marginTop="20dp"/>
+                    <EditText
+                        android:id="@+id/editTextCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="City"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        tools:ignore="Autofill,HardcodedText" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Existing User Text -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Already have an account? "
-                android:textColor="@color/darkTextColor"
-                android:textSize="14sp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"/>
+                <!-- Register Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRegister"
+                    style="@style/BlackMaterialButton"
+                    android:layout_width="278dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@android:color/black"
+                    android:text="Register"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginTop="20dp"
+                    tools:ignore="HardcodedText" />
 
-            <TextView
-                android:id="@+id/loginNowText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Login now!"
-                android:textColor="@color/colorSecondary"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:layout_gravity="center"/>
+                <!-- Existing User Text -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Already have an account? "
+                    android:textColor="@color/darkTextColor"
+                    android:textSize="14sp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    tools:ignore="HardcodedText" />
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/loginNowText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Login now!"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    tools:ignore="HardcodedText" />
+
+            </LinearLayout>
+        </FrameLayout>
     </ScrollView>
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

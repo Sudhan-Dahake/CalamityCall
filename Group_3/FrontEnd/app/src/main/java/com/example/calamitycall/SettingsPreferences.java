@@ -3,7 +3,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class SettingsPreferences extends AppCompatActivity{
+public class SettingsPreferences {
 
     private static final String PREFS_NAME = "NotificationPreferences";
 

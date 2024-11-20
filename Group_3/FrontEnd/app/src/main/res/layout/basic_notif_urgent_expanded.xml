@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:maxHeight="512dp"
     android:orientation="vertical"
     android:gravity="center_vertical">
 
@@ -10,20 +12,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:paddingVertical="16dp"
         android:paddingHorizontal="36dp"
         android:id="@+id/notification_layout"
         android:background="@drawable/notif_bg_amber"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        tools:ignore="UselessParent">
 
         <!-- Inner container layout -->
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
             android:layout_weight="1"
             android:orientation="horizontal"
-            android:gravity="start">
+            android:gravity="start"
+            android:baselineAligned="false">
 
             <!-- Middle section: Urgent Alert and Tornado Spotted text -->
             <FrameLayout
@@ -39,14 +43,16 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:contentDescription="Urgent Icon"
-                    android:src="@drawable/urgent_icon" />
+                    android:src="@drawable/urgent_icon"
+                    tools:ignore="HardcodedText" />
             </FrameLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                tools:ignore="NestedWeights">
 
                 <!-- Urgent Alert -->
                 <TextView
@@ -58,7 +64,8 @@
                     android:textAlignment="center"
                     android:textColor="#000000"
                     android:textSize="30sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
 
                 <!-- Disaster type (High Chance of Tornado) -->
                 <TextView
@@ -68,29 +75,20 @@
                     android:text="High Chance of Tornado"
                     android:textAlignment="center"
                     android:textColor="#000000"
-                    android:textSize="16sp" />
-
-                <!-- Additional detailed info -->
-                <TextView
-                    android:id="@+id/notification_details"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#000000"
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp"
-                    android:text="Location: Kitchener\nSent From: Emergency Services" />
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
             </LinearLayout>
         </LinearLayout>
+
+        <!-- Additional detailed info -->
+        <TextView
+            android:id="@+id/notification_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            android:layout_marginTop="8dp"
+            android:text="Location: Kitchener\nSent From: Emergency Services"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
-
-    <!-- Action Button -->
-    <TextView
-        android:id="@+id/action_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:text="Go to the app"
-        android:textColor="?android:attr/textColorLink" />
-
 </LinearLayout>

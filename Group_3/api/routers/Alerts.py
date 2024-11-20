@@ -18,7 +18,7 @@ async def CreateNotification(notification: NotificationCreate):
         title = f"{notification.disastertype} Alert in {notification.city}"
         body = f"Level {notification.disasterlevel}"
 
-        notificationManager.SendNotificationsToAll(title=title, body=body)
+        notificationManager.SendNotificationsToAll(NotificationModel=notification)
 
         return {"Message": "Notification created and broadcasted successfully"}
 
@@ -36,7 +36,7 @@ async def CreateNotification(notification: NotificationCreate):
         title = f"{notification.disastertype} Alert in {notification.city}"
         body = f"Level {notification.disasterlevel} Disaster: {notification.preparationsteps}"
 
-        notificationManager.SendNotificationsToAll(title=title, body=body)
+        notificationManager.SendNotificationsToAll(NotificationModel=notification)
 
         return {"Message": "Notification created and broadcasted successfully"}
 

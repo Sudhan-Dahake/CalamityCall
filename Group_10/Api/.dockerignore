@@ -1,0 +1,18 @@
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore virtual environments
+.venv/
+env/
+
+# Ignore test-related files and folders
+Tests/
+*.pytest_cache/
+
+# Ignore sensitive files
+.env
+
+# Ignore version control folders
+.git/
