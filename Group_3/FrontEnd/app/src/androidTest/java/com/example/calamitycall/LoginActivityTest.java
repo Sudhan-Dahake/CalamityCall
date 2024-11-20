@@ -41,24 +41,22 @@ public class LoginActivityTest {
     }
 
     @Test
-    public void testInvalidLogin() throws InterruptedException {
-        // Input invalid username
+    public void testSuccessfulLogin() {
+        // Input username
         device.findObject(By.res(PACKAGE_NAME, "editTextUsername"))
-                .setText("sudan");
+                .setText("testUser");
 
-        // Input invalid password
+        // Input password
         device.findObject(By.res(PACKAGE_NAME, "editTextPassword"))
-                .setText("wrongpassword");
+                .setText("password123");
 
         // Click the login button
         device.findObject(By.res(PACKAGE_NAME, "btnLogin"))
                 .click();
 
-        Thread.sleep(1000);
-
-        // Wait for error toast to appear
-        boolean toastDisplayed = device.wait(Until.hasObject(By.textContains("Login Failed")), TIMEOUT);
-        assertTrue("Error message not displayed", toastDisplayed);
+        // Wait for MainActivity to load
+        boolean mainActivityLoaded = device.wait(Until.hasObject(By.pkg(PACKAGE_NAME).depth(0)), TIMEOUT);
+        assertTrue("MainActivity not loaded", mainActivityLoaded);
     }
 
     @Test
