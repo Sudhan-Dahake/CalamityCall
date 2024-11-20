@@ -31,7 +31,6 @@ class DisasterReport(BaseModel):
     event: Event
     media: Optional[List[Media]] = None
 
-# Endpoint to create a disaster report
 # Home route (health check)
 @router.get("/")
 async def home():
@@ -64,6 +63,7 @@ async def create_disaster_report(report: DisasterReport):
             weather_event_type=report.event.type,
             weather_event_severity=report.event.severity,
             weather_event_description=report.event.description,
+            media=report.media,
         )
         return {"message": "Disaster report created successfully", "report_id": result['report_id']}
     except Exception as e:
@@ -81,6 +81,26 @@ async def get_all_disaster_reports():
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+# Update a disaster report
+@router.put("/disaster-reports/{report_id}")
+async def update_disaster_report(report_id: str, report: DisasterReport):
+    try:
+        disaster_model = DisasterReportsModel()
+        success = disaster_model.UpdateReport(
+            report_id=report_id,
+            latitude=report.location.latitude,
+            longitude=report.location.longitude,
+            address=report.location.address,
+            weather_event_type=report.event.type,
+            weather_event_severity=report.event.severity,
+            weather_event_description=report.event.description,
+        )
+        if success:
+            return {"message": f"Report {report_id} updated successfully"}
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Disaster report not found")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 # Delete a disaster report
 @router.delete("/disaster-reports/{report_id}")
 async def delete_disaster_report(report_id: str):
@@ -88,7 +108,8 @@ async def delete_disaster_report(report_id: str):
         disaster_model = DisasterReportsModel()
         success = disaster_model.DeleteReport(report_id=report_id)
         if success:
-            return {"message": f"Disaster report {report_id} deleted successfully"}
+            return {"message": f"Report {report_id} deleted successfully"}
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Disaster report not found")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
