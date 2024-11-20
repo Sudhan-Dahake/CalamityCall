@@ -53,10 +53,14 @@ async def get_disaster_report(report_id: str):
 async def create_disaster_report(report: DisasterReport):
     try:
         disaster_model = DisasterReportsModel()
+        
+        # Convert datetime to string
+        created_at_str = report.created_at.isoformat()
+        
         result = disaster_model.CreateReport(
             report_id=report.report_id,
             user_id=report.user_id,
-            timestamp=report.created_at,
+            timestamp=created_at_str,
             latitude=report.location.latitude,
             longitude=report.location.longitude,
             address=report.location.address,
@@ -65,9 +69,11 @@ async def create_disaster_report(report: DisasterReport):
             weather_event_description=report.event.description,
             media=report.media,
         )
+        if not result:
+                raise HTTPException(status_code=400, detail="Failed to create disaster report")
         return {"message": "Disaster report created successfully", "report_id": result['report_id']}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
 
 # Retrieve all disaster reports
 @router.get("/disaster-reports/")
