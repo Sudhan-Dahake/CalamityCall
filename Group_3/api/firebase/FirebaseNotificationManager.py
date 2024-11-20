@@ -1,5 +1,6 @@
 from .firebase_cloud_messaging import FCMClient
 from ...supabase_db.models.FirebaseTokenStorage import FirebaseTokenStorageModel
+from ..schemas.FirebaseToken import NotificationManagerSendNotification
 
 class NotificationManager:
     def __init__(self):
@@ -7,13 +8,12 @@ class NotificationManager:
         self.TokenStorage = FirebaseTokenStorageModel()
 
 
-    def SendNotificationsToAll(self, title, body):
+    def SendNotificationsToAll(self, NotificationModel: NotificationManagerSendNotification):
         unregisteredTokens = self.TokenStorage.getAllUnregisteredTokens()
 
         if unregisteredTokens:
             for token in unregisteredTokens:
-                response = self.FCMClient.SendNotification(token=token, title=title, body=body)
-                print(response)
+                response = self.FCMClient.SendNotification(token=token, NotificationModel=NotificationModel)
 
 
         registeredTokens = self.TokenStorage.getAllRegisteredTokens()
@@ -24,7 +24,7 @@ class NotificationManager:
                 notificationtype = record["notificationtype"]
 
                 if (notificationtype == "popup"):
-                    self.FCMClient.SendNotification(token=token, title=title, body=body, isPopup=True)
+                    self.FCMClient.SendNotification(token=token, NotificationModel=NotificationModel, isPopup=True)
 
                 else:
-                    self.FCMClient.SendNotification(token=token, title=title, body=body)
+                    self.FCMClient.SendNotification(token=token, NotificationModel=NotificationModel)

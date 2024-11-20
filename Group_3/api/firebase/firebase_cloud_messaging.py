@@ -4,6 +4,7 @@ import requests
 from google.oauth2 import service_account
 from dotenv import load_dotenv
 from google.auth.transport.requests import Request
+from ..schemas.FirebaseToken import FCMClientSendNotification
 
 load_dotenv()
 
@@ -18,10 +19,11 @@ class FCMClient:
         secret_file_path = "/etc/secrets/firebase-credentials.json"
         return service_account.Credentials.from_service_account_file(secret_file_path, scopes=["https://www.googleapis.com/auth/firebase.messaging"])
 
-    def SendNotification(self, token, title, body, isPopup=False):
+    def SendNotification(self, token, NotificationModel: FCMClientSendNotification, isPopup: bool = False):
         self.credentials.refresh(Request())
 
-        print(self.credentials.valid)
+        if isPopup:
+            NotificationModel.force_popup = True
 
         headers = {
             'Authorization': f"Bearer {self.credentials.token}",
@@ -31,24 +33,18 @@ class FCMClient:
         message = {
             "message": {
                 "token": token,
-                "notification": {
-                    "title": title,
-                    "body": body,
-                },
+
+                "data": NotificationModel.model_dump(exclude_none=True),
 
                 "android": {
                     "notification": {
-                        "tag": "common_tag"         # This tag ensures notifications don't get stacked.
+                        "tag": NotificationModel.notiforigin,         # This tag ensures notifications don't get stacked.
+                        "priority": "high"
                     }
-                },
-
-                "data": {
-                    "force_popup": "true" if isPopup else "false"
                 }
             }
         }
 
-        response = requests.post(
-            self.url, headers=headers, data=json.dumps(message))
+        response = requests.post(self.url, headers=headers, data=json.dumps(message))
 
         return response.json()
