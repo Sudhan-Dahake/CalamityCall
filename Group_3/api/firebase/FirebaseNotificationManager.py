@@ -13,7 +13,8 @@ class NotificationManager:
 
         if unregisteredTokens:
             for token in unregisteredTokens:
-                response = self.FCMClient.SendNotification(token=token, NotificationModel=NotificationModel)
+                response = self.FCMClient.SendNotification(
+                    token=token, NotificationModel=NotificationModel.model_dump(exclude_none=True))
 
 
         registeredTokens = self.TokenStorage.getAllRegisteredTokens()
@@ -24,7 +25,7 @@ class NotificationManager:
                 notificationtype = record["notificationtype"]
 
                 if (notificationtype == "popup"):
-                    self.FCMClient.SendNotification(token=token, NotificationModel=NotificationModel, isPopup=True)
+                    self.FCMClient.SendNotification(token=token, NotificationModel=NotificationModel.model_dump(exclude_none=True), isPopup=True)
 
                 else:
-                    self.FCMClient.SendNotification(token=token, NotificationModel=NotificationModel)
+                    self.FCMClient.SendNotification(token=token, NotificationModel=NotificationModel.model_dump(exclude_none=True))
