@@ -41,10 +41,6 @@ public class FlashingActivity extends AppCompatActivity {
 
         loadPreferences();
 
-//        flashSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
-//        warningFlashSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
-//        urgentFlashSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
-//        criticalFlashSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
 
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,27 +66,13 @@ public class FlashingActivity extends AppCompatActivity {
     }
 
     private void loadPreferences() {
-        flashSwitch.setChecked(sharedPreferences.getBoolean("flash", true));
-        warningFlashSwitch.setChecked(sharedPreferences.getBoolean("warning_flash", true));
-        urgentFlashSwitch.setChecked(sharedPreferences.getBoolean("urgent_flash", true));
-        criticalFlashSwitch.setChecked(sharedPreferences.getBoolean("critical_flash", true));
+        flashSwitch.setChecked(sharedPreferences.getBoolean("flash", false));
+        warningFlashSwitch.setChecked(sharedPreferences.getBoolean("warning_flash", false));
+        urgentFlashSwitch.setChecked(sharedPreferences.getBoolean("urgent_flash", false));
+        criticalFlashSwitch.setChecked(sharedPreferences.getBoolean("critical_flash", false));
     }
 
-//    private void onSwitchChanged(CompoundButton buttonView, boolean isChecked) {
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//
-//        if (buttonView.getId() == R.id.watch_switch) {
-//            editor.putBoolean("watch_flash", isChecked);
-//        } else if (buttonView.getId() == R.id.warning_switch) {
-//            editor.putBoolean("warning_flash", isChecked);
-//        } else if (buttonView.getId() == R.id.urgent_switch) {
-//            editor.putBoolean("urgent_flash", isChecked);
-//        } else if (buttonView.getId() == R.id.critical_switch) {
-//            editor.putBoolean("critical_flash", isChecked);
-//        }
-//
-//        editor.apply();
-//    }
+
     private void savePreferences() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("watch_flash", flashSwitch.isChecked());
