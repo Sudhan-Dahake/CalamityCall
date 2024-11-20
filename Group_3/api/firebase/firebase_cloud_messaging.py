@@ -34,18 +34,6 @@ class FCMClient:
             "message": {
                 "token": token,
 
-                "notification": {
-                    "title": "Tornado Alert",
-                    "body": "Level 3",
-                },
-
-                "android": {
-                    "notification": {
-                        # This tag ensures notifications don't get stacked.
-                        "tag": "common_tag"
-                    }
-                },
-
                 "data": NotificationModel.model_dump(exclude_none=True),
 
                 "android": {
