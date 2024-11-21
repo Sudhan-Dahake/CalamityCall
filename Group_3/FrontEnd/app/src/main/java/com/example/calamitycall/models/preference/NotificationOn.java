@@ -16,6 +16,13 @@ public class NotificationOn {
         this.critical = critical;
     }
 
+    public NotificationOn(boolean watch, boolean warning, boolean urgent, boolean critical) {
+        this.watch = watch;
+        this.warning = warning;
+        this.urgent = urgent;
+        this.critical = critical;
+    }
+
 
     // setters
     public void setPreferenceid(int preferenceid) {

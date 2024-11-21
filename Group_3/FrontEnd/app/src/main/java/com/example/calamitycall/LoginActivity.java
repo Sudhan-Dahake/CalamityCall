@@ -108,9 +108,13 @@ public class LoginActivity extends AppCompatActivity {
                 // Handle successful Login, e.g., navigate to another screen
                 // Toast.makeText(LoginActivity.this, loginResponse.getRefreshToken(), Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
+                Intent resultIntent = new Intent();
+                setResult(RESULT_OK, resultIntent);
                 finish();
+
+//                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                startActivity(intent);
+//                finish();
             }
 
             @Override
@@ -120,6 +124,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 // Handle Login error, e.g., show an error message to the user
                 Toast.makeText(LoginActivity.this, "Login Failed: " + throwable.getMessage(), Toast.LENGTH_LONG).show();
+
+                setResult(RESULT_CANCELED);
             }
         });
     }
