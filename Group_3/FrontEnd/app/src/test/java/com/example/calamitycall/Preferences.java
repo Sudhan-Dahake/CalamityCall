@@ -56,7 +56,7 @@ public class Preferences {
     }
 
     @Test
-    public void testGetAndSetCriticalNotificationOnFalse() {
+    public void testGetAndSetCriticalNotificationOn() {
         // Initially setting the value to true
         settingsPreferences.setCriticalNotificationOn(true);
 
@@ -70,4 +70,182 @@ public class Preferences {
         boolean isNotifDisabled = settingsPreferences.isCriticalNotificationOn();
         assertFalse(isNotifDisabled);  // After setting, it should be false
     }
+
+    @Test
+    public void testGetAndSetWatchNotificationOn() {
+        // Initially setting the value to true
+        settingsPreferences.setWatchNotificationOn(true);
+
+        // Verify the value after setting it to true
+        boolean isNotifEnabled = settingsPreferences.isWatchNotificationOn();
+
+        // Now set it to false
+        settingsPreferences.setWatchNotificationOn(false);
+
+        // Verify the value after setting it to false
+        boolean isNotifDisabled = settingsPreferences.isWatchNotificationOn();
+        assertFalse(isNotifDisabled);  // After setting, it should be false
+    }
+    @Test
+    public void testGetAndSetWarningNotificationOn() {
+        // Initially setting the value to true
+        settingsPreferences.setWarningNotificationOn(true);
+
+        // Verify the value after setting it to true
+        boolean isNotifEnabled = settingsPreferences.isWarningNotificationOn();
+
+        // Now set it to false
+        settingsPreferences.setWarningNotificationOn(false);
+
+        // Verify the value after setting it to false
+        boolean isNotifDisabled = settingsPreferences.isWarningNotificationOn();
+        assertFalse(isNotifDisabled);  // After setting, it should be false
+    }
+
+    @Test
+    public void testGetAndSetUrgentNotificationOn() {
+        // Initially setting the value to true
+        settingsPreferences.setUrgentNotificationOn(true);
+
+        // Verify the value after setting it to true
+        boolean isNotifEnabled = settingsPreferences.isUrgentNotificationOn();
+
+        // Now set it to false
+        settingsPreferences.setUrgentNotificationOn(false);
+
+        // Verify the value after setting it to false
+        boolean isNotifDisabled = settingsPreferences.isUrgentNotificationOn();
+        assertFalse(isNotifDisabled);  // After setting, it should be false
+    }
+
+    @Test
+    public void testGetAndSetWatchFlashing() {
+        // Initially setting the value to true
+        settingsPreferences.setWatchFlashingOn(true);
+
+        // Verify the value after setting it to true
+        boolean isNotifEnabled = settingsPreferences.isWatchFlashingOn();
+
+        // Now set it to false
+        settingsPreferences.setWatchFlashingOn(false);
+
+        // Verify the value after setting it to false
+        boolean isNotifDisabled = settingsPreferences.isWatchFlashingOn();
+        assertFalse(isNotifDisabled);  // After setting, it should be false
+    }
+
+    @Test
+    public void testGetAndSetWarningFlashing() {
+        // Initially setting the value to true
+        settingsPreferences.setWarningFlashingOn(true);
+
+        // Verify the value after setting it to true
+        boolean isNotifEnabled = settingsPreferences.isWarningFlashingOn();
+
+        // Now set it to false
+        settingsPreferences.setWarningFlashingOn(false);
+
+        // Verify the value after setting it to false
+        boolean isNotifDisabled = settingsPreferences.isWarningFlashingOn();
+        assertFalse(isNotifDisabled);  // After setting, it should be false
+    }
+
+    @Test
+    public void testGetAndSetUrgentFlashing() {
+        // Initially setting the value to true
+        settingsPreferences.setUrgentFlashingOn(true);
+
+        // Verify the value after setting it to true
+        boolean isNotifEnabled = settingsPreferences.isUrgentFlashingOn();
+
+        // Now set it to false
+        settingsPreferences.setUrgentFlashingOn(false);
+
+        // Verify the value after setting it to false
+        boolean isNotifDisabled = settingsPreferences.isUrgentFlashingOn();
+        assertFalse(isNotifDisabled);  // After setting, it should be false
+    }
+
+    @Test
+    public void testGetAndSetCriticalFlashing() {
+        // Initially setting the value to true
+        settingsPreferences.setCriticalFlashingOn(true);
+
+        // Verify the value after setting it to true
+        boolean isNotifEnabled = settingsPreferences.isCriticalFlashingOn();
+
+        // Now set it to false
+        settingsPreferences.setCriticalFlashingOn(false);
+
+        // Verify the value after setting it to false
+        boolean isNotifDisabled = settingsPreferences.isCriticalFlashingOn();
+        assertFalse(isNotifDisabled);  // After setting, it should be false
+    }
+
+    @Test
+    public void testGetAndSetWatchNoise() {
+        // Initially setting the value to true
+        settingsPreferences.setWatchNoiseOn(true);
+
+        // Verify the value after setting it to true
+        boolean isNotifEnabled = settingsPreferences.isWatchNoiseOn();
+
+        // Now set it to false
+        settingsPreferences.setWatchNoiseOn(false);
+
+        // Verify the value after setting it to false
+        boolean isNotifDisabled = settingsPreferences.isWatchNoiseOn();
+        assertFalse(isNotifDisabled);  // After setting, it should be false
+    }
+
+    @Test
+    public void testGetAndSetWarningNoise() {
+        // Initially setting the value to true
+        settingsPreferences.setWarningNoiseOn(true);
+
+        // Verify the value after setting it to true
+        boolean isNotifEnabled = settingsPreferences.isWarningNoiseOn();
+
+        // Now set it to false
+        settingsPreferences.setWarningNoiseOn(false);
+
+        // Verify the value after setting it to false
+        boolean isNotifDisabled = settingsPreferences.isWarningNoiseOn();
+        assertFalse(isNotifDisabled);  // After setting, it should be false
+    }
+
+    @Test
+    public void testGetAndSetUrgentNoise() {
+        // Initially setting the value to true
+        settingsPreferences.setUrgentNoiseOn(true);
+
+        // Verify the value after setting it to true
+        boolean isNotifEnabled = settingsPreferences.isUrgentNoiseOn();
+
+        // Now set it to false
+        settingsPreferences.setUrgentNoiseOn(false);
+
+        // Verify the value after setting it to false
+        boolean isNotifDisabled = settingsPreferences.isUrgentNoiseOn();
+        assertFalse(isNotifDisabled);  // After setting, it should be false
+    }
+
+    @Test
+    public void testGetAndSetCriticalNoise() {
+        // Initially setting the value to true
+        settingsPreferences.setCriticalNoiseOn(true);
+
+        // Verify the value after setting it to true
+        boolean isNotifEnabled = settingsPreferences.isCriticalNoiseOn();
+
+        // Now set it to false
+        settingsPreferences.setCriticalNoiseOn(false);
+
+        // Verify the value after setting it to false
+        boolean isNotifDisabled = settingsPreferences.isCriticalNoiseOn();
+        assertFalse(isNotifDisabled);  // After setting, it should be false
+    }
+
+
+
 }
