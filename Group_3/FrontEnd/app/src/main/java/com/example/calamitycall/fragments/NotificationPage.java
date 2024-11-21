@@ -172,8 +172,10 @@ public class NotificationPage extends Fragment {
         activeNotifications.add(new Notification("Rainfall", 3));
 
         // History notifications
-        historyNotifications = new ArrayList<>();
-        historyNotifications.add(new Notification("Rainfall", 4));
-        historyNotifications.add(new Notification("Tornado", 1));
+//        historyNotifications = new ArrayList<>();
+//        historyNotifications.add(new Notification("Rainfall", 4));
+//        historyNotifications.add(new Notification("Tornado", 1));
+        // History notifications
+        historyNotifications = new ArrayList<>(); // Start with an empty list
     }
 }
