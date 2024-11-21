@@ -16,6 +16,13 @@ public class Flashing {
         this.critical = critical;
     }
 
+    public Flashing(boolean watch, boolean warning, boolean urgent, boolean critical) {
+        this.watch = watch;
+        this.warning = warning;
+        this.urgent = urgent;
+        this.critical = critical;
+    }
+
 
     //setters
     public void setPreferenceid(int preferenceid) {
