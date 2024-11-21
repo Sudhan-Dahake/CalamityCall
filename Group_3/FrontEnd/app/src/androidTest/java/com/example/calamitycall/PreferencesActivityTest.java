@@ -7,6 +7,9 @@ import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.uiautomator.Until;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,35 +47,128 @@ public class PreferencesActivityTest {
     }
 
     private void navigateToPreferencesPage() {
-        // Arrange: Wait for bottom navigation to load and locate the notification menu item
+        // Wait for the bottom navigation to load
         device.wait(Until.hasObject(By.res(PACKAGE_NAME, "bottom_navigation")), TIMEOUT);
-        UiObject2 notificationMenuItem = device.findObject(By.res(PACKAGE_NAME, "nav_settings"));
 
-        if (notificationMenuItem == null) {
-            // Fallback: Locate using text if resource ID is not found
-            notificationMenuItem = device.findObject(By.text("Settings"));
-        }
+        // Locate the settings menu item by resource ID or fallback to text-based search
+        UiObject2 settingsMenuItem = device.findObject(By.res(PACKAGE_NAME, "nav_settings"));
 
-        // Act: Click the notification menu item
-        if (notificationMenuItem != null) {
-            notificationMenuItem.click();
+        settingsMenuItem.click();
 
-            // Assert: Verify the notification page loads successfully
-            device.wait(Until.hasObject(By.res(PACKAGE_NAME, "Settings")), TIMEOUT);
-        } else {
-            throw new RuntimeException("Failed to locate the settings menu item.");
-        }
     }
+
 
     @Test
     public void testNotifcationOnPageLoadsSuccessfully() {
-        // Arrange: Locate a key element unique to the notification page
-        UiObject2 notificationOnTitle = device.findObject(By.text("Notifcation On"));
 
+        UiObject2 notificationOnTitle = device.findObject(By.res(PACKAGE_NAME, "notification_on"));
+        assertTrue("Notification On button is not found", notificationOnTitle != null);
+
+        // Click the button
         notificationOnTitle.click();
-        UiObject2 saveTitle = device.findObject(By.text("Save"));
-        // Act & Assert: Verify the title is displayed
-        assertTrue("Notification page title is not displayed", saveTitle != null);
+
+        // Wait for the save button to appear
+        device.wait(Until.hasObject(By.res(PACKAGE_NAME, "notificationon_save")), TIMEOUT);
+
+        UiObject2 saveTitle = device.findObject(By.res(PACKAGE_NAME, "notificationon_save"));
+
+        assertTrue("Notification On page title (Save button) is not displayed", saveTitle != null);
+        // Locate the save button
+    }
+    @Test
+    public void testNoisePageLoadsSuccessfully() {
+
+        UiObject2 noiseTitle = device.findObject(By.res(PACKAGE_NAME, "noise"));
+        assertTrue("Noise button is not found", noiseTitle != null);
+
+        // Click the button
+        noiseTitle.click();
+
+        // Wait for the save button to appear
+        device.wait(Until.hasObject(By.res(PACKAGE_NAME, "noise_save")), TIMEOUT);
+
+        UiObject2 saveTitle = device.findObject(By.res(PACKAGE_NAME, "noise_save"));
+
+        assertTrue("Noise page title (Save button) is not displayed", saveTitle != null);
+        // Locate the save button
     }
 
+    @Test
+    public void testNotificationTypePageLoadsSuccessfully() {
+
+        UiObject2 notificationtypeTitle = device.findObject(By.res(PACKAGE_NAME, "notification_alert_type"));
+        assertTrue("Notification Type button is not found", notificationtypeTitle != null);
+
+        // Click the button
+        notificationtypeTitle.click();
+
+        // Wait for the save button to appear
+        device.wait(Until.hasObject(By.res(PACKAGE_NAME, "notificationtype_save")), TIMEOUT);
+
+        UiObject2 saveTitle = device.findObject(By.res(PACKAGE_NAME, "notificationtype_save"));
+
+        assertTrue("Notification Type page title (Save button) is not displayed", saveTitle != null);
+        // Locate the save button
+    }
+
+    @Test
+    public void testFlashingPageLoadsSuccessfully() {
+
+        UiObject2 flashingTitle = device.findObject(By.res(PACKAGE_NAME, "flashing"));
+        assertTrue("Flashing button is not found", flashingTitle != null);
+
+        // Click the button
+        flashingTitle.click();
+
+        // Wait for the save button to appear
+        device.wait(Until.hasObject(By.res(PACKAGE_NAME, "flashing_save")), TIMEOUT);
+
+        UiObject2 saveTitle = device.findObject(By.res(PACKAGE_NAME, "flashing_save"));
+
+        assertTrue("Flashing page title (Save button) is not displayed", saveTitle != null);
+        // Locate the save button
+    }
+
+    @Test
+    public void testTTSPageLoadsSuccessfully() {
+
+        UiObject2 ttsTitle = device.findObject(By.res(PACKAGE_NAME, "text_to_speech"));
+        assertTrue("Flashing button is not found", ttsTitle != null);
+
+        // Click the button
+        ttsTitle.click();
+
+        // Wait for the save button to appear
+        device.wait(Until.hasObject(By.res(PACKAGE_NAME, "text_to_speech_save")), TIMEOUT);
+
+        UiObject2 saveTitle = device.findObject(By.res(PACKAGE_NAME, "text_to_speech_save"));
+
+        assertTrue("TextToSpeech page title (Save button) is not displayed", saveTitle != null);
+        // Locate the save button
+    }
+
+    @Test
+    public void testNotifcationOnSettingsSaveSuccessfully() {
+
+        UiObject2 notificationOnTitle = device.findObject(By.res(PACKAGE_NAME, "notification_on"));
+        // Click the button
+        notificationOnTitle.click();
+
+        // Wait for the save button to appear
+        device.wait(Until.hasObject(By.res(PACKAGE_NAME, "notificationon_save")), TIMEOUT);
+
+        UiObject2 saveTitle = device.findObject(By.res(PACKAGE_NAME, "notificationon_save"));
+
+        UiObject2 watchSettingBefore = device.findObject(By.res(PACKAGE_NAME, "watch_switch"));
+        watchSettingBefore.click();
+
+        // Click the button
+        saveTitle.click();
+
+        UiObject2 watchSettingAfter = device.findObject(By.res(PACKAGE_NAME, "watch_switch"));
+
+        boolean stateBefore = watchSettingBefore.isChecked();
+        boolean stateAfter = watchSettingAfter.isChecked();
+        assertEquals(stateBefore, stateAfter);
+    }
 }
