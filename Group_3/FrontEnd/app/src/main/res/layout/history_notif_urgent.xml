@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -35,7 +36,8 @@
                 android:layout_height="28dp"
                 android:layout_gravity="center"
                 android:contentDescription="Urgent Icon"
-                android:src="@drawable/urgent_icon" />
+                android:src="@drawable/urgent_icon"
+                tools:ignore="HardcodedText" />
         </FrameLayout>
 
         <!-- Vertical layout for Alert Texts -->
@@ -43,7 +45,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="NestedWeights">
 
             <!-- Urgent Alert -->
             <TextView
@@ -55,7 +58,8 @@
                 android:textAlignment="center"
                 android:textColor="#000000"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
             <!-- Disaster type (High Chance of Tornado) -->
             <TextView
@@ -63,9 +67,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="High Chance of Tornado"
-                android:textAlignment="center"
+                android:textAlignment="textStart"
                 android:textColor="#000000"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
     </LinearLayout>
 
@@ -77,5 +82,6 @@
         android:paddingTop="7dp"
         android:text="21-11-2023"
         android:textColor="#000000"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        tools:ignore="HardcodedText" />
 </LinearLayout>

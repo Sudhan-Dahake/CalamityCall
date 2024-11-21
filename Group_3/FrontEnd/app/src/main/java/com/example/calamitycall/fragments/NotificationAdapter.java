@@ -1,5 +1,6 @@
 package com.example.calamitycall.fragments;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
 
     // Method to update notifications list and refresh RecyclerView
+    @SuppressLint("NotifyDataSetChanged")
     public void updateNotifications(List<Notification> newNotifications, boolean isHistoryTab) {
         notifications = newNotifications;
         this.isHistoryTab = isHistoryTab;
@@ -114,6 +116,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             // Set the text on the views
             holder.disasterLevel.setText(levelText);
             holder.disasterType.setText(disasterTypeText);
+            //holder.alert_date.setText(notification.getDate().toString()); //Only want to display the date with no time attached
         }
 
 
@@ -141,7 +144,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         }
 
         public static class NotificationViewHolder extends RecyclerView.ViewHolder {
-            TextView disasterLevel, disasterType;
+            TextView disasterLevel, disasterType, alert_date;
             ImageView icon;
             View notificationLayout;
 
@@ -149,6 +152,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 super(itemView);
                 disasterLevel = itemView.findViewById(R.id.disaster_level);
                 disasterType = itemView.findViewById(R.id.disaster_type);
+                alert_date = itemView.findViewById(R.id.alert_date);
                 notificationLayout = itemView.findViewById(R.id.notification_layout);
             }
         }
