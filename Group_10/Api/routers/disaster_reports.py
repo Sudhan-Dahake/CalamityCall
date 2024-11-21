@@ -29,7 +29,7 @@ class DisasterReport(BaseModel):
     created_at: datetime
     location: Location
     event: Event
-    media: Optional[List[Media]] = None
+    # media: Optional[List[Media]] = []
 
 
 # Fetch a disaster report by report_id
@@ -50,8 +50,9 @@ async def get_disaster_report(report_id: str):
 async def create_disaster_report(report: DisasterReport):
     try:
         disaster_model = DisasterReportsModel()
-        # Serialize media as a JSON string if provided
-        media_data = [media.dict() for media in report.media] if report.media else None
+        # If no media is provided, use an empty list, not None
+        # media_data = report.media if report.media else []
+
         result = disaster_model.CreateReport(
             report_id=report.report_id,
             user_id=report.user_id,
@@ -62,7 +63,7 @@ async def create_disaster_report(report: DisasterReport):
             weather_event_type=report.event.type,
             weather_event_severity=report.event.severity,
             weather_event_description=report.event.description,
-            media=media_data,
+            # media=media_data,  # Pass the media directly as a list (empty or with data)
         )
         if not result:
             raise HTTPException(status_code=400, detail="Failed to create disaster report")
