@@ -30,9 +30,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.speech.tts.TextToSpeech;
+import java.util.Locale;
+
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "MyFirebaseMessagingService";
     private NotificationConfig notificationConfig;
+
+    private TextToSpeech tts;
+
+    private String message;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -49,6 +56,36 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
 
 
+        // Extract data from the notification
+        String disasterType = remoteMessage.getData().get("disastertype");
+        String city = remoteMessage.getData().get("city");
+        int alertLevel = Integer.parseInt(remoteMessage.getData().get("disasterlevel"));
+
+        String severity;
+
+        if (alertLevel == 1) {
+            severity = "Watch";
+        }
+
+        else if (alertLevel == 2) {
+            severity = "warning";
+        }
+
+        else if (alertLevel == 3) {
+            severity = "urgent";
+        }
+
+        else if (alertLevel == 4) {
+            severity = "critical";
+        }
+
+        else {
+            severity = "unknown";
+        }
+
+        // Build the TTS message
+        message = "This is a " + severity + " alert for " + city + ". A " + disasterType + " has been detected. Please take necessary precautions.";
+
 
         TokenManager tokenManager;
 
@@ -59,7 +96,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         catch (Exception e) {
             Log.e(TAG, "TokenManager Initialization Failed", e);
 
-            proceedWithNotification(remoteMessage);
+            proceedWithNotification(remoteMessage, message);
 
             return;
         }
@@ -103,7 +140,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     Log.d(TAG, "Preferences Loaded Successfully");
 
                     //Placeholder for now.
-                    proceedWithNotification(remoteMessage);
+                    proceedWithNotification(remoteMessage, message);
                 }
 
                 else if (response.code() == 401) {
@@ -116,7 +153,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             public void onFailure(Call<PreferenceResponse> call, Throwable t) {
                 Log.e(TAG, "Error fetching Preferences", t);
 
-                proceedWithNotification(remoteMessage);
+                proceedWithNotification(remoteMessage, message);
             }
         });
     }
@@ -128,7 +165,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (refreshToken == null) {
             Log.d(TAG, "No refresh token available");
 
-            proceedWithNotification(remoteMessage);
+            proceedWithNotification(remoteMessage, message);
 
             return;
         }
@@ -152,7 +189,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 else {
                     Log.d(TAG, "Failed to refresh JWT token: " + response.code());
 
-                    proceedWithNotification(remoteMessage);
+                    proceedWithNotification(remoteMessage, message);
                 }
             }
 
@@ -161,13 +198,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             public void onFailure(Call<TokenResponse> call, Throwable t) {
                 Log.e(TAG, "Error refreshing JWT Token", t);
 
-                proceedWithNotification(remoteMessage);
+                proceedWithNotification(remoteMessage, message);
             }
         });
     }
 
 
-    private void proceedWithNotification(RemoteMessage remoteMessage) {
+    private void proceedWithNotification(RemoteMessage remoteMessage, String ttsMessage) {
         if (!remoteMessage.getData().isEmpty()) {
             FCMData fcmData = new FCMData(
                     remoteMessage.getData().get("notiforigin"),
@@ -186,6 +223,31 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             notificationConfig = new NotificationConfig(getApplicationContext());
 
             notificationConfig.sendNotification(fcmData.getDisasterLevel(), fcmData.getDisasterType(), fcmData.getCity(), fcmData.getNotifOrigin(), fcmData.getLatitude(), fcmData.getLongitude(), fcmData.getPreparationSteps(), fcmData.getActiveSteps(), fcmData.getRecoverySteps());
+
+            // Initialize TTS and play the message
+            initializeTextToSpeech(ttsMessage);
+        }
+    }
+
+
+    private void initializeTextToSpeech(String ttsMessage) {
+        tts = new TextToSpeech(getApplicationContext(), status -> {
+            if (status == TextToSpeech.SUCCESS) {
+                tts.setLanguage(Locale.getDefault());
+                tts.speak(ttsMessage, TextToSpeech.QUEUE_FLUSH, null, "TTS_ID");
+                Log.d(TAG, "TTS speaking: " + ttsMessage);
+            } else {
+                Log.e(TAG, "TextToSpeech Initialization Failed");
+            }
+        });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (tts != null) {
+            tts.stop();
+            tts.shutdown();
         }
     }
 
