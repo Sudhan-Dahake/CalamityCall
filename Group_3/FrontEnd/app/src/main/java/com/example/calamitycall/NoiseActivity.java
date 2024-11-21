@@ -1,9 +1,11 @@
 package com.example.calamitycall;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -14,9 +16,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.calamitycall.fragments.SettingsPage;
+import com.example.calamitycall.models.preference.Noise;
+import com.example.calamitycall.models.preference.PreferenceUpdateRequest;
+import com.example.calamitycall.models.preference.PreferenceUpdateResponse;
+import com.example.calamitycall.models.token.TokenGenerateRequest;
+import com.example.calamitycall.models.token.TokenResponse;
+import com.example.calamitycall.network.ApiClient;
+import com.example.calamitycall.network.RetrofitInstance;
+import com.example.calamitycall.utils.TokenManager;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 @SuppressLint("UseSwitchCompatOrMaterialCode")
 public class NoiseActivity extends AppCompatActivity {
+    private static final String TAG = "NoiseActivity";
 
     private Switch noiseSwitch; // Main switch for watch noise notifications
     private Switch warningNoiseSwitch;
@@ -84,14 +99,102 @@ public class NoiseActivity extends AppCompatActivity {
     }
 
     private void savePreferences() {
+        String tableName = "noise";
+        boolean watch = noiseSwitch.isChecked();
+        boolean warning = warningNoiseSwitch.isChecked();
+        boolean urgent = urgentNoiseSwitch.isChecked();
+        boolean critical = criticalNoiseSwitch.isChecked();
+
+        Noise noise = new Noise(watch, warning, urgent, critical);
+        PreferenceUpdateRequest<Object> preferenceUpdateRequest = new PreferenceUpdateRequest<>(tableName, noise);
+
+        TokenManager tokenManager;
+
+        try {
+            tokenManager = TokenManager.getInstance(getApplicationContext());
+        } catch (Exception e) {
+            Log.e(TAG, "TokenManager Initialization Failed", e);
+            return;
+        }
+
+        String jwtToken = tokenManager.getAccessToken();
+
+        if (jwtToken != null) {
+            Log.d(TAG, "Inside savePreferences -> jwtToken is not null, calling the update preference endpoint");
+            updatePreferences(jwtToken, tokenManager, preferenceUpdateRequest);
+        } else {
+            Log.d(TAG, "Inside savePreferences, getting new JWT using refresh token");
+            refreshJWT(tokenManager, preferenceUpdateRequest);
+        }
+
         // Save switch states to SharedPreferences
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("watch_noise", noiseSwitch.isChecked());
-        editor.putBoolean("warning_noise", warningNoiseSwitch.isChecked());
-        editor.putBoolean("urgent_noise", urgentNoiseSwitch.isChecked());
-        editor.putBoolean("critical_noise", criticalNoiseSwitch.isChecked());
-        editor.apply();
-        SavedText.setVisibility(View.VISIBLE);
+        new Thread(() -> {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("watch_noise", noiseSwitch.isChecked());
+            editor.putBoolean("warning_noise", warningNoiseSwitch.isChecked());
+            editor.putBoolean("urgent_noise", urgentNoiseSwitch.isChecked());
+            editor.putBoolean("critical_noise", criticalNoiseSwitch.isChecked());
+            editor.apply();
+
+            runOnUiThread(() -> SavedText.setVisibility(View.VISIBLE));
+        }).start();
     }
 
+    private void updatePreferences(String jwtToken, TokenManager tokenManager, PreferenceUpdateRequest<Object> preferenceUpdateRequest) {
+        ApiClient apiClient = RetrofitInstance.getRetrofitInstance().create(ApiClient.class);
+        Call<PreferenceUpdateResponse> updateCall = apiClient.updateNotificationOn("Bearer " + jwtToken, preferenceUpdateRequest);
+
+        updateCall.enqueue(new Callback<PreferenceUpdateResponse>() {
+            @Override
+            public void onResponse(Call<PreferenceUpdateResponse> call, Response<PreferenceUpdateResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    PreferenceUpdateResponse serverResponse = response.body();
+                    Log.d(TAG, "Server Response for Noise Preference Updation: " + serverResponse);
+                } else {
+                    SavedText.setVisibility(View.VISIBLE);
+                    SavedText.setText("Failed to Save Preferences!!");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PreferenceUpdateResponse> call, Throwable t) {
+                SavedText.setVisibility(View.VISIBLE);
+                SavedText.setText("Error Saving Preferences!!");
+            }
+        });
+    }
+
+    private void refreshJWT(TokenManager tokenManager, PreferenceUpdateRequest<Object> preferenceUpdateRequest) {
+        String refreshToken = tokenManager.getRefreshToken();
+
+        if (refreshToken == null) {
+            Log.d(TAG, "No refresh token available");
+            startActivity(new Intent(NoiseActivity.this, LoginActivity.class));
+            finish();
+        }
+
+        ApiClient apiClient = RetrofitInstance.getRetrofitInstance().create(ApiClient.class);
+        Call<TokenResponse> refreshCall = apiClient.refreshToken(new TokenGenerateRequest(refreshToken));
+
+        refreshCall.enqueue(new Callback<TokenResponse>() {
+            @Override
+            public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    String newAccessToken = response.body().getAccessToken();
+                    tokenManager.setAccessToken(newAccessToken);
+                    updatePreferences(newAccessToken, tokenManager, preferenceUpdateRequest);
+                } else {
+                    startActivity(new Intent(NoiseActivity.this, LoginActivity.class));
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TokenResponse> call, Throwable t) {
+                Log.e(TAG, "Error refreshing JWT Token", t);
+                startActivity(new Intent(NoiseActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
+    }
 }
