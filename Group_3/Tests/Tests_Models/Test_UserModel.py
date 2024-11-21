@@ -51,7 +51,7 @@ class TestUserModel(unittest.TestCase):
         )
 
         # Assert that the user creation failed
-        self.assertIsNone(result)
+        self.assertFalse(result)
 
     def test_get_user_success(self):
         # Mock successful response from Supabase client
@@ -89,7 +89,7 @@ class TestUserModel(unittest.TestCase):
         # Call UpdateUser method
         result = self.user_model.UpdateUser(
             user_id=1,
-            username="updated_user",
+            currentUsername="updated_user",
             age=30
         )
 
@@ -104,7 +104,7 @@ class TestUserModel(unittest.TestCase):
         # Call UpdateUser method
         result = self.user_model.UpdateUser(
             user_id=1,
-            username="updated_user"
+            currentUsername="updated_user"
         )
 
         # Assert that the user update failed

@@ -1,68 +1,82 @@
-<!-- basic_notif_collapsed.xml -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:paddingVertical="16dp"
-    android:paddingHorizontal="36dp"
-    android:id="@+id/notification_layout"
-    android:background="@drawable/notif_bg_red"
-    android:gravity="center_vertical"
-    android:baselineAligned="false">
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:minHeight="48dp"
+android:maxHeight="64dp"
+android:orientation="horizontal"
+android:paddingVertical="8dp"
+android:paddingHorizontal="10dp"
+android:id="@+id/notification_layout"
+android:background="@drawable/notif_bg_red"
+android:gravity="center_vertical"
+android:baselineAligned="false">
 
-    <!-- Inner container layout -->
+<!-- Inner container layout -->
+<LinearLayout
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:orientation="horizontal"
+    android:gravity="start"
+    android:baselineAligned="false"
+    tools:ignore="UselessParent">
+
+    <!-- Middle section -->
+    <FrameLayout
+        android:layout_width="36dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/circular_bg_white">
+
+        <!-- Tornado icon -->
+        <ImageView
+            android:id="@+id/alert_icon"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:contentDescription="Tornado Icon"
+            android:src="@drawable/critical_icon"
+            tools:ignore="HardcodedText" />
+    </FrameLayout>
+
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:gravity="start"
-        android:baselineAligned="false">
+        tools:ignore="NestedWeights">
 
-        <!-- Middle section: Critical Alert and Tornado Spotted text -->
-        <FrameLayout
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginEnd="12dp"
-            android:background="@drawable/circular_bg_white">
+        <!-- Warning Alert -->
+        <TextView
+            android:id="@+id/disaster_level"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Critical Alert"
+            android:gravity="center_vertical"
+            android:textColor="#000000"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
-            <!-- Tornado icon -->
-            <ImageView
-                android:id="@+id/tornado_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:contentDescription="Tornado Icon"
-                android:src="@drawable/critical_icon" />
-        </FrameLayout>
+        <!-- Disaster type (Warning) -->
+        <TextView
+            android:id="@+id/disaster_type"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Tornado Spotted"
+            android:textColor="#000000"
+            android:textSize="11sp"
+            android:gravity="center_vertical"
+            android:textAlignment="center"
+            android:paddingStart="7dp"
+            android:paddingEnd="7dp"
+            android:ellipsize="none"
+            android:singleLine="false"
+            tools:ignore="HardcodedText,RtlCompat" />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <!-- Critical Alert -->
-            <TextView
-                android:id="@+id/disaster_level"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Critical Alert"
-                android:textAlignment="center"
-                android:textColor="#000000"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-
-            <!-- Disaster type (Tornado Spotted) -->
-            <TextView
-                android:id="@+id/disaster_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tornado Spotted"
-                android:textAlignment="center"
-                android:textColor="#000000"
-                android:textSize="16sp" />
-        </LinearLayout>
     </LinearLayout>
+</LinearLayout>
 </LinearLayout>

@@ -1,0 +1,149 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.calamitycall.LoginActivity"
+    android:background="@color/login_bk_color"
+    android:focusableInTouchMode="true"
+    android:gravity="center"
+    android:layout_marginTop="50dp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/login_background"
+        android:scaleType="centerCrop"
+        android:alpha="0.8"
+        tools:ignore="ContentDescription" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:gravity="center_horizontal">
+
+            <!-- App Logo and Name -->
+            <ImageView
+                android:layout_width="198dp"
+                android:layout_height="172dp"
+                android:layout_gravity="center"
+                android:src="@drawable/logo"
+                tools:ignore="ContentDescription" />
+
+            <!-- Username Input Field -->
+            <TextView
+                android:layout_width="195dp"
+                android:layout_height="50dp"
+                android:fontFamily="@font/jolly_lodger"
+                android:text="CalamityCall"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="50dp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText,SpUsage" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:boxBackgroundMode="filled"
+                app:boxBackgroundColor="@android:color/white">
+
+                <EditText
+                    android:id="@+id/editTextUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Username"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textColor="@android:color/black"
+                    tools:ignore="Autofill,HardcodedText" /> <!-- Set text color to black -->
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Password Input Field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Password"
+                app:endIconMode="password_toggle"
+                app:boxBackgroundMode="filled"
+                app:boxBackgroundColor="@android:color/white"
+                tools:ignore="HardcodedText"> <!-- Optional: change icon color -->
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:textColor="@android:color/black" /> <!-- Set text color to black -->
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <!-- Forgot Password Text -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Forgot Password?"
+                android:textColor="@color/colorSecondary"
+                android:textSize="14sp"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                tools:ignore="HardcodedText" />
+
+            <!-- Login Button with Progress Indicator -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/loginViewsMargin">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnLogin"
+                    style="@style/BlackMaterialButton"
+                    android:layout_width="278dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@android:color/black"
+                    android:text="Login"
+                    android:textColor="@color/primaryTextColor"
+                    tools:ignore="HardcodedText" />
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/progressBar"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:visibility="gone"
+                    app:indicatorColor="@color/colorPrimary"
+                    app:indicatorSize="24dp"
+                    android:layout_gravity="center" />
+            </FrameLayout>
+
+            <!-- New User Registration Text -->
+            <TextView
+                android:id="@+id/registerNowText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New User? Register now!"
+                android:textColor="@color/darkTextColor"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                tools:ignore="HardcodedText" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

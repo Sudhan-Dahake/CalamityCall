@@ -1,0 +1,7 @@
+{
+    "user_id": "Unique user identifier (UUID)",
+    "username": "Username",
+    "password": "User's hashed password",
+    "preferences": []
+}
+

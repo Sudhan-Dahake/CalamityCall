@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.ForumPage">
+
+    <Button
+        android:id="@+id/criticalTrigger"
+        android:layout_width="255dp"
+        android:layout_height="62dp"
+        android:onClick="notificationButtonCritical"
+        android:text="Trigger Critical Notification"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.455"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.179"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/urgentTrigger"
+        android:layout_width="256dp"
+        android:layout_height="63dp"
+        android:onClick="notificationButtonUrgent"
+        android:text="Trigger Urgent Notification"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.385"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/warningTrigger"
+        android:layout_width="254dp"
+        android:layout_height="64dp"
+        android:onClick="notificationButtonWarning"
+        android:text="Trigger Warning Notification"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.587"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/watchTrigger"
+        android:layout_width="254dp"
+        android:layout_height="64dp"
+        android:onClick="notificationButtonWatch"
+        android:text="Trigger Watch Notification"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.455"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.781"
+        tools:ignore="HardcodedText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

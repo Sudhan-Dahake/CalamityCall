@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/rounded_button.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- State when the EditText is focused (clicked) -->
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="5dp" />
+            <solid android:color="#5C0A02" /> <!-- White background when clicked -->
+            <stroke android:width="1dp" android:color="#000000" /> <!-- Black border -->
+        </shape>
+    </item>
+
+    <!-- Default state (when not focused) -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="5dp" />
+            <solid android:color="#AC0A02" /> <!-- Light grey background -->
+            <stroke android:width="1dp" android:color="#000000" /> <!-- Black border -->
+        </shape>
+    </item>
+</selector>

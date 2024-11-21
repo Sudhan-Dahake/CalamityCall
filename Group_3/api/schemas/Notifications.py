@@ -9,6 +9,9 @@ class NotificationCreate(BaseModel):
     disastertype: str
     disasterlevel: int
     notifdate: str
+    preparationsteps: str | None = None
+    activesteps: str | None = None
+    recoverysteps: str | None = None
 
 
 class NotificationResponse(BaseModel):
@@ -19,10 +22,13 @@ class NotificationResponse(BaseModel):
     disastertype: str
     disasterlevel: int
     notifdate: str
+    preparationsteps: str | None = None
+    activesteps: str | None = None
+    recoverysteps: str | None = None
 
 
 class NotificationHistoryRequest(BaseModel):
-    timeFrame: str = "1 months ago"
+    timeFrame: str = "1 month ago"
 
 
 class NotificationHistoryResponse(BaseModel):

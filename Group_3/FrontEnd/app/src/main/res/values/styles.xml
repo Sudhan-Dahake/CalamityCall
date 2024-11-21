@@ -1,0 +1,71 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.ActionBar">
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="DropdownInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+        <item name="boxStrokeColor">#557</item>
+        <item name="boxStrokeWidth">1dp</item>
+    </style>
+
+    <!-- The launcher theme. It sets the main window background to the launch_screen drawable -->
+
+    <!--styles for app-->
+    <!--df dialog-->
+
+    <style name="viewParent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="viewParent.headerText">
+        <item name="android:textColor">@color/contentTextColor</item>
+        <item name="android:textSize">@dimen/headerTextSize</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="viewParent.headerText.NoMode">
+        <item name="android:textColor">@color/darkTextColor</item>
+    </style>
+
+    <style name="parent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="modifiedEditText" parent="parent">
+        <item name="android:textSize">@dimen/newsMoreTextSize</item>
+        <item name="android:backgroundTint">@color/primaryTextColor</item>
+    </style>
+
+    <style name="BlackMaterialButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">@android:color/black</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:buttonCornerRadius">50dp</item>
+    </style>
+
+    <style name="spinnerHintText" parent="parent">
+        <item name="android:textSize">@dimen/newsMoreTextSize</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:paddingLeft">5dp</item>
+    </style>
+
+    <!-- Bottom Navigation Text Appearance -->
+    <style name="BottomNavTextAppearance" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">18sp</item> <!-- Adjust text size as needed -->
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+</resources>

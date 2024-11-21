@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@android:color/white"
     tools:context=".MainActivity">
 
     <FrameLayout
@@ -12,74 +12,22 @@
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_navigation">
 
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            tools:context=".MainActivity">-->
-
-<!--            <Button-->
-<!--                android:id="@+id/criticalTrigger"-->
-<!--                android:layout_width="255dp"-->
-<!--                android:layout_height="62dp"-->
-<!--                android:onClick="notificationButtonCritical"-->
-<!--                android:text="Trigger Critical Notification"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintHorizontal_bias="0.455"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                app:layout_constraintVertical_bias="0.179" />-->
-
-<!--            <Button-->
-<!--                android:id="@+id/urgentTrigger"-->
-<!--                android:layout_width="256dp"-->
-<!--                android:layout_height="63dp"-->
-<!--                android:onClick="notificationButtonUrgent"-->
-<!--                android:text="Trigger Urgent Notification"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintHorizontal_bias="0.45"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                app:layout_constraintVertical_bias="0.385" />-->
-
-<!--            <Button-->
-<!--                android:id="@+id/warningTrigger"-->
-<!--                android:layout_width="254dp"-->
-<!--                android:layout_height="64dp"-->
-<!--                android:onClick="notificationButtonWarning"-->
-<!--                android:text="Trigger Warning Notification"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintHorizontal_bias="0.45"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                app:layout_constraintVertical_bias="0.587" />-->
-
-<!--            <Button-->
-<!--                android:id="@+id/watchTrigger"-->
-<!--                android:layout_width="250dp"-->
-<!--                android:layout_height="65dp"-->
-<!--                android:onClick="notificationButtonWatch"-->
-<!--                android:text="Trigger Watch Notification"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                app:layout_constraintVertical_bias="0.774" />-->
-
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-
     </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFF5"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="1dp"
+        android:background="#FFFFFF"
+        app:labelVisibilityMode="labeled"
+        app:itemActiveIndicatorStyle="@color/white"
         app:itemIconTint="@drawable/bottom_navigation_selector"
         app:itemTextColor="@drawable/bottom_navigation_selector"
         app:menu="@menu/bottom_navigation_menu"
-        android:layout_alignParentBottom="true" />
+        app:itemIconSize="34dp"
+        app:itemTextAppearanceActive="@style/BottomNavTextAppearance"
+        app:itemTextAppearanceInactive="@style/BottomNavTextAppearance"/>
 
 </RelativeLayout>

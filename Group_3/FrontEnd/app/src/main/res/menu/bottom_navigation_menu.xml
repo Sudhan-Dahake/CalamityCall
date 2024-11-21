@@ -3,18 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/nav_boards"
-        android:icon="@drawable/baseline_dashboard_24"
-        android:title="Boards"/>
+        android:id="@+id/nav_forum"
+        android:icon="@drawable/forum_24dp"
+        android:title="@string/title_forum"/>
 
     <item
-        android:id="@+id/nav_history"
-        android:icon="@drawable/baseline_access_time_24"
-        android:title="History"/>
+            android:id="@+id/nav_report"
+            android:icon="@drawable/report_24dp"
+            android:title="@string/title_report"/>
 
     <item
-        android:id="@+id/nav_account"
-        android:icon="@drawable/baseline_account_circle_24"
-        android:title="Account"/>
+        android:id="@+id/nav_notification"
+        android:icon="@drawable/notifications_24dp"
+        android:title="@string/title_notifications"/>
+
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/settings_24dp"
+        android:title="@string/title_settings"/>
 
 </menu>

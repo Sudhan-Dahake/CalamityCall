@@ -1,0 +1,9 @@
+{
+    "topic_id": "Unique topic identifier",
+    "user_id": "ID of user who created the topic",
+    "created_at": "ISO-8601 timestamp, e.g. 2024-10-17T12:31:48Z",
+    "title": "Topic title (max. 100 characters)",
+    "description": "Short description (max. 250 characters)",
+    "posts": []
+}
+

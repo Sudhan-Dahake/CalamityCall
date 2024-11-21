@@ -17,7 +17,7 @@ class DisasterReportsModel:
         report_data = {
             "report_id": report_id,
             "user_id": user_id,
-            "timestamp": timestamp, 
+            "created_at": timestamp,
             "latitude": latitude,
             "longitude": longitude,
             "address": address,
@@ -26,19 +26,18 @@ class DisasterReportsModel:
             "weather_event_description": weather_event_description,
         }
 
-        # Convert media objects to dictionaries if provided
+        # Optional media field
         if media:
-            report_data["media"] = [m.dict() if hasattr(m, "dict") else m for m in media]
+            report_data["media"] = media
 
+        # Insert data into Supabase
         response = self.client.from_(self.tableName).insert(report_data).execute()
-
         if response.data:
             print("Disaster report created successfully.")
             return response.data[0]
         else:
             print(f"Error creating report: {response}")
             return None
-
 
     def ReadReport(self, report_id=None, user_id=None):
         query = self.client.from_(self.tableName).select("*")

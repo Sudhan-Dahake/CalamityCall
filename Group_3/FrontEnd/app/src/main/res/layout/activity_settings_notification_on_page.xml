@@ -1,0 +1,199 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".Settings"
+    android:layout_marginTop="50dp">
+
+    <include
+        android:id="@+id/include2"
+        layout="@layout/header" />
+
+    <TextView
+        android:id="@+id/settings_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/include2"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:drawableStart="@drawable/nextback"
+        tools:ignore="HardcodedText,UseCompatTextViewDrawableXml" />
+
+    <TextView
+        android:id="@+id/notification_on_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="16dp"
+        android:text="Notification On"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/settings_title"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/notification_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Toggle notifications for each category to select the type of alert you receive."
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/notification_on_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        tools:ignore="HardcodedText" />
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="405dp"
+        android:layout_height="13dp"
+        app:layout_constraintBottom_toTopOf="@id/linearLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/notification_description" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_container">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/watch_option"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Watch"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
+
+            <Switch
+                android:id="@+id/watch_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:contentDescription="Enable Watch Notifications"
+                tools:ignore="HardcodedText,UseSwitchCompatOrMaterialXml" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/warning_option"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Warning"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
+
+            <Switch
+                android:id="@+id/warning_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:contentDescription="Enable Warning Notifications"
+                tools:ignore="HardcodedText,UseSwitchCompatOrMaterialXml" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/urgent_option"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Urgent"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
+
+            <Switch
+                android:id="@+id/urgent_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:contentDescription="Enable Urgent Notifications"
+                tools:ignore="HardcodedText,UseSwitchCompatOrMaterialXml" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/critical_option"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Critical"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
+
+            <Switch
+                android:id="@+id/critical_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:contentDescription="Enable Critical Notifications"
+                tools:ignore="HardcodedText,UseSwitchCompatOrMaterialXml" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/notificationon_save"
+        android:layout_width="147dp"
+        android:layout_height="51dp"
+        android:backgroundTint="#FABABA"
+        android:drawablePadding="8dp"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="Save"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout4"
+        app:layout_constraintVertical_bias="0.131"
+        tools:ignore="HardcodedText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
