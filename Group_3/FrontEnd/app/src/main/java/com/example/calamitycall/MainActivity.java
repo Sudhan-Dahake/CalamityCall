@@ -40,9 +40,10 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
 
-        // Default tab (Forum)
-        Fragment selectedFragment = new ForumPage();
-        bottomNav.setSelectedItemId(R.id.nav_forum);
+
+        // Set NotificationPage as the default fragment
+        Fragment selectedFragment = new NotificationPage();
+        bottomNav.setSelectedItemId(R.id.nav_notification);
 
         // Handle intent extras for selecting a tab
         String openTab = getIntent().getStringExtra("open_tab");
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
             selectedFragment = new NotificationPage(); // Switch to Notifications tab
             bottomNav.setSelectedItemId(R.id.nav_notification);
         }
+
 
         // Set the selected fragment
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
