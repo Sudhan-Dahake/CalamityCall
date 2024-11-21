@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ public class NoiseActivity extends AppCompatActivity {
     private Switch urgentNoiseSwitch;
     private Switch criticalNoiseSwitch;
     private SharedPreferences sharedPreferences;
+    TextView SavedText;
 
 
     @Override
@@ -42,12 +44,16 @@ public class NoiseActivity extends AppCompatActivity {
         TextView settings = findViewById(R.id.settings_title);
         // Save button
         Button saveButton = findViewById(R.id.noise_save);
-
+        SavedText = findViewById(R.id.SavedText);
 
 
         // Load saved preferences
         loadPreferences();
 
+        noiseSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
+        warningNoiseSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
+        urgentNoiseSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
+        criticalNoiseSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
 
         settings.setOnClickListener(v -> {
             // Begin the fragment transaction
@@ -65,6 +71,11 @@ public class NoiseActivity extends AppCompatActivity {
         saveButton.setOnClickListener(v -> savePreferences());
     }
 
+
+    private void onSwitchChanged(CompoundButton buttonView, boolean isChecked) {
+        SavedText.setVisibility(View.INVISIBLE);
+    }
+
     private void loadPreferences() {
         noiseSwitch.setChecked(sharedPreferences.getBoolean("watch_noise", true));
         warningNoiseSwitch.setChecked(sharedPreferences.getBoolean("warning_noise", true));
@@ -80,6 +91,7 @@ public class NoiseActivity extends AppCompatActivity {
         editor.putBoolean("urgent_noise", urgentNoiseSwitch.isChecked());
         editor.putBoolean("critical_noise", criticalNoiseSwitch.isChecked());
         editor.apply();
+        SavedText.setVisibility(View.VISIBLE);
     }
 
 }

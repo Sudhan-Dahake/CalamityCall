@@ -18,6 +18,7 @@
     <color name="primaryTextColor">#FFFFFF</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="grey">#777</color>
 
 
     <!--colors for crop activity-->

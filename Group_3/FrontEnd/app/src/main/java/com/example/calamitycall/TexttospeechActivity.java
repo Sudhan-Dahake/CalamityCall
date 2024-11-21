@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ public class TexttospeechActivity extends AppCompatActivity {
     private Switch criticalSwitch;
 
     private SettingsPreferences settingsPreferences;
+    TextView SavedText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +42,14 @@ public class TexttospeechActivity extends AppCompatActivity {
         warningSwitch = findViewById(R.id.warning_switch);
         urgentSwitch = findViewById(R.id.urgent_switch);
         criticalSwitch = findViewById(R.id.critical_switch);
-
+        Button saveButton = findViewById(R.id.text_to_speech_save);
+        SavedText = findViewById(R.id.SavedText);
         TextView settings = findViewById(R.id.settings_title);
 
         loadPreferences();
+
+        // Set up save button listener
+        saveButton.setOnClickListener(v -> savePreferences());
 
         watchSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
         warningSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
@@ -71,6 +77,7 @@ public class TexttospeechActivity extends AppCompatActivity {
     }
 
     private void onSwitchChanged(CompoundButton buttonView, boolean isChecked) {
+        SavedText.setVisibility(View.INVISIBLE);
         if (buttonView.getId() == R.id.watch_switch) {
             settingsPreferences.setWatchNoiseOn(isChecked);
         } else if (buttonView.getId() == R.id.warning_switch) {
@@ -80,5 +87,8 @@ public class TexttospeechActivity extends AppCompatActivity {
         } else if (buttonView.getId() == R.id.critical_switch) {
             settingsPreferences.setCriticalNoiseOn(isChecked);
         }
+    }
+    private void savePreferences() {
+        SavedText.setVisibility(View.VISIBLE);
     }
 }

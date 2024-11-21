@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ public class FlashingActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
 
+    TextView SavedText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,15 +44,16 @@ public class FlashingActivity extends AppCompatActivity {
         urgentFlashSwitch = findViewById(R.id.urgent_switch);
         criticalFlashSwitch = findViewById(R.id.critical_switch);
         TextView settings = findViewById(R.id.settings_title);
+        SavedText = findViewById(R.id.SavedText);
         // New save button
         Button saveButton = findViewById(R.id.flashing_save);  // Initialize save button
 
         loadPreferences();
 
-//        flashSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
-//        warningFlashSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
-//        urgentFlashSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
-//        criticalFlashSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
+        flashSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
+        warningFlashSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
+        urgentFlashSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
+        criticalFlashSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
 
         settings.setOnClickListener(v -> {
             // Begin the fragment transaction
@@ -75,21 +78,9 @@ public class FlashingActivity extends AppCompatActivity {
         criticalFlashSwitch.setChecked(sharedPreferences.getBoolean("critical_flash", true));
     }
 
-    //    private void onSwitchChanged(CompoundButton buttonView, boolean isChecked) {
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//
-//        if (buttonView.getId() == R.id.watch_switch) {
-//            editor.putBoolean("watch_flash", isChecked);
-//        } else if (buttonView.getId() == R.id.warning_switch) {
-//            editor.putBoolean("warning_flash", isChecked);
-//        } else if (buttonView.getId() == R.id.urgent_switch) {
-//            editor.putBoolean("urgent_flash", isChecked);
-//        } else if (buttonView.getId() == R.id.critical_switch) {
-//            editor.putBoolean("critical_flash", isChecked);
-//        }
-//
-//        editor.apply();
-//    }
+    private void onSwitchChanged(CompoundButton buttonView, boolean isChecked) {
+        SavedText.setVisibility(View.INVISIBLE);
+    }
     private void savePreferences() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("watch_flash", flashSwitch.isChecked());
@@ -97,6 +88,7 @@ public class FlashingActivity extends AppCompatActivity {
         editor.putBoolean("urgent_flash", urgentFlashSwitch.isChecked());
         editor.putBoolean("critical_flash", criticalFlashSwitch.isChecked());
         editor.apply();
+        SavedText.setVisibility(View.VISIBLE);
     }
 
 }

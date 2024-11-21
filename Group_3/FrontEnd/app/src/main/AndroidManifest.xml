@@ -60,7 +60,8 @@
         <activity
             android:name=".fragments.ReportPage"
             android:exported="false"
-            tools:ignore="Instantiatable" />
+            tools:ignore="Instantiatable"
+            android:windowSoftInputMode="adjustPan"/>
 
         <activity
             android:name=".Settings"
@@ -75,12 +76,13 @@
         <activity
             android:name=".RegisterActivity"
             android:exported="true"
-            tools:ignore="Instantiatable"/>
+            tools:ignore="Instantiatable"
+            android:windowSoftInputMode="adjustPan"/>
 
         <activity
             android:name=".LoginActivity"
             android:exported="true"
-            tools:ignore="Instantiatable"/>
+            tools:ignore="Instantiatable" />
 
         <!-- Login Page as the launcher activity -->
         <activity

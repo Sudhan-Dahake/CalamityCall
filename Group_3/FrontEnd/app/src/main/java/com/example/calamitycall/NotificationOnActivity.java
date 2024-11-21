@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -26,6 +27,7 @@ public class NotificationOnActivity extends AppCompatActivity {
     private Switch criticalSwitch;
 
     private SharedPreferences sharedPreferences;
+    TextView SavedText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +46,16 @@ public class NotificationOnActivity extends AppCompatActivity {
         TextView settings = findViewById(R.id.settings_title);
         // Save button
         Button saveButton = findViewById(R.id.notificationon_save);
+        SavedText = findViewById(R.id.SavedText);
 
 
         // Load saved preferences
         loadPreferences();
+
+        watchSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
+        warningSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
+        urgentSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
+        criticalSwitch.setOnCheckedChangeListener(this::onSwitchChanged);
 
         // Set up the settings button listener
         settings.setOnClickListener(v -> {
@@ -60,6 +68,10 @@ public class NotificationOnActivity extends AppCompatActivity {
 
         // Set up save button listener
         saveButton.setOnClickListener(v -> savePreferences());
+    }
+
+    private void onSwitchChanged(CompoundButton buttonView, boolean isChecked) {
+        SavedText.setVisibility(View.INVISIBLE);
     }
 
     private void loadPreferences() {
@@ -78,5 +90,6 @@ public class NotificationOnActivity extends AppCompatActivity {
         editor.putBoolean("urgent_notification_on", urgentSwitch.isChecked());
         editor.putBoolean("critical_notification_on", criticalSwitch.isChecked());
         editor.apply();
+        SavedText.setVisibility(View.VISIBLE);
     }
 }

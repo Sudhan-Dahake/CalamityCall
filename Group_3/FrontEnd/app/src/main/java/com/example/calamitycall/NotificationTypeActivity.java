@@ -3,6 +3,7 @@ package com.example.calamitycall;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ public class NotificationTypeActivity extends AppCompatActivity {
 
     private RadioGroup watchGroup, warningGroup, urgentGroup, criticalGroup;
     private SettingsPreferences settingsPreferences;
+    TextView SavedText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +34,15 @@ public class NotificationTypeActivity extends AppCompatActivity {
         urgentGroup = findViewById(R.id.urgent_Group);
         criticalGroup = findViewById(R.id.critical_Group);
 
+        Button saveButton = findViewById(R.id.notificationtype_save);
+        SavedText = findViewById(R.id.SavedText);
+
         TextView settings = findViewById(R.id.settings_title);
 
         loadPreferences();
+
+        // Set up save button listener
+        saveButton.setOnClickListener(v -> savePreferences());
 
         setRadioGroupListener(watchGroup, "Watch");
         setRadioGroupListener(warningGroup, "Warning");
@@ -137,9 +145,14 @@ public class NotificationTypeActivity extends AppCompatActivity {
                     settingsPreferences.setCriticalNotificationType(selectedText.toLowerCase());
                     break;
             }
+            SavedText.setVisibility(View.INVISIBLE);
 
             Toast.makeText(NotificationTypeActivity.this,
                     notificationType + " notification set to: " + selectedText, Toast.LENGTH_SHORT).show();
         });
+    }
+
+    private void savePreferences() {
+        SavedText.setVisibility(View.VISIBLE);
     }
 }

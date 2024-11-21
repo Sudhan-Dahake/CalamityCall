@@ -1,37 +1,33 @@
 package com.example.calamitycall.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.calamitycall.MainActivity;
 import com.example.calamitycall.R;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import com.google.android.material.tabs.TabLayout;  // required for the tab functionality
 import com.google.android.material.textfield.TextInputLayout;
 
 public class HistoryPage extends Fragment {
 
 
-    private View view;
-    private RecyclerView recyclerView;
     private NotificationAdapter adapter;
     private List<Notification> activeNotifications;
     private List<Notification> historyNotifications;
@@ -42,15 +38,16 @@ public class HistoryPage extends Fragment {
     AutoCompleteTextView timeframeDropdown;
     ArrayAdapter<String> adapterItems;
     TextInputLayout dropdownLayout;
+    TextView Last24Hours;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
-        view = inflater.inflate(R.layout.notif_active_history_page, container, false);
+        View view = inflater.inflate(R.layout.notif_active_history_page, container, false);
 
         // Initialize RecyclerView
-        recyclerView = view.findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Initialize notifications lists for each tab
@@ -60,15 +57,13 @@ public class HistoryPage extends Fragment {
         // Initialize the dropdown (AutoCompleteTextView) and set adapter for it
         dropdownLayout = view.findViewById(R.id.timeFrameDropdownLayout); // TextInputLayout
         timeframeDropdown = view.findViewById(R.id.timeFrameDropdown);
-        adapterItems = new ArrayAdapter<String>(getContext(), R.layout.timeframe_list_items, dropdownItems);
+        adapterItems = new ArrayAdapter<>(requireContext(), R.layout.timeframe_list_items, dropdownItems);
         timeframeDropdown.setAdapter(adapterItems);
+        Last24Hours = view.findViewById(R.id.ActiveLabel);
 
-        timeframeDropdown.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String item = adapterView.getItemAtPosition(i).toString();
-                Toast.makeText(getContext(), "Item: " + item, Toast.LENGTH_SHORT).show();
-            }
+        timeframeDropdown.setOnItemClickListener((adapterView, view1, i, l) -> {
+            String item = adapterView.getItemAtPosition(i).toString();
+            Toast.makeText(getContext(), "Item: " + item, Toast.LENGTH_SHORT).show();
         });
 
 
@@ -87,11 +82,13 @@ public class HistoryPage extends Fragment {
                     case 0: // Active Tab
                         adapter.updateNotifications(activeNotifications, false);
                         dropdownLayout.setVisibility(View.GONE); // Hide dropdown
+                        Last24Hours.setVisibility(View.VISIBLE);
                         Log.d("TabSelection", "Active tab selected, dropdown hidden");
                         break;
                     case 1: // History Tab
                         adapter.updateNotifications(historyNotifications, true);
                         dropdownLayout.setVisibility(View.VISIBLE); // Show dropdown
+                        Last24Hours.setVisibility(View.GONE);
                         Log.d("TabSelection", "History tab selected, dropdown shown");
                         break;
                 }
@@ -120,7 +117,7 @@ public class HistoryPage extends Fragment {
 
 
         // Define the date format
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
         try {
             // Adding dummy dates to simulate database values
@@ -128,7 +125,7 @@ public class HistoryPage extends Fragment {
             dummyDates.add(dateFormat.parse("22-11-2023"));
 
         } catch (ParseException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             // In case of parsing issues, the current date will be added
             dummyDates.add(new Date());
         }
