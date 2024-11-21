@@ -24,7 +24,7 @@ class NotificationManager:
                 token = record["fcmtoken"]
                 notificationtype = record["notificationtype"]
 
-                if (notificationtype == "popup"):
+                if (notificationtype == "Popup"):
                     self.FCMClient.SendNotification(token=token, NotificationModel=FCMClientSendNotification(**NotificationModel.model_dump(exclude_none=True)), isPopup=True)
 
                 else:
