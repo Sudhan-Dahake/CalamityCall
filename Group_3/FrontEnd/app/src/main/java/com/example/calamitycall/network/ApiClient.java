@@ -9,6 +9,8 @@ import com.example.calamitycall.models.FirebaseToken.RegisterTokenResponse;
 import com.example.calamitycall.models.preference.PreferenceResponse;
 import com.example.calamitycall.models.token.TokenGenerateRequest;
 import com.example.calamitycall.models.token.TokenResponse;
+import com.example.calamitycall.models.preference.PreferenceUpdateRequest;
+import com.example.calamitycall.models.preference.PreferenceUpdateResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -32,4 +34,7 @@ public interface ApiClient {
 
     @POST("/generate/JWT")
     Call<TokenResponse> refreshToken(@Body TokenGenerateRequest tokenGenerateRequest);
+
+    @POST("/preferences/update")
+    Call<PreferenceUpdateResponse> updateNotificationOn(@Header("Authorization") String authHeader, @Body PreferenceUpdateRequest<Object> preferenceUpdateRequest);
 }

@@ -6,8 +6,11 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -19,13 +22,40 @@ import com.example.calamitycall.fragments.NotificationPage;
 import com.example.calamitycall.fragments.SettingsPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.example.calamitycall.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
+    private ActivityResultLauncher<Intent> loginActivityLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Register the ActivityResultLauncher for LoginActivity
+        loginActivityLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Log.d("MainActivity", "Login Successful but activityPage opened");
+                        // Login was successful, load the settingsPage fragment
+                        Fragment settingsFragment = new SettingsPage();
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.fragment_container, settingsFragment)
+                                .commit();
+                    }
+
+                    else {
+                        // Login failed or was cancelled
+                        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+                        bottomNav.setSelectedItemId(R.id.nav_notification);         // Set to NotificationPage by default
+                        Fragment notificationFragment = new NotificationPage();
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.fragment_container, notificationFragment)
+                                .commit();
+                    }
+                }
+        );
 
         // Request notification permission (Android 13+)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -87,7 +117,12 @@ public class MainActivity extends AppCompatActivity {
                 } else if (itemId == R.id.nav_notification) {
                     selectedFragment = new NotificationPage();
                 } else if (itemId == R.id.nav_settings) {
-                    selectedFragment = new SettingsPage();
+                    // Launch the LoginActivity and wait for the result.
+                    Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+                    loginActivityLauncher.launch(loginIntent);
+                    return true; // Return true to indicate the menu item was handled
+
+                    //selectedFragment = new SettingsPage();
                 } else {
                     selectedFragment = new ForumPage();
                 }
