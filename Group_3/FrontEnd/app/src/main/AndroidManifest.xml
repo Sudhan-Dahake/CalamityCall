@@ -92,6 +92,7 @@
             </intent-filter>
         </activity>
 
+
         <!-- Firebase Messaging Service -->
         <service android:name=".firebase.MyFirebaseMessagingService" android:exported="true">
             <intent-filter>
