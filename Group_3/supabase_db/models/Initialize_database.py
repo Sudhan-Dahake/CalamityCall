@@ -70,10 +70,10 @@ def CreateTables():
     CREATE TABLE IF NOT EXISTS notification_alert_type (
         notificationalerttypeid SERIAL PRIMARY KEY,
         preferenceid INTEGER REFERENCES preferences(preferenceid),
-        watch VARCHAR(10) CHECK (watch IN ('Push', 'Pop-up')) NOT NULL,
-        warning VARCHAR(10) CHECK (warning IN ('Push', 'Pop-up')) NOT NULL,
-        urgent VARCHAR(10) CHECK (urgent IN ('Push', 'Pop-up')) NOT NULL,
-        critical VARCHAR(10) CHECK (critical IN ('Push', 'Pop-up')) NOT NULL
+        watch VARCHAR(10) CHECK (watch IN ('Push', 'Popup')) NOT NULL,
+        warning VARCHAR(10) CHECK (warning IN ('Push', 'Popup')) NOT NULL,
+        urgent VARCHAR(10) CHECK (urgent IN ('Push', 'Popup')) NOT NULL,
+        critical VARCHAR(10) CHECK (critical IN ('Push', 'Popup')) NOT NULL
     );
 
     -- Table 7: text_to_speech
