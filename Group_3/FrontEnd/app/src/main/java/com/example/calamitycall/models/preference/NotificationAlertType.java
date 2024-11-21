@@ -15,6 +15,13 @@ public class NotificationAlertType {
         this.critical = critical;
     }
 
+    public NotificationAlertType(String watch, String warning, String urgent, String critical) {
+        this.watch = watch;
+        this.warning = warning;
+        this.urgent = urgent;
+        this.critical = critical;
+    }
+
 
     //setters
     public void setPreferenceid(int preferenceid) {

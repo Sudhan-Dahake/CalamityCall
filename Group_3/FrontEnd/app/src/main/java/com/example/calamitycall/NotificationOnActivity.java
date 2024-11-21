@@ -162,7 +162,7 @@ public class NotificationOnActivity extends AppCompatActivity {
         ApiClient apiClient = RetrofitInstance.getRetrofitInstance().create(ApiClient.class);
 
         // Make the API Call to save preferences
-        Call<PreferenceUpdateResponse> notificationOnCall = apiClient.updateNotificationOn("Bearer " + jwtToken, preferenceUpdateRequest);
+        Call<PreferenceUpdateResponse> notificationOnCall = apiClient.updatePreference("Bearer " + jwtToken, preferenceUpdateRequest);
 
         notificationOnCall.enqueue(new Callback<PreferenceUpdateResponse>() {
             @Override

@@ -36,5 +36,5 @@ public interface ApiClient {
     Call<TokenResponse> refreshToken(@Body TokenGenerateRequest tokenGenerateRequest);
 
     @POST("/preferences/update")
-    Call<PreferenceUpdateResponse> updateNotificationOn(@Header("Authorization") String authHeader, @Body PreferenceUpdateRequest<Object> preferenceUpdateRequest);
+    Call<PreferenceUpdateResponse> updatePreference(@Header("Authorization") String authHeader, @Body PreferenceUpdateRequest<Object> preferenceUpdateRequest);
 }
