@@ -142,7 +142,7 @@ public class NoiseActivity extends AppCompatActivity {
 
     private void updatePreferences(String jwtToken, TokenManager tokenManager, PreferenceUpdateRequest<Object> preferenceUpdateRequest) {
         ApiClient apiClient = RetrofitInstance.getRetrofitInstance().create(ApiClient.class);
-        Call<PreferenceUpdateResponse> updateCall = apiClient.updateNotificationOn("Bearer " + jwtToken, preferenceUpdateRequest);
+        Call<PreferenceUpdateResponse> updateCall = apiClient.updatePreference("Bearer " + jwtToken, preferenceUpdateRequest);
 
         updateCall.enqueue(new Callback<PreferenceUpdateResponse>() {
             @Override

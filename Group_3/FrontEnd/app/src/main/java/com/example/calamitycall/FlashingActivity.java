@@ -148,7 +148,7 @@ public class FlashingActivity extends AppCompatActivity {
     private void updatePreferences(String jwtToken, TokenManager tokenManager, PreferenceUpdateRequest<Object> preferenceUpdateRequest) {
         ApiClient apiClient = RetrofitInstance.getRetrofitInstance().create(ApiClient.class);
 
-        Call<PreferenceUpdateResponse> flashingCall = apiClient.updateNotificationOn("Bearer " + jwtToken, preferenceUpdateRequest);
+        Call<PreferenceUpdateResponse> flashingCall = apiClient.updatePreference("Bearer " + jwtToken, preferenceUpdateRequest);
 
         flashingCall.enqueue(new Callback<PreferenceUpdateResponse>() {
             @Override

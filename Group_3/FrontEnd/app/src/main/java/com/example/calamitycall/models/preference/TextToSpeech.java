@@ -16,6 +16,13 @@ public class TextToSpeech {
         this.critical = critical;
     }
 
+    public TextToSpeech(boolean watch, boolean warning, boolean urgent, boolean critical) {
+        this.watch = watch;
+        this.warning = warning;
+        this.urgent = urgent;
+        this.critical = critical;
+    }
+
 
     //setters
     public void setPreferenceid(int preferenceid) {

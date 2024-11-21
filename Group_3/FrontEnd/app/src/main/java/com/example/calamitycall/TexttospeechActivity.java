@@ -1,8 +1,11 @@
 package com.example.calamitycall;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -13,8 +16,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.calamitycall.fragments.SettingsPage;
+import com.example.calamitycall.models.preference.PreferenceUpdateRequest;
+import com.example.calamitycall.models.preference.PreferenceUpdateResponse;
+import com.example.calamitycall.models.preference.TextToSpeech;
+import com.example.calamitycall.models.token.TokenGenerateRequest;
+import com.example.calamitycall.models.token.TokenResponse;
+import com.example.calamitycall.network.ApiClient;
+import com.example.calamitycall.network.RetrofitInstance;
+import com.example.calamitycall.utils.TokenManager;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class TexttospeechActivity extends AppCompatActivity {
+    private static final String TAG = "TexttospeechActivity";
+
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch watchSwitch; // Main switch for watch noise notifications
@@ -89,6 +106,120 @@ public class TexttospeechActivity extends AppCompatActivity {
         }
     }
     private void savePreferences() {
+        String tableName = "text_to_speech";
+
+        // Get Switch states
+        boolean watch = watchSwitch.isChecked();
+        boolean warning = warningSwitch.isChecked();
+        boolean urgent = urgentSwitch.isChecked();
+        boolean critical = criticalSwitch.isChecked();
+
+        // Create TextToSpeech Feature
+        TextToSpeech textToSpeech = new TextToSpeech(watch, warning, urgent, critical);
+
+        PreferenceUpdateRequest<Object> preferenceUpdateRequest = new PreferenceUpdateRequest<>(
+                tableName,
+                textToSpeech
+        );
+
+        TokenManager tokenManager;
+
+        try {
+            tokenManager = TokenManager.getInstance(getApplicationContext());
+        } catch (Exception e) {
+            Log.e(TAG, "TokenManager Initialization Failed", e);
+            return;
+        }
+
+        String jwtToken = tokenManager.getAccessToken();
+
+        if (jwtToken != null) {
+            Log.d(TAG, "Inside savePreferences -> jwtToken is not null, calling the update preference endpoint");
+
+            updatePreferences(jwtToken, tokenManager, preferenceUpdateRequest);
+        } else {
+            Log.d(TAG, "Inside savePreferences, getting new JWT using refresh token");
+
+            refreshJWT(tokenManager, preferenceUpdateRequest);
+        }
+
+
         SavedText.setVisibility(View.VISIBLE);
     }
+
+
+    private void updatePreferences(String jwtToken, TokenManager tokenManager, PreferenceUpdateRequest<Object> preferenceUpdateRequest) {
+        // Initialize Retrofit and ApiClient
+        ApiClient apiClient = RetrofitInstance.getRetrofitInstance().create(ApiClient.class);
+
+        // Make the API Call to save preferences
+        Call<PreferenceUpdateResponse> textToSpeechCall = apiClient.updatePreference("Bearer " + jwtToken, preferenceUpdateRequest);
+
+        textToSpeechCall.enqueue(new Callback<PreferenceUpdateResponse>() {
+            @Override
+            public void onResponse(Call<PreferenceUpdateResponse> call, Response<PreferenceUpdateResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    PreferenceUpdateResponse serverResponse = response.body();
+                    Log.d("TextToSpeech", "Server Response for TextToSpeech Updation: " + serverResponse);
+                } else {
+                    SavedText.setVisibility(View.VISIBLE);
+                    SavedText.setText("Failed to Save Preferences!!");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PreferenceUpdateResponse> call, Throwable t) {
+                SavedText.setVisibility(View.VISIBLE);
+                SavedText.setText("Error Saving Preferences!!");
+            }
+        });
+    }
+
+
+    private void refreshJWT(TokenManager tokenManager, PreferenceUpdateRequest<Object> preferenceUpdateRequest) {
+        String refreshToken = tokenManager.getRefreshToken();
+
+        if (refreshToken == null) {
+            Log.d(TAG, "No refresh token available");
+
+            Intent intent = new Intent(TexttospeechActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        // Initialize Retrofit and ApiClient
+        ApiClient apiClient = RetrofitInstance.getRetrofitInstance().create(ApiClient.class);
+
+        Call<TokenResponse> refreshCall = apiClient.refreshToken(new TokenGenerateRequest(refreshToken));
+        refreshCall.enqueue(new Callback<TokenResponse>() {
+            @Override
+            public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    String newAccessToken = response.body().getAccessToken();
+
+                    tokenManager.setAccessToken(newAccessToken);
+
+                    Log.d(TAG, "Inside refreshJWT, calling updatePreferences");
+
+                    updatePreferences(newAccessToken, tokenManager, preferenceUpdateRequest);
+                } else {
+                    Log.d(TAG, "Failed to refresh JWT token: " + response.code());
+
+                    Intent intent = new Intent(TexttospeechActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TokenResponse> call, Throwable t) {
+                Log.e(TAG, "onFailure: Error refreshing JWT Token", t);
+
+                Intent intent = new Intent(TexttospeechActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
 }
