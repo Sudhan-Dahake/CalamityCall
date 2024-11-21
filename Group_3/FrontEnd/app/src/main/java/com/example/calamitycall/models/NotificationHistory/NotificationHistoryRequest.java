@@ -8,7 +8,7 @@ public class NotificationHistoryRequest {
     }
 
     public void setTimeFrame(String timeFrame) {
-        this.timeFrame = timeFrame
+        this.timeFrame = timeFrame;
     }
 
     public String getTimeFrame() {
