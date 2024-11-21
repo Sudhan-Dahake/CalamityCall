@@ -1,5 +1,6 @@
 package com.example.calamitycall.utils;
 
+import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -8,10 +9,13 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Html;
+import android.util.Log;
 import android.widget.RemoteViews;
 import androidx.core.app.NotificationCompat;
-
+import android.hardware.camera2.CameraAccessException;
 import com.example.calamitycall.MainActivity;
 import com.example.calamitycall.R;
 import com.example.calamitycall.SettingsPreferences;
@@ -27,14 +31,14 @@ public class NotificationConfig {
     }
     //**** THIS FUNCTION STAYS ****
     // Helper method to create and send notifications
-    public void sendNotification(int level, String type, String city, String notifOrigin,Float latitude,
+    @SuppressLint("QueryPermissionsNeeded")
+    public void sendNotification(int level, String type, String city, String notifOrigin, Float latitude,
                                  Float longitude, String prepSteps, String activeSteps, String recoverySteps) {
 
         SettingsPreferences settingsPreferences = new SettingsPreferences(context);
         boolean isNoiseEnabled = false;
         boolean isNotifEnabled = true;
-        //boolean isTTSEnabled = false;
-        //boolean isFlashingEnabled = false;
+        boolean isFlashingEnabled = true;
         int collapsedLayoutId = 0;
         int expandedLayoutId = 0;
         String lvlString = "Alert";
@@ -45,8 +49,7 @@ public class NotificationConfig {
                 expandedLayoutId = R.layout.basic_notif_watch_expanded;
                 isNoiseEnabled = settingsPreferences.isWatchNoiseOn();
                 isNotifEnabled = settingsPreferences.isWatchNotificationOn();
-                //isTTSEnabled = settingsPreferences.isWatchTTSEnabled();
-                //isFlashingEnabled = settingsPreferences.isWatchFlashingOn();
+                isFlashingEnabled = settingsPreferences.isWatchFlashingOn();
                 break;
             case 2:
                 lvlString = "Warning Alert";
@@ -54,8 +57,7 @@ public class NotificationConfig {
                 expandedLayoutId = R.layout.basic_notif_warning_expanded;
                 isNoiseEnabled = settingsPreferences.isWarningNoiseOn();
                 isNotifEnabled = settingsPreferences.isWarningNotificationOn();
-                //isTTSEnabled = settingsPreferences.isWatchTTSEnabled();
-                //isFlashingEnabled = settingsPreferences.isWarningFlashingOn();
+                isFlashingEnabled = settingsPreferences.isWarningFlashingOn();
                 break;
             case 3:
                 lvlString = "Urgent Alert";
@@ -63,8 +65,7 @@ public class NotificationConfig {
                 expandedLayoutId = R.layout.basic_notif_urgent_expanded;
                 isNoiseEnabled = settingsPreferences.isUrgentNoiseOn();
                 isNotifEnabled = settingsPreferences.isUrgentNotificationOn();
-                //isTTSEnabled = settingsPreferences.isWatchTTSEnabled();
-                //isFlashingEnabled = settingsPreferences.isUrgentFlashingOn();
+                isFlashingEnabled = settingsPreferences.isUrgentFlashingOn();
                 break;
             case 4:
                 lvlString = "Critical Alert";
@@ -72,8 +73,7 @@ public class NotificationConfig {
                 expandedLayoutId = R.layout.basic_notif_critical_expanded;
                 isNoiseEnabled = settingsPreferences.isCriticalNoiseOn();
                 isNotifEnabled = settingsPreferences.isCriticalNotificationOn();
-                //isTTSEnabled = settingsPreferences.isWatchTTSEnabled();
-                //isFlashingEnabled = settingsPreferences.isCriticalFlashingOn();
+                isFlashingEnabled = settingsPreferences.isCriticalFlashingOn();
                 break;
         }
         // Create notification channel
@@ -116,10 +116,22 @@ public class NotificationConfig {
                 .setContentIntent(contentIntent) // Make the entire notification clickable
                 .setAutoCancel(true);           // Clear the notification when clicked
 
+
+
 // Show the notification
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (notificationManager != null && isNotifEnabled) {
             notificationManager.notify(notificationId++, builder.build());
+            if (isFlashingEnabled){
+                try {
+                    FlashNotification flashNotification = new FlashNotification(context);
+                    flashNotification.startFlashing(300, 300); // Flash on for 300ms, off for 300ms
+                    // Stop flashing after 5 seconds
+                    new Handler(Looper.getMainLooper()).postDelayed(flashNotification::stopFlashing, 5000);
+                } catch (CameraAccessException e) {
+                    Log.d("NotificationConfig", "Camera access error: " + e.getMessage());
+                }
+            }
         }
 
 
