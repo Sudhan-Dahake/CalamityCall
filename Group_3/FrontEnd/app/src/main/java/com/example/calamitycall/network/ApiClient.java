@@ -1,5 +1,7 @@
 package com.example.calamitycall.network;
 
+import com.example.calamitycall.models.NotificationHistory.NotificationHistoryRequest;
+import com.example.calamitycall.models.NotificationHistory.NotificationHistoryResponse;
 import com.example.calamitycall.models.signup.SignupRequest;
 import com.example.calamitycall.models.signup.SignupResponse;
 import com.example.calamitycall.models.login.LoginRequest;
@@ -37,4 +39,9 @@ public interface ApiClient {
 
     @POST("/preferences/update")
     Call<PreferenceUpdateResponse> updatePreference(@Header("Authorization") String authHeader, @Body PreferenceUpdateRequest<Object> preferenceUpdateRequest);
+
+    @POST("/notifications/history")
+    Call<NotificationHistoryResponse> getNotificationHistory(
+            @Body NotificationHistoryRequest request
+    );
 }
