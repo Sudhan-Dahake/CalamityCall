@@ -15,6 +15,13 @@ public class Noise {
         this.critical = critical;
     }
 
+    public Noise(boolean watch, boolean warning, boolean urgent, boolean critical) {
+        this.watch = watch;
+        this.warning = warning;
+        this.urgent = urgent;
+        this.critical = critical;
+    }
+
 
     public void setPreferenceid(int preferenceid) {
         this.preferenceid = preferenceid;
