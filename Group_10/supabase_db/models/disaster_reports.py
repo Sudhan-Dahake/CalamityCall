@@ -17,7 +17,7 @@ class DisasterReportsModel:
         report_data = {
             "report_id": report_id,
             "user_id": user_id,
-            "created_at": timestamp,
+            "timestamp": timestamp,
             "latitude": latitude,
             "longitude": longitude,
             "address": address,
