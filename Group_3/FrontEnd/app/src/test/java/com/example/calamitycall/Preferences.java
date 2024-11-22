@@ -1,251 +1,231 @@
 package com.example.calamitycall;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
+
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Preferences {
 
-    @Mock
-    SharedPreferences mockSharedPreferences;
-
-    @Mock
-    SharedPreferences.Editor mockEditor;
-
-    @Mock
-    Context mockContext;
-
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
     private SettingsPreferences settingsPreferences;
-
-    // Variable to simulate the SharedPreferences state
-    private boolean mockNotificationState = false;
+    private Map<String, Object> preferencesMap;
 
     @Before
     public void setUp() {
-        // Initialize mocks
-        MockitoAnnotations.openMocks(this);
+        // Mock the Context and SharedPreferences
+        Context context = mock(Context.class);
+        sharedPreferences = mock(SharedPreferences.class);
+        editor = mock(SharedPreferences.Editor.class);
 
-        // Mock behavior for SharedPreferences.Editor
-        when(mockSharedPreferences.edit()).thenReturn(mockEditor);
-        when(mockEditor.putBoolean(anyString(), anyBoolean())).thenAnswer(invocation -> {
+        // Simulate SharedPreferences behavior using a Map
+        preferencesMap = new HashMap<>();
+
+        // Mock SharedPreferences.Editor methods
+        when(editor.putBoolean(anyString(), anyBoolean())).thenAnswer(invocation -> {
             String key = invocation.getArgument(0);
-            boolean value = invocation.getArgument(1);
-            if ("critical_notification_on_key".equals(key)) {
-                mockNotificationState = value; // Simulate state change in SharedPreferences
-            }
-            return mockEditor;
+            Boolean value = invocation.getArgument(1);
+            preferencesMap.put(key, value);
+            return editor;
         });
-        doNothing().when(mockEditor).apply();  // Do nothing when apply() is called
 
-        // Mock the Context to return the mocked SharedPreferences
-        when(mockContext.getSharedPreferences(anyString(), anyInt())).thenReturn(mockSharedPreferences);
+        doNothing().when(editor).apply();
 
-        // Mock getBoolean to return the current simulated state
-        when(mockSharedPreferences.getBoolean(eq("critical_notification_on_key"), anyBoolean()))
-                .thenAnswer(invocation -> mockNotificationState); // Return the current simulated state
+        // Mock SharedPreferences methods
+        when(sharedPreferences.getBoolean(anyString(), anyBoolean())).thenAnswer(invocation -> {
+            String key = invocation.getArgument(0);
+            Boolean defaultValue = invocation.getArgument(1);
+            return (Boolean) preferencesMap.getOrDefault(key, defaultValue);
+        });
 
-        // Initialize SettingsPreferences with mocked Context
-        settingsPreferences = new SettingsPreferences(mockContext);
+        when(sharedPreferences.edit()).thenReturn(editor);
+
+        // Mock Context behavior
+        when(context.getSharedPreferences("NotificationPreferences", Context.MODE_PRIVATE))
+                .thenReturn(sharedPreferences);
+
+        // Initialize the SettingsPreferences
+        settingsPreferences = new SettingsPreferences(context);
     }
 
     @Test
-    public void testGetAndSetCriticalNotificationOn() {
-        // Initially setting the value to true
+    public void testIsCriticalNotificationOn() {
         settingsPreferences.setCriticalNotificationOn(true);
 
-        // Verify the value after setting it to true
+
         boolean isNotifEnabled = settingsPreferences.isCriticalNotificationOn();
+        assertTrue("Critical notification should be enabled", isNotifEnabled);
 
-        // Now set it to false
+
         settingsPreferences.setCriticalNotificationOn(false);
-
-        // Verify the value after setting it to false
-        boolean isNotifDisabled = settingsPreferences.isCriticalNotificationOn();
-        assertFalse(isNotifDisabled);  // After setting, it should be false
+        isNotifEnabled = settingsPreferences.isCriticalNotificationOn();
+        assertFalse("Critical notification should be disabled", isNotifEnabled);
     }
 
     @Test
-    public void testGetAndSetWatchNotificationOn() {
-        // Initially setting the value to true
+    public void testisWatchNotificationOn() {
         settingsPreferences.setWatchNotificationOn(true);
 
-        // Verify the value after setting it to true
+
         boolean isNotifEnabled = settingsPreferences.isWatchNotificationOn();
+        assertTrue("Watch notification should be enabled", isNotifEnabled);
 
-        // Now set it to false
+
         settingsPreferences.setWatchNotificationOn(false);
-
-        // Verify the value after setting it to false
-        boolean isNotifDisabled = settingsPreferences.isWatchNotificationOn();
-        assertFalse(isNotifDisabled);  // After setting, it should be false
+        isNotifEnabled = settingsPreferences.isWatchNotificationOn();
+        assertFalse("Watch notification should be disabled", isNotifEnabled);
     }
+
     @Test
-    public void testGetAndSetWarningNotificationOn() {
-        // Initially setting the value to true
+    public void testisWarningNotificationOn() {
         settingsPreferences.setWarningNotificationOn(true);
 
-        // Verify the value after setting it to true
+
         boolean isNotifEnabled = settingsPreferences.isWarningNotificationOn();
+        assertTrue("Warning notification should be enabled", isNotifEnabled);
 
-        // Now set it to false
+
         settingsPreferences.setWarningNotificationOn(false);
-
-        // Verify the value after setting it to false
-        boolean isNotifDisabled = settingsPreferences.isWarningNotificationOn();
-        assertFalse(isNotifDisabled);  // After setting, it should be false
+        isNotifEnabled = settingsPreferences.isWarningNotificationOn();
+        assertFalse("Warning notification should be disabled", isNotifEnabled);
     }
 
+
     @Test
-    public void testGetAndSetUrgentNotificationOn() {
-        // Initially setting the value to true
+    public void testisUrgentNotificationOn() {
         settingsPreferences.setUrgentNotificationOn(true);
 
-        // Verify the value after setting it to true
+
         boolean isNotifEnabled = settingsPreferences.isUrgentNotificationOn();
+        assertTrue("Urgent notification should be enabled", isNotifEnabled);
 
-        // Now set it to false
+
         settingsPreferences.setUrgentNotificationOn(false);
-
-        // Verify the value after setting it to false
-        boolean isNotifDisabled = settingsPreferences.isUrgentNotificationOn();
-        assertFalse(isNotifDisabled);  // After setting, it should be false
+        isNotifEnabled = settingsPreferences.isUrgentNotificationOn();
+        assertFalse("Urgent notification should be disabled", isNotifEnabled);
     }
 
+
     @Test
-    public void testGetAndSetWatchFlashing() {
-        // Initially setting the value to true
+    public void testisWatchFlashing() {
         settingsPreferences.setWatchFlashingOn(true);
 
-        // Verify the value after setting it to true
-        boolean isNotifEnabled = settingsPreferences.isWatchFlashingOn();
 
-        // Now set it to false
+        boolean isFlashingEnabled = settingsPreferences.isWatchFlashingOn();
+        assertTrue("Watch flashing should be enabled", isFlashingEnabled);
+
+
         settingsPreferences.setWatchFlashingOn(false);
-
-        // Verify the value after setting it to false
-        boolean isNotifDisabled = settingsPreferences.isWatchFlashingOn();
-        assertFalse(isNotifDisabled);  // After setting, it should be false
+        isFlashingEnabled = settingsPreferences.isWatchFlashingOn();
+        assertFalse("Watch flashing should be disabled", isFlashingEnabled);
     }
 
+
     @Test
-    public void testGetAndSetWarningFlashing() {
-        // Initially setting the value to true
+    public void testisWarningFlashing() {
         settingsPreferences.setWarningFlashingOn(true);
 
-        // Verify the value after setting it to true
-        boolean isNotifEnabled = settingsPreferences.isWarningFlashingOn();
 
-        // Now set it to false
+        boolean isFlashingEnabled = settingsPreferences.isWarningFlashingOn();
+        assertTrue("Warning flashing should be enabled", isFlashingEnabled);
+
+
         settingsPreferences.setWarningFlashingOn(false);
-
-        // Verify the value after setting it to false
-        boolean isNotifDisabled = settingsPreferences.isWarningFlashingOn();
-        assertFalse(isNotifDisabled);  // After setting, it should be false
+        isFlashingEnabled = settingsPreferences.isWarningFlashingOn();
+        assertFalse("Warning flashing should be disabled", isFlashingEnabled);
     }
 
     @Test
-    public void testGetAndSetUrgentFlashing() {
-        // Initially setting the value to true
+    public void testisUrgentFlashing() {
         settingsPreferences.setUrgentFlashingOn(true);
 
-        // Verify the value after setting it to true
-        boolean isNotifEnabled = settingsPreferences.isUrgentFlashingOn();
 
-        // Now set it to false
+        boolean isFlashingEnabled = settingsPreferences.isUrgentFlashingOn();
+        assertTrue("Urgent flashing should be enabled", isFlashingEnabled);
+
+
         settingsPreferences.setUrgentFlashingOn(false);
-
-        // Verify the value after setting it to false
-        boolean isNotifDisabled = settingsPreferences.isUrgentFlashingOn();
-        assertFalse(isNotifDisabled);  // After setting, it should be false
+        isFlashingEnabled = settingsPreferences.isUrgentFlashingOn();
+        assertFalse("Urgent flashing should be disabled", isFlashingEnabled);
     }
 
     @Test
-    public void testGetAndSetCriticalFlashing() {
-        // Initially setting the value to true
+    public void testisCriticalFlashing() {
         settingsPreferences.setCriticalFlashingOn(true);
 
-        // Verify the value after setting it to true
-        boolean isNotifEnabled = settingsPreferences.isCriticalFlashingOn();
 
-        // Now set it to false
+        boolean isFlashingEnabled = settingsPreferences.isCriticalFlashingOn();
+        assertTrue("Critical flashing should be enabled", isFlashingEnabled);
+
+
         settingsPreferences.setCriticalFlashingOn(false);
-
-        // Verify the value after setting it to false
-        boolean isNotifDisabled = settingsPreferences.isCriticalFlashingOn();
-        assertFalse(isNotifDisabled);  // After setting, it should be false
+        isFlashingEnabled = settingsPreferences.isCriticalFlashingOn();
+        assertFalse("Critical flashing should be disabled", isFlashingEnabled);
     }
 
     @Test
-    public void testGetAndSetWatchNoise() {
-        // Initially setting the value to true
+    public void testisWatchNoiseOn() {
         settingsPreferences.setWatchNoiseOn(true);
 
-        // Verify the value after setting it to true
-        boolean isNotifEnabled = settingsPreferences.isWatchNoiseOn();
 
-        // Now set it to false
+        boolean isNoiseEnabled = settingsPreferences.isWatchNoiseOn();
+        assertTrue("Watch noise should be enabled", isNoiseEnabled);
+
+
         settingsPreferences.setWatchNoiseOn(false);
-
-        // Verify the value after setting it to false
-        boolean isNotifDisabled = settingsPreferences.isWatchNoiseOn();
-        assertFalse(isNotifDisabled);  // After setting, it should be false
+        isNoiseEnabled = settingsPreferences.isWatchNoiseOn();
+        assertFalse("Watch noise should be disabled", isNoiseEnabled);
     }
 
     @Test
-    public void testGetAndSetWarningNoise() {
-        // Initially setting the value to true
+    public void testisWarningNoiseOn() {
         settingsPreferences.setWarningNoiseOn(true);
 
-        // Verify the value after setting it to true
-        boolean isNotifEnabled = settingsPreferences.isWarningNoiseOn();
 
-        // Now set it to false
+        boolean isNoiseEnabled = settingsPreferences.isWarningNoiseOn();
+        assertTrue("Warning noise should be enabled", isNoiseEnabled);
+
+
         settingsPreferences.setWarningNoiseOn(false);
-
-        // Verify the value after setting it to false
-        boolean isNotifDisabled = settingsPreferences.isWarningNoiseOn();
-        assertFalse(isNotifDisabled);  // After setting, it should be false
+        isNoiseEnabled = settingsPreferences.isWarningNoiseOn();
+        assertFalse("Warning noise should be disabled", isNoiseEnabled);
     }
 
     @Test
-    public void testGetAndSetUrgentNoise() {
-        // Initially setting the value to true
+    public void testisUrgentNoiseOn() {
         settingsPreferences.setUrgentNoiseOn(true);
 
-        // Verify the value after setting it to true
-        boolean isNotifEnabled = settingsPreferences.isUrgentNoiseOn();
 
-        // Now set it to false
+        boolean isNoiseEnabled = settingsPreferences.isUrgentNoiseOn();
+        assertTrue("Urgent noise should be enabled", isNoiseEnabled);
+
+
         settingsPreferences.setUrgentNoiseOn(false);
-
-        // Verify the value after setting it to false
-        boolean isNotifDisabled = settingsPreferences.isUrgentNoiseOn();
-        assertFalse(isNotifDisabled);  // After setting, it should be false
+        isNoiseEnabled = settingsPreferences.isWarningNoiseOn();
+        assertFalse("Urgent noise should be disabled", isNoiseEnabled);
     }
 
     @Test
-    public void testGetAndSetCriticalNoise() {
-        // Initially setting the value to true
+    public void testisCriticalNoiseOn() {
         settingsPreferences.setCriticalNoiseOn(true);
 
-        // Verify the value after setting it to true
-        boolean isNotifEnabled = settingsPreferences.isCriticalNoiseOn();
 
-        // Now set it to false
+        boolean isNoiseEnabled = settingsPreferences.isCriticalNoiseOn();
+        assertTrue("Critical noise should be enabled", isNoiseEnabled);
+
+
         settingsPreferences.setCriticalNoiseOn(false);
-
-        // Verify the value after setting it to false
-        boolean isNotifDisabled = settingsPreferences.isCriticalNoiseOn();
-        assertFalse(isNotifDisabled);  // After setting, it should be false
+        isNoiseEnabled = settingsPreferences.isCriticalNoiseOn();
+        assertFalse("Critical noise should be disabled", isNoiseEnabled);
     }
-
-
 
 }
