@@ -80,8 +80,8 @@ public class NotificationTypeActivity extends AppCompatActivity {
 
     private void loadPreferences() {
         // Load switch states from SharedPreferences
-        String watch_result = sharedPreferences.getString("watch_notification_type", "push");
-        if (watch_result.equals("push"))
+        String watch_result = sharedPreferences.getString("watch_notification_type", "Push");
+        if (watch_result.equals("Push"))
         {
             watchGroup.check(R.id.watch_push);
         }
@@ -90,8 +90,8 @@ public class NotificationTypeActivity extends AppCompatActivity {
             watchGroup.check(R.id.watch_popup);
         }
 
-        String warning_result = sharedPreferences.getString("warning_notification_type", "push");
-        if (warning_result.equals("push"))
+        String warning_result = sharedPreferences.getString("warning_notification_type", "Push");
+        if (warning_result.equals("Push"))
         {
             warningGroup.check(R.id.warning_push);
         }
@@ -100,8 +100,8 @@ public class NotificationTypeActivity extends AppCompatActivity {
             warningGroup.check(R.id.warning_popup);
         }
 
-        String urgent_result = sharedPreferences.getString("urgent_notification_type", "push");
-        if (urgent_result.equals("push"))
+        String urgent_result = sharedPreferences.getString("urgent_notification_type", "Push");
+        if (urgent_result.equals("Push"))
         {
             urgentGroup.check(R.id.urgent_push);
         }
@@ -110,8 +110,8 @@ public class NotificationTypeActivity extends AppCompatActivity {
             urgentGroup.check(R.id.urgent_popup);
         }
 
-        String critical_result = sharedPreferences.getString("critical_notification_type", "push");
-        if (critical_result.equals("push"))
+        String critical_result = sharedPreferences.getString("critical_notification_type", "Push");
+        if (critical_result.equals("Push"))
         {
             criticalGroup.check(R.id.critical_push);
         }
@@ -185,8 +185,18 @@ public class NotificationTypeActivity extends AppCompatActivity {
             refreshJWT(tokenManager, preferenceUpdateRequest);
         }
 
+        // Save switch states to SharedPreferences
+        new Thread(() -> {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("watch_notification_type", watch);
+            editor.putString("warning_notification_type", warning);
+            editor.putString("urgent_notification_type", urgent);
+            editor.putString("critical_notification_type", critical);
+            editor.apply();
 
-        SavedText.setVisibility(View.VISIBLE);
+            // update the UI on the main thread
+            runOnUiThread(() -> SavedText.setVisibility(View.VISIBLE));
+        }).start();
     }
 
 
@@ -198,9 +208,13 @@ public class NotificationTypeActivity extends AppCompatActivity {
             if (selectedText.equals("Pop-up")) {
                 return "Popup"; // Transform "pop-up" to "popup"
             }
-            return selectedText; // Return other values as they are
+            else {
+                return selectedText; // Return other values as they are
+            }
         }
-        return "Popup"; // Default to "popup" if nothing is selected
+        {
+            return "Popup"; // Default to "popup" if nothing is selected
+        }
     }
 
 
