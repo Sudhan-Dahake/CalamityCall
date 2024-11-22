@@ -46,6 +46,19 @@ public class SettingsPreferences {
         return sharedPreferences.getBoolean(WATCH_NOTIFICATION_ON_KEY, true);
     }
 
+    public boolean isWatchNotificationTypePush() {
+        String watch_result = sharedPreferences.getString(WATCH_NOTIFICATION_TYPE_KEY, "push");
+        boolean watchNotificationType = true;
+        if (watch_result.equals("push"))
+        {
+            return watchNotificationType = true;
+        }
+        else
+        {
+            return watchNotificationType = false;
+        }
+    }
+
     public String getWatchNotificationType() {
         return sharedPreferences.getString(WATCH_NOTIFICATION_TYPE_KEY, "push");
     }
@@ -62,9 +75,20 @@ public class SettingsPreferences {
         sharedPreferences.edit().putBoolean(WATCH_NOTIFICATION_ON_KEY, isOn).apply();
     }
 
-    public void setWatchNotificationType(String type) {
-        sharedPreferences.edit().putString(WATCH_NOTIFICATION_TYPE_KEY, type).apply();
+    public boolean isWarningNotificationTypePush() {
+        String warning_result = sharedPreferences.getString(WARNING_NOTIFICATION_TYPE_KEY, "push");
+        boolean warningNotificationType = true;
+        if (warning_result.equals("push"))
+        {
+            return warningNotificationType = true;
+        }
+        else
+        {
+            return warningNotificationType = false;
+        }
     }
+
+
 
     // Warning settings
     public boolean isWarningFlashingOn() {
@@ -95,8 +119,30 @@ public class SettingsPreferences {
         sharedPreferences.edit().putBoolean(WARNING_NOTIFICATION_ON_KEY, isOn).apply();
     }
 
-    public void setWarningNotificationType(String type) {
-        sharedPreferences.edit().putString(WARNING_NOTIFICATION_TYPE_KEY, type).apply();
+    public boolean isUrgentNotificationTypePush() {
+        String urgent_result = sharedPreferences.getString(URGENT_NOTIFICATION_TYPE_KEY, "push");
+        boolean urgentNotificationType = true;
+        if (urgent_result.equals("push"))
+        {
+            return urgentNotificationType = true;
+        }
+        else
+        {
+            return urgentNotificationType = false;
+        }
+    }
+
+    public boolean isCriticalNotificationTypePush() {
+        String critical_result = sharedPreferences.getString(CRITICAL_NOTIFICATION_TYPE_KEY, "push");
+        boolean criticalNotificationType = true;
+        if (critical_result.equals("push"))
+        {
+            return criticalNotificationType = true;
+        }
+        else
+        {
+            return criticalNotificationType = false;
+        }
     }
 
     // Urgent settings
@@ -128,9 +174,7 @@ public class SettingsPreferences {
         sharedPreferences.edit().putBoolean(URGENT_NOTIFICATION_ON_KEY, isOn).apply();
     }
 
-    public void setUrgentNotificationType(String type) {
-        sharedPreferences.edit().putString(URGENT_NOTIFICATION_TYPE_KEY, type).apply();
-    }
+
 
     // Critical settings
     public boolean isCriticalFlashingOn() {
@@ -145,9 +189,7 @@ public class SettingsPreferences {
         return sharedPreferences.getBoolean(CRITICAL_NOTIFICATION_ON_KEY, true);
     }
 
-    public String getCriticalNotificationType() {
-        return sharedPreferences.getString(CRITICAL_NOTIFICATION_TYPE_KEY, "push");
-    }
+
 
     public void setCriticalFlashingOn(boolean isOn) {
         sharedPreferences.edit().putBoolean(CRITICAL_FLASHING_KEY, isOn).apply();

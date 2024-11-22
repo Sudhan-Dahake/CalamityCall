@@ -87,10 +87,10 @@ public class FlashingActivity extends AppCompatActivity {
     }
 
     private void loadPreferences() {
-        flashSwitch.setChecked(sharedPreferences.getBoolean("flash", true));
-        warningFlashSwitch.setChecked(sharedPreferences.getBoolean("warning_flash", true));
-        urgentFlashSwitch.setChecked(sharedPreferences.getBoolean("urgent_flash", true));
-        criticalFlashSwitch.setChecked(sharedPreferences.getBoolean("critical_flash", true));
+        flashSwitch.setChecked(sharedPreferences.getBoolean("watch_flashing", true));
+        warningFlashSwitch.setChecked(sharedPreferences.getBoolean("warning_flashing", true));
+        urgentFlashSwitch.setChecked(sharedPreferences.getBoolean("urgent_flashing", true));
+        criticalFlashSwitch.setChecked(sharedPreferences.getBoolean("critical_flashing", true));
     }
 
     private void onSwitchChanged(CompoundButton buttonView, boolean isChecked) {
@@ -135,10 +135,10 @@ public class FlashingActivity extends AppCompatActivity {
         // Save switch states to SharedPreferences
         new Thread(() -> {
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("flash", flashSwitch.isChecked());
-            editor.putBoolean("warning_flash", warningFlashSwitch.isChecked());
-            editor.putBoolean("urgent_flash", urgentFlashSwitch.isChecked());
-            editor.putBoolean("critical_flash", criticalFlashSwitch.isChecked());
+            editor.putBoolean("watch_flashing", flashSwitch.isChecked());
+            editor.putBoolean("warning_flashing", warningFlashSwitch.isChecked());
+            editor.putBoolean("urgent_flashing", urgentFlashSwitch.isChecked());
+            editor.putBoolean("critical_flashing", criticalFlashSwitch.isChecked());
             editor.apply();
 
             runOnUiThread(() -> SavedText.setVisibility(View.VISIBLE));
