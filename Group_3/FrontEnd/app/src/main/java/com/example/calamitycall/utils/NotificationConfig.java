@@ -38,7 +38,8 @@ public class NotificationConfig {
         SettingsPreferences settingsPreferences = new SettingsPreferences(context);
         boolean isNoiseEnabled = false;
         boolean isNotifEnabled = true;
-        boolean isFlashingEnabled = true;
+        boolean isFlashingEnabled = false;
+        boolean isTTSEnabled = true;
         int collapsedLayoutId = 0;
         int expandedLayoutId = 0;
         String lvlString = "Alert";
@@ -47,33 +48,37 @@ public class NotificationConfig {
                 lvlString = "Watch Alert";
                 collapsedLayoutId = R.layout.basic_notif_watch_collapsed;
                 expandedLayoutId = R.layout.basic_notif_watch_expanded;
+                isFlashingEnabled = settingsPreferences.isWatchFlashingOn();
                 isNoiseEnabled = settingsPreferences.isWatchNoiseOn();
                 isNotifEnabled = settingsPreferences.isWatchNotificationOn();
-                isFlashingEnabled = settingsPreferences.isWatchFlashingOn();
+                isTTSEnabled = settingsPreferences.isWatchTTSOn();
                 break;
             case 2:
                 lvlString = "Warning Alert";
                 collapsedLayoutId = R.layout.basic_notif_warning_collapsed;
                 expandedLayoutId = R.layout.basic_notif_warning_expanded;
+                isFlashingEnabled = settingsPreferences.isWarningFlashingOn();
                 isNoiseEnabled = settingsPreferences.isWarningNoiseOn();
                 isNotifEnabled = settingsPreferences.isWarningNotificationOn();
-                isFlashingEnabled = settingsPreferences.isWarningFlashingOn();
+                isTTSEnabled = settingsPreferences.isWarningTTSOn();
                 break;
             case 3:
                 lvlString = "Urgent Alert";
                 collapsedLayoutId = R.layout.basic_notif_urgent_collapsed;
                 expandedLayoutId = R.layout.basic_notif_urgent_expanded;
+                isFlashingEnabled = settingsPreferences.isUrgentFlashingOn();
                 isNoiseEnabled = settingsPreferences.isUrgentNoiseOn();
                 isNotifEnabled = settingsPreferences.isUrgentNotificationOn();
-                isFlashingEnabled = settingsPreferences.isUrgentFlashingOn();
+                isTTSEnabled = settingsPreferences.isUrgentTTSOn();
                 break;
             case 4:
                 lvlString = "Critical Alert";
                 collapsedLayoutId = R.layout.basic_notif_critical_collapsed;
                 expandedLayoutId = R.layout.basic_notif_critical_expanded;
+                isFlashingEnabled = settingsPreferences.isCriticalFlashingOn();
                 isNoiseEnabled = settingsPreferences.isCriticalNoiseOn();
                 isNotifEnabled = settingsPreferences.isCriticalNotificationOn();
-                isFlashingEnabled = settingsPreferences.isCriticalFlashingOn();
+                isTTSEnabled = settingsPreferences.isCriticalTTSOn();
                 break;
         }
         // Create notification channel

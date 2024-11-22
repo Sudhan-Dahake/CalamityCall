@@ -52,7 +52,7 @@ public class FlashingActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(Color.BLACK);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
 
-        sharedPreferences = getSharedPreferences("FlashingPreferences", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("NotificationPreferences", MODE_PRIVATE);
 
         flashSwitch = findViewById(R.id.watch_switch);
         warningFlashSwitch = findViewById(R.id.warning_switch);
@@ -87,10 +87,10 @@ public class FlashingActivity extends AppCompatActivity {
     }
 
     private void loadPreferences() {
-        flashSwitch.setChecked(sharedPreferences.getBoolean("watch_flashing", true));
-        warningFlashSwitch.setChecked(sharedPreferences.getBoolean("warning_flashing", true));
-        urgentFlashSwitch.setChecked(sharedPreferences.getBoolean("urgent_flashing", true));
-        criticalFlashSwitch.setChecked(sharedPreferences.getBoolean("critical_flashing", true));
+        flashSwitch.setChecked(sharedPreferences.getBoolean("watch_flashing", false));
+        warningFlashSwitch.setChecked(sharedPreferences.getBoolean("warning_flashing", false));
+        urgentFlashSwitch.setChecked(sharedPreferences.getBoolean("urgent_flashing", false));
+        criticalFlashSwitch.setChecked(sharedPreferences.getBoolean("critical_flashing", false));
     }
 
     private void onSwitchChanged(CompoundButton buttonView, boolean isChecked) {
@@ -135,10 +135,10 @@ public class FlashingActivity extends AppCompatActivity {
         // Save switch states to SharedPreferences
         new Thread(() -> {
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("watch_flashing", flashSwitch.isChecked());
-            editor.putBoolean("warning_flashing", warningFlashSwitch.isChecked());
-            editor.putBoolean("urgent_flashing", urgentFlashSwitch.isChecked());
-            editor.putBoolean("critical_flashing", criticalFlashSwitch.isChecked());
+            editor.putBoolean("watch_flashing", flash);
+            editor.putBoolean("warning_flashing", warningFlash);
+            editor.putBoolean("urgent_flashing", urgentFlash);
+            editor.putBoolean("critical_flashing", criticalFlash);
             editor.apply();
 
             runOnUiThread(() -> SavedText.setVisibility(View.VISIBLE));
