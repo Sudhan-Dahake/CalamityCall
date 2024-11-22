@@ -27,6 +27,13 @@ public class SettingsPreferences {
     private static final String CRITICAL_NOTIFICATION_ON_KEY = "critical_notification_on";
     private static final String CRITICAL_NOTIFICATION_TYPE_KEY = "critical_notification_type";
 
+    private static final String WATCH_TTS_KEY = "watch_tts";
+    private static final String WARNING_TTS_KEY = "warning_tts";
+    private static final String URGENT_TTS_KEY = "urgent_tts";
+    private static final String CRITICAL_TTS_KEY = "critical_tts";
+
+
+
     private SharedPreferences sharedPreferences;
 
     public SettingsPreferences(Context context) {
@@ -44,6 +51,10 @@ public class SettingsPreferences {
 
     public boolean isWatchNotificationOn() {
         return sharedPreferences.getBoolean(WATCH_NOTIFICATION_ON_KEY, true);
+    }
+
+    public boolean isWatchTTSOn() {
+        return sharedPreferences.getBoolean(WATCH_TTS_KEY, true);
     }
 
     public boolean isWatchNotificationTypePush() {
@@ -69,6 +80,9 @@ public class SettingsPreferences {
 
     public void setWatchNoiseOn(boolean isOn) {
         sharedPreferences.edit().putBoolean(WATCH_NOISE_KEY, isOn).apply();
+    }
+    public void setWatchTTSOn(boolean isOn) {
+        sharedPreferences.edit().putBoolean(WATCH_TTS_KEY, isOn).apply();
     }
 
     public void setWatchNotificationOn(boolean isOn) {
@@ -110,6 +124,19 @@ public class SettingsPreferences {
     public void setWarningFlashingOn(boolean isOn) {
         sharedPreferences.edit().putBoolean(WARNING_FLASHING_KEY, isOn).apply();
     }
+
+
+
+    public boolean isWarningTTSOn() {
+        return sharedPreferences.getBoolean(WARNING_TTS_KEY, true);
+    }
+
+    public void setWarningTTSOn(boolean isOn) {
+        sharedPreferences.edit().putBoolean(WARNING_TTS_KEY, isOn).apply();
+    }
+
+
+
 
     public void setWarningNoiseOn(boolean isOn) {
         sharedPreferences.edit().putBoolean(WARNING_NOISE_KEY, isOn).apply();
@@ -162,6 +189,16 @@ public class SettingsPreferences {
         return sharedPreferences.getString(URGENT_NOTIFICATION_TYPE_KEY, "push");
     }
 
+
+    public boolean isUrgentTTSOn() {
+        return sharedPreferences.getBoolean(URGENT_TTS_KEY, true);
+    }
+
+    public void setUrgentTTSOn(boolean isOn) {
+        sharedPreferences.edit().putBoolean(URGENT_TTS_KEY, isOn).apply();
+    }
+
+
     public void setUrgentFlashingOn(boolean isOn) {
         sharedPreferences.edit().putBoolean(URGENT_FLASHING_KEY, isOn).apply();
     }
@@ -189,6 +226,14 @@ public class SettingsPreferences {
         return sharedPreferences.getBoolean(CRITICAL_NOTIFICATION_ON_KEY, true);
     }
 
+
+    public boolean isCriticalTTSOn() {
+        return sharedPreferences.getBoolean(CRITICAL_TTS_KEY, true);
+    }
+
+    public void setCriticalTTSOn(boolean isOn) {
+        sharedPreferences.edit().putBoolean(CRITICAL_TTS_KEY, isOn).apply();
+    }
 
 
     public void setCriticalFlashingOn(boolean isOn) {
