@@ -4,6 +4,7 @@ import com.example.calamitycall.models.preference.Flashing;
 import com.example.calamitycall.models.preference.Noise;
 import com.example.calamitycall.models.preference.NotificationAlertType;
 import com.example.calamitycall.models.preference.NotificationOn;
+import com.example.calamitycall.models.preference.TextToSpeech;
 
 import org.junit.Test;
 
@@ -208,4 +209,55 @@ public class PreferenceUnitTest {
         assertFalse(notificationOn.getUrgent());
         assertFalse(notificationOn.getCritical());
     }
+
+    /*** Happy Path Tests for TextToSpeech class ***/
+
+    @Test
+    public void testTextToSpeechConstructorAndGetters() {
+        // Create a TextToSpeech object using the constructor with all parameters
+        TextToSpeech textToSpeech = new TextToSpeech(9, true, false, true, false);
+
+        // Validate that all fields are initialized correctly
+        assertEquals(9, textToSpeech.getPreferenceid());
+        assertTrue(textToSpeech.getWatch());
+        assertFalse(textToSpeech.getWarning());
+        assertTrue(textToSpeech.getUrgent());
+        assertFalse(textToSpeech.getCritical());
+    }
+
+    @Test
+    public void testTextToSpeechSetters() {
+        // Create a TextToSpeech object using the constructor without preferenceid
+        TextToSpeech textToSpeech = new TextToSpeech(false, false, false, false);
+
+        // Update fields using setters
+        textToSpeech.setPreferenceid(10);
+        textToSpeech.setWatch(true);
+        textToSpeech.setWarning(true);
+        textToSpeech.setUrgent(false);
+        textToSpeech.setCritical(true);
+
+        // Validate that the fields have been updated correctly
+        assertEquals(10, textToSpeech.getPreferenceid());
+        assertTrue(textToSpeech.getWatch());
+        assertTrue(textToSpeech.getWarning());
+        assertFalse(textToSpeech.getUrgent());
+        assertTrue(textToSpeech.getCritical());
+    }
+
+    /*** Sad Path Tests for TextToSpeech class ***/
+
+    @Test
+    public void testTextToSpeechDefaultValues() {
+        // Create a TextToSpeech object with all boolean fields set to false
+        TextToSpeech textToSpeech = new TextToSpeech(false, false, false, false);
+
+        // Validate that preferenceid defaults to 0 and boolean fields are false
+        assertEquals(0, textToSpeech.getPreferenceid());
+        assertFalse(textToSpeech.getWatch());
+        assertFalse(textToSpeech.getWarning());
+        assertFalse(textToSpeech.getUrgent());
+        assertFalse(textToSpeech.getCritical());
+    }
+
 }
