@@ -4,6 +4,7 @@ import com.example.calamitycall.models.preference.Flashing;
 import com.example.calamitycall.models.preference.Noise;
 import com.example.calamitycall.models.preference.NotificationAlertType;
 import com.example.calamitycall.models.preference.NotificationOn;
+import com.example.calamitycall.models.preference.PreferenceResponse;
 import com.example.calamitycall.models.preference.TextToSpeech;
 
 import org.junit.Test;
@@ -258,6 +259,70 @@ public class PreferenceUnitTest {
         assertFalse(textToSpeech.getWarning());
         assertFalse(textToSpeech.getUrgent());
         assertFalse(textToSpeech.getCritical());
+    }
+
+    /*** Happy Path Tests for PreferenceResponse class ***/
+
+    @Test
+    public void testPreferenceResponseConstructorAndGetters() {
+        // Create individual preference objects
+        NotificationOn notificationOn = new NotificationOn(1, true, false, true, false);
+        Noise noise = new Noise(2, false, true, false, true);
+        Flashing flashing = new Flashing(3, true, true, false, false);
+        NotificationAlertType alertType = new NotificationAlertType(4, "Low", "Medium", "High", "Critical");
+        TextToSpeech textToSpeech = new TextToSpeech(5, true, false, true, false);
+
+        // Create a PreferenceResponse object using all preference objects
+        PreferenceResponse response = new PreferenceResponse(notificationOn, noise, flashing, alertType, textToSpeech);
+
+        // Validate that all preference objects are correctly assigned
+        assertEquals(notificationOn, response.getNotificationOn());
+        assertEquals(noise, response.getNoise());
+        assertEquals(flashing, response.getFlashing());
+        assertEquals(alertType, response.getNotificationAlertType());
+        assertEquals(textToSpeech, response.getTextToSpeech());
+    }
+
+    @Test
+    public void testPreferenceResponseSetters() {
+        // Create a PreferenceResponse object with null values
+        PreferenceResponse response = new PreferenceResponse(null, null, null, null, null);
+
+        // Create individual preference objects
+        NotificationOn notificationOn = new NotificationOn(1, true, false, true, false);
+        Noise noise = new Noise(2, false, true, false, true);
+        Flashing flashing = new Flashing(3, true, true, false, false);
+        NotificationAlertType alertType = new NotificationAlertType(4, "Low", "Medium", "High", "Critical");
+        TextToSpeech textToSpeech = new TextToSpeech(5, true, false, true, false);
+
+        // Set preference objects using setters
+        response.setNotificationOn(notificationOn);
+        response.setNoise(noise);
+        response.setFlashing(flashing);
+        response.setNotificationAlertType(alertType);
+        response.setTextToSpeech(textToSpeech);
+
+        // Validate that all preference objects are correctly assigned
+        assertEquals(notificationOn, response.getNotificationOn());
+        assertEquals(noise, response.getNoise());
+        assertEquals(flashing, response.getFlashing());
+        assertEquals(alertType, response.getNotificationAlertType());
+        assertEquals(textToSpeech, response.getTextToSpeech());
+    }
+
+    /*** Sad Path Tests for PreferenceResponse class ***/
+
+    @Test
+    public void testPreferenceResponseWithNullValues() {
+        // Create a PreferenceResponse object with null values
+        PreferenceResponse response = new PreferenceResponse(null, null, null, null, null);
+
+        // Validate that all preference objects are null
+        assertNull(response.getNotificationOn());
+        assertNull(response.getNoise());
+        assertNull(response.getFlashing());
+        assertNull(response.getNotificationAlertType());
+        assertNull(response.getTextToSpeech());
     }
 
 }
