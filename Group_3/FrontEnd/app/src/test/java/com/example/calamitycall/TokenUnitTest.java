@@ -2,6 +2,7 @@ package com.example.calamitycall;
 
 import com.example.calamitycall.models.token.TokenGenerateRequest;
 import com.example.calamitycall.models.token.TokenResponse;
+import com.example.calamitycall.models.token.VerifyTokenResponse;
 
 import org.junit.Test;
 
@@ -126,5 +127,30 @@ public class TokenUnitTest {
         // Validate the updated fields
         assertEquals("", response.getAccessToken());
         assertEquals("", response.getTokenType());
+    }
+
+    /*** Happy Path Tests for VerifyTokenResponse class ***/
+    @Test
+    public void testVerifyTokenResponseConstructor() {
+        // Create a response object with valid message and username
+        VerifyTokenResponse response = new VerifyTokenResponse("Token verified", "test_user");
+
+        // Validate the message and username
+        assertEquals("Token verified", response.getMessage());
+        assertEquals("test_user", response.getUsername());
+    }
+
+    @Test
+    public void testVerifyTokenResponseSettersAndGetters() {
+        // Create a response object
+        VerifyTokenResponse response = new VerifyTokenResponse("InitialMessage", "InitialUser");
+
+        // Update the fields using setters
+        response.setMessage("UpdatedMessage");
+        response.setUsername("UpdatedUser");
+
+        // Validate the updated fields
+        assertEquals("UpdatedMessage", response.getMessage());
+        assertEquals("UpdatedUser", response.getUsername());
     }
 }
