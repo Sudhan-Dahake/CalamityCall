@@ -3,6 +3,7 @@ package com.example.calamitycall;
 import com.example.calamitycall.models.preference.Flashing;
 import com.example.calamitycall.models.preference.Noise;
 import com.example.calamitycall.models.preference.NotificationAlertType;
+import com.example.calamitycall.models.preference.NotificationOn;
 
 import org.junit.Test;
 
@@ -158,4 +159,53 @@ public class PreferenceUnitTest {
         assertEquals("", alertType.getCritical());
     }
 
+    /*** Happy Path Tests for NotificationOn class ***/
+
+    @Test
+    public void testNotificationOnConstructorAndGetters() {
+        // Create a NotificationOn object using the constructor with all parameters
+        NotificationOn notificationOn = new NotificationOn(7, true, true, false, false);
+
+        // Validate that all fields are initialized correctly
+        assertEquals(7, notificationOn.getPreferenceid());
+        assertTrue(notificationOn.getWatch());
+        assertTrue(notificationOn.getWarning());
+        assertFalse(notificationOn.getUrgent());
+        assertFalse(notificationOn.getCritical());
+    }
+
+    @Test
+    public void testNotificationOnSetters() {
+        // Create a NotificationOn object using the constructor without preferenceid
+        NotificationOn notificationOn = new NotificationOn(false, false, false, false);
+
+        // Update fields using setters
+        notificationOn.setPreferenceid(8);
+        notificationOn.setWatch(true);
+        notificationOn.setWarning(false);
+        notificationOn.setUrgent(true);
+        notificationOn.setCritical(false);
+
+        // Validate that the fields have been updated correctly
+        assertEquals(8, notificationOn.getPreferenceid());
+        assertTrue(notificationOn.getWatch());
+        assertFalse(notificationOn.getWarning());
+        assertTrue(notificationOn.getUrgent());
+        assertFalse(notificationOn.getCritical());
+    }
+
+    /*** Sad Path Tests for NotificationOn class ***/
+
+    @Test
+    public void testNotificationOnDefaultValues() {
+        // Create a NotificationOn object with all boolean fields set to false
+        NotificationOn notificationOn = new NotificationOn(false, false, false, false);
+
+        // Validate that preferenceid defaults to 0 and boolean fields are false
+        assertEquals(0, notificationOn.getPreferenceid());
+        assertFalse(notificationOn.getWatch());
+        assertFalse(notificationOn.getWarning());
+        assertFalse(notificationOn.getUrgent());
+        assertFalse(notificationOn.getCritical());
+    }
 }
