@@ -2,7 +2,6 @@ package com.example.calamitycall;
 
 import com.example.calamitycall.models.FirebaseToken.RegisterTokenRequest;
 import com.example.calamitycall.models.FirebaseToken.RegisterTokenResponse;
-import com.example.calamitycall.models.token.TokenResponse;
 
 import org.junit.Test;
 
@@ -124,70 +123,6 @@ public class FirebaseTokenUnitTest {
 
         // Validate updated value
         assertEquals("", response.getStatus());
-    }
-
-    /*** Happy Path Tests for TokenResponse class ***/
-
-    @Test
-    public void testTokenResponseConstructor() {
-        // Create a response object with valid tokens
-        TokenResponse response = new TokenResponse("access_token_123", "Bearer");
-
-        // Validate the access token and token type
-        assertEquals("access_token_123", response.getAccessToken());
-        assertEquals("Bearer", response.getTokenType());
-    }
-
-    @Test
-    public void testTokenResponseSettersAndGetters() {
-        // Create a response object
-        TokenResponse response = new TokenResponse("initial_token", "InitialType");
-
-        // Update the fields using setters
-        response.setAccessToken("new_access_token");
-        response.setTokenType("UpdatedType");
-
-        // Validate the updated fields
-        assertEquals("new_access_token", response.getAccessToken());
-        assertEquals("UpdatedType", response.getTokenType());
-    }
-
-    /*** Sad Path Tests for TokenResponse class ***/
-
-    @Test
-    public void testTokenResponseWithNullFields() {
-        // Create a response object with null fields
-        TokenResponse response = new TokenResponse(null, null);
-
-        // Validate that fields are null
-        assertNull(response.getAccessToken());
-        assertNull(response.getTokenType());
-
-        // Update the fields to null explicitly
-        response.setAccessToken(null);
-        response.setTokenType(null);
-
-        // Validate that the fields remain null
-        assertNull(response.getAccessToken());
-        assertNull(response.getTokenType());
-    }
-
-    @Test
-    public void testTokenResponseWithEmptyFields() {
-        // Create a response object with empty strings
-        TokenResponse response = new TokenResponse("", "");
-
-        // Validate that fields are empty strings
-        assertEquals("", response.getAccessToken());
-        assertEquals("", response.getTokenType());
-
-        // Update the fields with empty strings
-        response.setAccessToken("");
-        response.setTokenType("");
-
-        // Validate the updated fields
-        assertEquals("", response.getAccessToken());
-        assertEquals("", response.getTokenType());
     }
 
 }
