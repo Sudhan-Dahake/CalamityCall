@@ -76,4 +76,21 @@ public class FirebaseTokenUnitTest {
         assertEquals(Integer.valueOf(-999), request.getUserid());
     }
 
+    /*** Happy Path Tests for RegisterTokenResponse class ***/
+
+    @Test
+    public void testRegisterTokenResponseConstructorAndSetter() {
+        // Create a valid response object
+        RegisterTokenResponse response = new RegisterTokenResponse("success");
+
+        // Validate field initialized by the constructor
+        assertEquals("success", response.getStatus());
+
+        // Update field using setter
+        response.setStatus("failure");
+
+        // Validate updated value
+        assertEquals("failure", response.getStatus());
+    }
+
 }
