@@ -5,6 +5,8 @@ import com.example.calamitycall.models.preference.Noise;
 import com.example.calamitycall.models.preference.NotificationAlertType;
 import com.example.calamitycall.models.preference.NotificationOn;
 import com.example.calamitycall.models.preference.PreferenceResponse;
+import com.example.calamitycall.models.preference.PreferenceUpdateRequest;
+import com.example.calamitycall.models.preference.PreferenceUpdateResponse;
 import com.example.calamitycall.models.preference.TextToSpeech;
 
 import org.junit.Test;
@@ -325,4 +327,87 @@ public class PreferenceUnitTest {
         assertNull(response.getTextToSpeech());
     }
 
+    /*** Happy Path Tests for PreferenceUpdateRequest class ***/
+
+    @Test
+    public void testPreferenceUpdateRequestConstructorAndGetters() {
+        // Create a data object to be updated (e.g., Flashing)
+        Flashing flashing = new Flashing(1, true, false, true, false);
+
+        // Create a PreferenceUpdateRequest with table name and data
+        PreferenceUpdateRequest<Flashing> request = new PreferenceUpdateRequest<>("Flashing", flashing);
+
+        // Validate that table name and data are correctly assigned
+        assertEquals("Flashing", request.getTableName());
+        assertEquals(flashing, request.getData());
+    }
+
+    @Test
+    public void testPreferenceUpdateRequestSetters() {
+        // Create a PreferenceUpdateRequest with initial null values
+        PreferenceUpdateRequest<Noise> request = new PreferenceUpdateRequest<>(null, null);
+
+        // Create a data object to be updated
+        Noise noise = new Noise(2, false, true, false, true);
+
+        // Set table name and data using setters
+        request.setTableName("Noise");
+        request.setData(noise);
+
+        // Validate that table name and data are correctly assigned
+        assertEquals("Noise", request.getTableName());
+        assertEquals(noise, request.getData());
+    }
+
+    /*** Sad Path Tests for PreferenceUpdateRequest class ***/
+
+    @Test
+    public void testPreferenceUpdateRequestWithNullValues() {
+        // Create a PreferenceUpdateRequest with null values
+        PreferenceUpdateRequest<TextToSpeech> request = new PreferenceUpdateRequest<>(null, null);
+
+        // Validate that table name and data are null
+        assertNull(request.getTableName());
+        assertNull(request.getData());
+    }
+
+    /*** Happy Path Tests for PreferenceUpdateResponse class ***/
+
+    @Test
+    public void testPreferenceUpdateResponseConstructorAndGetters() {
+        // Create a response object with a message
+        PreferenceUpdateResponse response = new PreferenceUpdateResponse("Update successful");
+
+        // Validate that the message is correctly assigned
+        assertEquals("Update successful", response.getMessage());
+    }
+
+    @Test
+    public void testPreferenceUpdateResponseSetters() {
+        // Create a response object with an initial message
+        PreferenceUpdateResponse response = new PreferenceUpdateResponse("Initial message");
+
+        // Update the message using setter
+        response.setMessage("Update completed");
+
+        // Validate that the message has been updated
+        assertEquals("Update completed", response.getMessage());
+    }
+
+    /*** Sad Path Tests for PreferenceUpdateResponse class ***/
+
+    @Test
+    public void testPreferenceUpdateResponseWithNullMessage() {
+        // Create a response object with a null message
+        PreferenceUpdateResponse response = new PreferenceUpdateResponse(null);
+
+        // Validate that the message is null
+        assertNull(response.getMessage());
+
+        // Set the message to null explicitly
+        response.setMessage(null);
+
+        // Validate that the message remains null
+        assertNull(response.getMessage());
+    }
 }
