@@ -111,4 +111,80 @@ public class NotificationHistoryUnitTest {
         // Verify the list is empty
         assertTrue("The notifications list should be empty", response.getNotifications().isEmpty());
     }
+
+    /*** Happy Path Tests for NotificationResponse class ***/
+    @Test
+    public void testNotificationResponseConstructor() {
+        // Test the constructor with all fields
+        NotificationResponse response = new NotificationResponse(
+                "System1", -79.3832, 43.6532, "Toronto", "Flood", 3, "2024-11-25",
+                "Stay indoors", "Evacuate", "Seek shelter"
+        );
+
+        // Validate that all fields are correctly initialized
+        assertEquals("System1", response.getNotiforigin());
+        assertEquals(-79.3832, response.getLongitude(), 0.0001);
+        assertEquals(43.6532, response.getLatitude(), 0.0001);
+        assertEquals("Toronto", response.getCity());
+        assertEquals("Flood", response.getDisastertype());
+        assertEquals(3, response.getDisasterlevel());
+        assertEquals("2024-11-25", response.getNotifdate());
+        assertEquals("Stay indoors", response.getPreparationsteps());
+        assertEquals("Evacuate", response.getActivesteps());
+        assertEquals("Seek shelter", response.getRecoverysteps());
+    }
+
+    @Test
+    public void testNotificationResponseRequiredFieldsConstructor() {
+        // Test the constructor with only required fields
+        NotificationResponse response = new NotificationResponse(
+                "System2", -123.1216, 49.2827, "Vancouver", "Earthquake", 5, "2024-11-25"
+        );
+
+        // Validate that required fields are correctly initialized
+        assertEquals("System2", response.getNotiforigin());
+        assertEquals(-123.1216, response.getLongitude(), 0.0001);
+        assertEquals(49.2827, response.getLatitude(), 0.0001);
+        assertEquals("Vancouver", response.getCity());
+        assertEquals("Earthquake", response.getDisastertype());
+        assertEquals(5, response.getDisasterlevel());
+        assertEquals("2024-11-25", response.getNotifdate());
+
+        // Validate that optional fields are null by default
+        assertNull(response.getPreparationsteps());
+        assertNull(response.getActivesteps());
+        assertNull(response.getRecoverysteps());
+    }
+
+    @Test
+    public void testNotificationResponseSettersAndGetters() {
+        // Test the setters and getters for all fields
+        NotificationResponse response = new NotificationResponse(
+                "System3", 0, 0, "PlaceholderCity", "PlaceholderDisaster", 0, "PlaceholderDate"
+        );
+
+        // Update fields using setters
+        response.setNotiforigin("UpdatedSystem");
+        response.setLongitude(-80.1234);
+        response.setLatitude(44.5678);
+        response.setCity("UpdatedCity");
+        response.setDisastertype("Fire");
+        response.setDisasterlevel(2);
+        response.setNotifdate("2024-11-26");
+        response.setPreparationsteps("Prepare kits");
+        response.setActivesteps("Evacuate quickly");
+        response.setRecoverysteps("Rebuild");
+
+        // Validate that updated values are correctly set using getters
+        assertEquals("UpdatedSystem", response.getNotiforigin());
+        assertEquals(-80.1234, response.getLongitude(), 0.0001);
+        assertEquals(44.5678, response.getLatitude(), 0.0001);
+        assertEquals("UpdatedCity", response.getCity());
+        assertEquals("Fire", response.getDisastertype());
+        assertEquals(2, response.getDisasterlevel());
+        assertEquals("2024-11-26", response.getNotifdate());
+        assertEquals("Prepare kits", response.getPreparationsteps());
+        assertEquals("Evacuate quickly", response.getActivesteps());
+        assertEquals("Rebuild", response.getRecoverysteps());
+    }
 }
