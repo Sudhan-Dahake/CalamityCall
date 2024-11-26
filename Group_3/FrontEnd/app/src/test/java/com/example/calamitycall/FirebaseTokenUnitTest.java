@@ -127,6 +127,7 @@ public class FirebaseTokenUnitTest {
     }
 
     /*** Happy Path Tests for TokenResponse class ***/
+
     @Test
     public void testTokenResponseConstructor() {
         // Create a response object with valid tokens
@@ -149,6 +150,44 @@ public class FirebaseTokenUnitTest {
         // Validate the updated fields
         assertEquals("new_access_token", response.getAccessToken());
         assertEquals("UpdatedType", response.getTokenType());
+    }
+
+    /*** Sad Path Tests for TokenResponse class ***/
+
+    @Test
+    public void testTokenResponseWithNullFields() {
+        // Create a response object with null fields
+        TokenResponse response = new TokenResponse(null, null);
+
+        // Validate that fields are null
+        assertNull(response.getAccessToken());
+        assertNull(response.getTokenType());
+
+        // Update the fields to null explicitly
+        response.setAccessToken(null);
+        response.setTokenType(null);
+
+        // Validate that the fields remain null
+        assertNull(response.getAccessToken());
+        assertNull(response.getTokenType());
+    }
+
+    @Test
+    public void testTokenResponseWithEmptyFields() {
+        // Create a response object with empty strings
+        TokenResponse response = new TokenResponse("", "");
+
+        // Validate that fields are empty strings
+        assertEquals("", response.getAccessToken());
+        assertEquals("", response.getTokenType());
+
+        // Update the fields with empty strings
+        response.setAccessToken("");
+        response.setTokenType("");
+
+        // Validate the updated fields
+        assertEquals("", response.getAccessToken());
+        assertEquals("", response.getTokenType());
     }
 
 }
