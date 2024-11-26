@@ -12,7 +12,7 @@ public class RegisterTokenRequest {
         this.deviceid = deviceid;
     }
 
-
+    // Setters
     public void setFcmtoken(String fcmtoken) {
         this.fcmtoken = fcmtoken;
     }
@@ -24,4 +24,11 @@ public class RegisterTokenRequest {
     public void setDeviceid(String deviceid) {
         this.deviceid = deviceid;
     }
+
+    // Getters
+    public String getFcmtoken() { return fcmtoken; }
+
+    public Integer getUserid() { return userid;}
+
+    public String getDeviceid() { return deviceid;}
 }
