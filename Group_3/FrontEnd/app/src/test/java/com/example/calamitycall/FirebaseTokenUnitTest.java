@@ -32,4 +32,48 @@ public class FirebaseTokenUnitTest {
         assertEquals(Integer.valueOf(2), request.getUserid());
     }
 
+    /*** Sad Path Tests for RegisterTokenRequest class ***/
+
+    @Test
+    public void testRegisterTokenRequestWithNullValues() {
+        // Create a request object with null values
+        RegisterTokenRequest request = new RegisterTokenRequest(null, null, 0);
+
+        // Validate that fields are null
+        assertNull(request.getFcmtoken());
+        assertNull(request.getDeviceid());
+        assertEquals(0, request.getUserid().intValue());
+
+        // Update fields to null explicitly
+        request.setFcmtoken(null);
+        request.setDeviceid(null);
+        request.setUserid(-1);  // since userid is int instead of Integer - cannot pass null
+
+        // Validate fields remain null
+        assertNull(request.getFcmtoken());
+        assertNull(request.getDeviceid());
+        assertEquals(-1, request.getUserid().intValue());
+    }
+
+    @Test
+    public void testRegisterTokenRequestWithEmptyStrings() {
+        // Create a request object with empty strings and invalid userid
+        RegisterTokenRequest request = new RegisterTokenRequest("", "", -1);
+
+        // Validate that fields are set as provided
+        assertEquals("", request.getFcmtoken());
+        assertEquals("", request.getDeviceid());
+        assertEquals(Integer.valueOf(-1), request.getUserid());
+
+        // Update fields with invalid data
+        request.setFcmtoken("");
+        request.setDeviceid("");
+        request.setUserid(-999);
+
+        // Validate updated values
+        assertEquals("", request.getFcmtoken());
+        assertEquals("", request.getDeviceid());
+        assertEquals(Integer.valueOf(-999), request.getUserid());
+    }
+
 }
