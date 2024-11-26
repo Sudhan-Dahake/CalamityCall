@@ -2,6 +2,7 @@ package com.example.calamitycall;
 
 import com.example.calamitycall.models.preference.Flashing;
 import com.example.calamitycall.models.preference.Noise;
+import com.example.calamitycall.models.preference.NotificationAlertType;
 
 import org.junit.Test;
 
@@ -105,6 +106,56 @@ public class PreferenceUnitTest {
         assertFalse(noise.getWarning());
         assertFalse(noise.getUrgent());
         assertFalse(noise.getCritical());
+    }
+
+    /*** Happy Path Tests for NotificationAlertType class ***/
+
+    @Test
+    public void testNotificationAlertTypeConstructorAndGetters() {
+        // Create a NotificationAlertType object with all parameters
+        NotificationAlertType alertType = new NotificationAlertType(5, "Low", "Medium", "High", "Critical");
+
+        // Validate that all fields are initialized correctly
+        assertEquals(5, alertType.getPreferenceid());
+        assertEquals("Low", alertType.getWatch());
+        assertEquals("Medium", alertType.getWarning());
+        assertEquals("High", alertType.getUrgent());
+        assertEquals("Critical", alertType.getCritical());
+    }
+
+    @Test
+    public void testNotificationAlertTypeSetters() {
+        // Create a NotificationAlertType object with empty strings
+        NotificationAlertType alertType = new NotificationAlertType("", "", "", "");
+
+        // Update fields using setters
+        alertType.setPreferenceid(6);
+        alertType.setWatch("UpdatedLow");
+        alertType.setWarning("UpdatedMedium");
+        alertType.setUrgent("UpdatedHigh");
+        alertType.setCritical("UpdatedCritical");
+
+        // Validate that the fields have been updated correctly
+        assertEquals(6, alertType.getPreferenceid());
+        assertEquals("UpdatedLow", alertType.getWatch());
+        assertEquals("UpdatedMedium", alertType.getWarning());
+        assertEquals("UpdatedHigh", alertType.getUrgent());
+        assertEquals("UpdatedCritical", alertType.getCritical());
+    }
+
+    /*** Sad Path Tests for NotificationAlertType class ***/
+
+    @Test
+    public void testNotificationAlertTypeDefaultValues() {
+        // Create a NotificationAlertType object with empty strings
+        NotificationAlertType alertType = new NotificationAlertType("", "", "", "");
+
+        // Validate that preferenceid defaults to 0 and string fields are empty
+        assertEquals(0, alertType.getPreferenceid());
+        assertEquals("", alertType.getWatch());
+        assertEquals("", alertType.getWarning());
+        assertEquals("", alertType.getUrgent());
+        assertEquals("", alertType.getCritical());
     }
 
 }
