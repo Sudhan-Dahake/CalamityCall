@@ -13,6 +13,7 @@ import com.example.calamitycall.models.token.TokenGenerateRequest;
 import com.example.calamitycall.models.token.TokenResponse;
 import com.example.calamitycall.models.preference.PreferenceUpdateRequest;
 import com.example.calamitycall.models.preference.PreferenceUpdateResponse;
+import com.example.calamitycall.models.token.VerifyTokenResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -33,6 +34,9 @@ public interface ApiClient {
 
     @GET("/preferences/get")
     Call<PreferenceResponse> getPreferences(@Header("Authorization") String authHeader);
+
+    @GET("/protected/verifytoken")
+    Call<VerifyTokenResponse> verifyToken(@Header("Authorization") String authHeader);
 
     @POST("/generate/JWT")
     Call<TokenResponse> refreshToken(@Body TokenGenerateRequest tokenGenerateRequest);
