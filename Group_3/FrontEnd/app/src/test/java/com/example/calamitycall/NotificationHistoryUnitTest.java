@@ -187,4 +187,50 @@ public class NotificationHistoryUnitTest {
         assertEquals("Evacuate quickly", response.getActivesteps());
         assertEquals("Rebuild", response.getRecoverysteps());
     }
+
+    /*** Sad Path Tests for NotificationResponse class ***/
+    @Test
+    public void testNotificationResponseNullOptionalFields() {
+        // Create a response with valid required fields
+        NotificationResponse response = new NotificationResponse(
+                "System4", -79.3832, 43.6532, "Toronto", "Flood", 3, "2024-11-25"
+        );
+
+        // Set optional fields to null
+        response.setPreparationsteps(null);
+        response.setActivesteps(null);
+        response.setRecoverysteps(null);
+
+        // Validate that optional fields are null
+        assertNull(response.getPreparationsteps());
+        assertNull(response.getActivesteps());
+        assertNull(response.getRecoverysteps());
+    }
+
+    @Test
+    public void testNotificationResponseInvalidLongitudeAndLatitude() {
+        // Create a response with default valid longitude and latitude
+        NotificationResponse response = new NotificationResponse(
+                "System5", 0, 0, "Toronto", "Flood", 3, "2024-11-25"
+        );
+
+        // Set invalid longitude and latitude values
+        response.setLongitude(200.0); // Invalid longitude
+        response.setLatitude(-100.0); // Invalid latitude
+
+        // Validate that invalid values are set without exceptions
+        assertEquals(200.0, response.getLongitude(), 0.0001);
+        assertEquals(-100.0, response.getLatitude(), 0.0001);
+    }
+
+    @Test
+    public void testNotificationResponseInvalidDisasterLevel() {
+        // Create a response with an invalid disaster level
+        NotificationResponse response = new NotificationResponse(
+                "System6", -79.3832, 43.6532, "Toronto", "Flood", -1, "2024-11-25"
+        );
+
+        // Validate that the disaster level is set to the invalid value
+        assertEquals(-1, response.getDisasterlevel());
+    }
 }
