@@ -6,14 +6,18 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera.flash" android:required="true" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
 
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.CalamityCall"
         tools:targetApi="31">
@@ -60,7 +64,8 @@
         <activity
             android:name=".fragments.ReportPage"
             android:exported="false"
-            tools:ignore="Instantiatable" />
+            tools:ignore="Instantiatable"
+            android:windowSoftInputMode="adjustPan"/>
 
         <activity
             android:name=".Settings"
@@ -75,16 +80,17 @@
         <activity
             android:name=".RegisterActivity"
             android:exported="true"
-            tools:ignore="Instantiatable"/>
+            tools:ignore="Instantiatable"
+            android:windowSoftInputMode="adjustPan"/>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true"
-            tools:ignore="Instantiatable"/>
+            tools:ignore="Instantiatable" />
 
         <!-- Login Page as the launcher activity -->
         <activity
-            android:name=".LoginActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

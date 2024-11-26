@@ -20,7 +20,7 @@ async def GetImmediateNotification(username: str = Depends(AuthServiceObj.Verify
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No notifications found")
 
 @router.post("/history", response_model=NotificationHistoryResponse, response_model_exclude_none=True)
-async def GetNotificationHistory(historyRequest: NotificationHistoryRequest, username: str = Depends(AuthServiceObj.VerifyJWT)):
+async def GetNotificationHistory(historyRequest: NotificationHistoryRequest):
     NotifModel = NotificationModel()
 
     NotifDict = NotifModel.GetNotifToDisplayForHistory(timeFrame=historyRequest.timeFrame)

@@ -255,4 +255,19 @@
         app:layout_constraintVertical_bias="0.095"
         tools:ignore="HardcodedText" />
 
+    <TextView
+        android:id="@+id/SavedText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Saved!"
+        android:textColor="@color/register_bk_color"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notificationtype_save"
+        app:layout_constraintVertical_bias="0.147"
+        tools:ignore="HardcodedText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

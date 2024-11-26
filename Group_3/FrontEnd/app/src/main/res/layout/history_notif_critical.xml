@@ -1,5 +1,6 @@
 <!-- basic_notif_collapsed.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -34,14 +35,16 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:contentDescription="Tornado Icon"
-                android:src="@drawable/critical_icon" />
+                android:src="@drawable/critical_icon"
+                tools:ignore="HardcodedText" />
         </FrameLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="NestedWeights">
 
             <!-- Critical Alert -->
             <TextView
@@ -53,7 +56,8 @@
                 android:textAlignment="center"
                 android:textColor="#000000"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
             <!-- Disaster type (Tornado Spotted) -->
             <TextView
@@ -61,9 +65,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tornado Spotted"
-                android:textAlignment="center"
+                android:textAlignment="textStart"
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
     </LinearLayout>
 
@@ -75,5 +80,6 @@
         android:paddingTop="7dp"
         android:text="21-11-2023"
         android:textColor="#000000"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        tools:ignore="HardcodedText" />
 </LinearLayout>

@@ -5,7 +5,7 @@ class FirebaseTokenCreate(BaseModel):
     fcmtoken: str
     userid: int | None = None
     deviceid: str
-    notificationtype: str = "push"
+    notificationtype: str = "Push"
     created_at: datetime = Field(default_factory=datetime.now)
     updated_at: datetime = Field(default_factory=datetime.now)
 
