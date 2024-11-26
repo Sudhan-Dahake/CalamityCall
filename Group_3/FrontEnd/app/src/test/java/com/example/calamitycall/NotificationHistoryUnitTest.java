@@ -6,11 +6,13 @@ import com.example.calamitycall.models.NotificationHistory.NotificationResponse;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 public class NotificationHistoryUnitTest {
 
@@ -87,5 +89,26 @@ public class NotificationHistoryUnitTest {
         assertEquals("The number of notifications should match", 2, response.getNotifications().size());
         assertEquals("The first notification city should be Toronto", "Toronto", response.getNotifications().get(0).getCity());
         assertEquals("The second notification disaster type should be Earthquake", "Earthquake", response.getNotifications().get(1).getDisastertype());
+    }
+
+    /*** Sad Path Tests for NotificationHistoryResponse class ***/
+    @Test
+    public void testSetNullNotifications() {
+        // Set notifications to null
+        NotificationHistoryResponse response = new NotificationHistoryResponse();
+        response.setNotifications(null);
+
+        // Verify the list is null
+        assertNull("The notifications list should be null", response.getNotifications());
+    }
+
+    @Test
+    public void testSetEmptyNotifications() {
+        // Set notifications to an empty list
+        NotificationHistoryResponse response = new NotificationHistoryResponse();
+        response.setNotifications(new ArrayList<>());
+
+        // Verify the list is empty
+        assertTrue("The notifications list should be empty", response.getNotifications().isEmpty());
     }
 }
