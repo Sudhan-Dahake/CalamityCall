@@ -25,6 +25,7 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.example.calamitycall.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
     private ActivityResultLauncher<Intent> loginActivityLauncher;
 
     @Override

@@ -17,7 +17,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.media.session.MediaSession;
-import android.os.Handler;
 import android.util.Log;
 import android.provider.Settings;
 
@@ -33,7 +32,6 @@ import retrofit2.Response;
 
 import android.speech.tts.TextToSpeech;
 import java.util.Locale;
-import java.util.concurrent.CountDownLatch;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "MyFirebaseMessagingService";
