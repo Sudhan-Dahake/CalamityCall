@@ -130,6 +130,7 @@ public class TokenUnitTest {
     }
 
     /*** Happy Path Tests for VerifyTokenResponse class ***/
+
     @Test
     public void testVerifyTokenResponseConstructor() {
         // Create a response object with valid message and username
@@ -152,5 +153,43 @@ public class TokenUnitTest {
         // Validate the updated fields
         assertEquals("UpdatedMessage", response.getMessage());
         assertEquals("UpdatedUser", response.getUsername());
+    }
+
+    /*** Sad Path Tests for VerifyTokenResponse class ***/
+
+    @Test
+    public void testVerifyTokenResponseWithNullFields() {
+        // Create a response object with null fields
+        VerifyTokenResponse response = new VerifyTokenResponse(null, null);
+
+        // Validate that fields are null
+        assertNull(response.getMessage());
+        assertNull(response.getUsername());
+
+        // Update the fields to null explicitly
+        response.setMessage(null);
+        response.setUsername(null);
+
+        // Validate that the fields remain null
+        assertNull(response.getMessage());
+        assertNull(response.getUsername());
+    }
+
+    @Test
+    public void testVerifyTokenResponseWithEmptyFields() {
+        // Create a response object with empty strings
+        VerifyTokenResponse response = new VerifyTokenResponse("", "");
+
+        // Validate that fields are empty strings
+        assertEquals("", response.getMessage());
+        assertEquals("", response.getUsername());
+
+        // Update the fields with empty strings
+        response.setMessage("");
+        response.setUsername("");
+
+        // Validate the updated fields
+        assertEquals("", response.getMessage());
+        assertEquals("", response.getUsername());
     }
 }
