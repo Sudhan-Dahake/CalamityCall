@@ -93,4 +93,36 @@ public class FirebaseTokenUnitTest {
         assertEquals("failure", response.getStatus());
     }
 
+    /*** Sad Path Tests for RegisterTokenResponse class ***/
+
+    @Test
+    public void testRegisterTokenResponseWithNullStatus() {
+        // Create a response object with null status
+        RegisterTokenResponse response = new RegisterTokenResponse(null);
+
+        // Validate that the status is null
+        assertNull(response.getStatus());
+
+        // Update status to null explicitly
+        response.setStatus(null);
+
+        // Validate that the status remains null
+        assertNull(response.getStatus());
+    }
+
+    @Test
+    public void testRegisterTokenResponseWithEmptyStatus() {
+        // Create a response object with empty status
+        RegisterTokenResponse response = new RegisterTokenResponse("");
+
+        // Validate that the status is an empty string
+        assertEquals("", response.getStatus());
+
+        // Update status to an empty string explicitly
+        response.setStatus("");
+
+        // Validate updated value
+        assertEquals("", response.getStatus());
+    }
+
 }
