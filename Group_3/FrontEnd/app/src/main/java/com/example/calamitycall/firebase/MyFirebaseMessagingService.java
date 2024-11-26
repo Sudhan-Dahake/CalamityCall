@@ -17,6 +17,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.media.session.MediaSession;
+import android.os.Handler;
 import android.util.Log;
 import android.provider.Settings;
 
@@ -32,6 +33,7 @@ import retrofit2.Response;
 
 import android.speech.tts.TextToSpeech;
 import java.util.Locale;
+import java.util.concurrent.CountDownLatch;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "MyFirebaseMessagingService";
@@ -40,6 +42,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private TextToSpeech tts;
 
     private String message;
+
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
+
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -85,6 +94,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // Build the TTS message
         message = "This is a " + severity + " alert for " + city + ". A " + disasterType + " has been detected. Please take necessary precautions.";
+
+        initializeTextToSpeech(message);
 
 
         TokenManager tokenManager;
@@ -223,19 +234,52 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             notificationConfig = new NotificationConfig(getApplicationContext());
 
             notificationConfig.sendNotification(fcmData.getDisasterLevel(), fcmData.getDisasterType(), fcmData.getCity(), fcmData.getNotifOrigin(), fcmData.getLatitude(), fcmData.getLongitude(), fcmData.getPreparationSteps(), fcmData.getActiveSteps(), fcmData.getRecoverySteps());
-
-            // Initialize TTS and play the message
-            initializeTextToSpeech(ttsMessage);
         }
     }
 
 
+//    private void retryPlayTTS(String ttsMessage) {
+//        new Handler(getMainLooper()).postDelayed(() -> {
+//            if (isTTSReady && (tts != null)) {
+//                tts.speak(ttsMessage, TextToSpeech.QUEUE_FLUSH, null, "TTS_ID");
+//                Log.d(TAG, "Retrying TTS Speaking: " + ttsMessage);
+//            }
+//
+//            else {
+//                Log.e(TAG, "TTS sill not ready after retry");
+//            }
+//        }, 500);
+//    }
+
+
+    private void playTextToSpeech(String ttsMessage) {
+        if (tts != null) {
+            tts.speak(ttsMessage, TextToSpeech.QUEUE_FLUSH, null, "TTS_ID");
+
+            Log.d(TAG, "TTS Speaking: " + ttsMessage);
+        }
+
+        else {
+            Log.e(TAG, "TextToSpeech instance is null");
+        }
+    }
+
     private void initializeTextToSpeech(String ttsMessage) {
         tts = new TextToSpeech(getApplicationContext(), status -> {
             if (status == TextToSpeech.SUCCESS) {
-                tts.setLanguage(Locale.getDefault());
-                tts.speak(ttsMessage, TextToSpeech.QUEUE_FLUSH, null, "TTS_ID");
-                Log.d(TAG, "TTS speaking: " + ttsMessage);
+                int result = tts.setLanguage(Locale.CHINA);
+
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Log.e(TAG, "TTS Language is not supported or missing data.");
+                }
+
+                else {
+                    Log.d(TAG, "TextToSpeech Initialized successfully");
+
+                    // play the message
+                    this.playTextToSpeech(ttsMessage);
+                }
+
             } else {
                 Log.e(TAG, "TextToSpeech Initialization Failed");
             }
@@ -245,10 +289,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (tts != null) {
-            tts.stop();
-            tts.shutdown();
-        }
     }
 
     @Override
