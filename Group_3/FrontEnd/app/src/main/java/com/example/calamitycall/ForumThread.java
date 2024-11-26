@@ -1,8 +1,10 @@
-public class ForumTopic {
+package com.example.calamitycall;
+
+public class ForumThread {
     private String title;
     private String description;
 
-    public ForumTopic(String title, String description) {
+    public ForumThread(String title, String description) {
         this.title = title;
         this.description = description;
     }

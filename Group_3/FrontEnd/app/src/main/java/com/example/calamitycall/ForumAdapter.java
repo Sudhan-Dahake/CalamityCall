@@ -1,4 +1,4 @@
-package com.example.calamitycall.utils;
+package com.example.calamitycall;
 
 public class ForumAdapter {
 }
