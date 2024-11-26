@@ -67,4 +67,25 @@ public class NotificationHistoryUnitTest {
         request.setTimeFrame(anotherInvalidTimeFrame);
         assertEquals("TimeFrame should match the new invalid input", anotherInvalidTimeFrame, request.getTimeFrame());
     }
+
+    /*** Happy Path Test for NotificationHistoryResponse class ***/
+    @Test
+    public void testNotificationValidNotifications() {
+        // Create a valid list of NotificationResponse objects
+        NotificationResponse notification1 = new NotificationResponse(
+                "System1", -79.3832, 43.6532, "Toronto", "Flood", 3, "2024-11-25");
+        NotificationResponse notification2 = new NotificationResponse(
+                "System2", -123.1216, 49.2827, "Vancouver", "Earthquake", 5, "2024-11-25");
+
+        List<NotificationResponse> notifications = Arrays.asList(notification1, notification2);
+
+        // Create an instance and set notifications
+        NotificationHistoryResponse response = new NotificationHistoryResponse();
+        response.setNotifications(notifications);
+
+        // Verify the list is correctly retrieved
+        assertEquals("The number of notifications should match", 2, response.getNotifications().size());
+        assertEquals("The first notification city should be Toronto", "Toronto", response.getNotifications().get(0).getCity());
+        assertEquals("The second notification disaster type should be Earthquake", "Earthquake", response.getNotifications().get(1).getDisastertype());
+    }
 }
