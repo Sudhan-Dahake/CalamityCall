@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="0dp">
+
+    <!-- Including the header layout -->
+    <include
+            layout="@layout/header"
+            android:layout_width="match_parent"
+            android:layout_height="115dp" />
+
+    <!-- Forum Threads List -->
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_threads"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="8dp"/>
+
+    <!-- Button to create new post -->
+    <Button
+            android:id="@+id/btn_create_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Post"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="#7C0A02"
+            android:textColor="#FFFFFF"
+            style="@drawable/rounded_button"/>
+</LinearLayout>
