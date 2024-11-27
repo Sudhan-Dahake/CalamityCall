@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -18,6 +19,8 @@ import com.example.calamitycall.ThreadPostAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.calamitycall.ForumThread;
+
 public class ThreadPostsFragment extends Fragment {
 
     @Nullable
@@ -29,6 +32,15 @@ public class ThreadPostsFragment extends Fragment {
         // Initialize RecyclerView
         RecyclerView recyclerView = rootView.findViewById(R.id.recyclerView_posts);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Retrieve the thread data
+        ForumThread thread = (ForumThread) getArguments().getSerializable("selected_thread");
+
+        // Set thread title and description in the thread_info section
+        TextView threadTitle = rootView.findViewById(R.id.thread_title);
+        TextView threadDescription = rootView.findViewById(R.id.thread_description);
+        threadTitle.setText(thread.getTitle());
+        threadDescription.setText(thread.getDescription());
 
         // Dummy Data for Posts
         List<ThreadPost> postList = new ArrayList<>();
@@ -43,6 +55,7 @@ public class ThreadPostsFragment extends Fragment {
         Button btnCreatePost = rootView.findViewById(R.id.btn_create_post);
         btnCreatePost.setOnClickListener(v -> {
             // Logic to create a new post (open a form or dialog, for instance)
+
         });
 
         return rootView;

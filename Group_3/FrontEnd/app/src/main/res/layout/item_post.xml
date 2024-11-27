@@ -6,7 +6,6 @@
         android:padding="16dp"
         android:layout_marginBottom="16dp"
         android:background="?android:attr/selectableItemBackground">
-
     <TextView
             android:id="@+id/post_title"
             android:layout_width="wrap_content"
@@ -40,4 +39,3 @@
             android:textSize="16sp"
             android:textColor="@android:color/black" />
 </LinearLayout>
-

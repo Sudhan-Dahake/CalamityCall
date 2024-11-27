@@ -25,25 +25,20 @@
             android:minHeight="120dp"
             android:layout_below="@id/toolbar"
             android:layout_marginTop="16dp">
-
-        <TextView
-                android:id="@+id/thread_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Heavy Rain Expected Tomorrow"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/black"
-                android:layout_marginBottom="8dp" />
-
-        <TextView
-                android:id="@+id/thread_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Discussion about tomorrow's rain forecast."
-                android:textSize="16sp"
-                android:textColor="@android:color/darker_gray" />
     </LinearLayout>
+
+    <TextView
+            android:id="@+id/thread_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    <TextView
+            android:id="@+id/thread_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp" />
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView_posts"
