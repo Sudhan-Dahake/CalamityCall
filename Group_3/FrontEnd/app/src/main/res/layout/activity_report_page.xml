@@ -131,10 +131,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="Contact Information"
+                android:text="Contact Information (Optional)"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                tools:ignore="HardcodedText" />
 
             <!-- Contact Information -->
             <EditText

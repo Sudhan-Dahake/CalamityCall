@@ -1,14 +1,18 @@
 package com.example.calamitycall;
 
-public class ForumThread {
+import java.io.Serializable;
+
+public class ForumThread implements Serializable {
     private String title;
     private String description;
 
+    // Constructor
     public ForumThread(String title, String description) {
         this.title = title;
         this.description = description;
     }
 
+    // Getters and Setters
     public String getTitle() {
         return title;
     }
@@ -17,3 +21,4 @@ public class ForumThread {
         return description;
     }
 }
+
