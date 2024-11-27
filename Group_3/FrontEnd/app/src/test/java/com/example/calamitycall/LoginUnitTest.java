@@ -2,11 +2,30 @@ package com.example.calamitycall;
 
 import static org.junit.Assert.assertEquals;
 
+import com.example.calamitycall.models.login.LoginRequest;
 import com.example.calamitycall.models.login.LoginResponse;
 
 import org.junit.Test;
 
-public class LoginResponseTest {
+public class LoginUnitTest {
+
+    /*** Happy Path Tests for LoginRequest class ***/
+
+    @Test
+    public void testLoginRequestConstructorAndGetters() {
+        // Arrange
+        String expectedUsername = "testUser";
+        String expectedPassword = "testPassword";
+
+        // Act
+        LoginRequest loginRequest = new LoginRequest(expectedUsername, expectedPassword);
+
+        // Assert
+        assertEquals("Username should match the expected value", expectedUsername, loginRequest.getUsername());
+        assertEquals("Password should match the expected value", expectedPassword, loginRequest.getPassword());
+    }
+
+    /*** Happy Path Tests for LoginResponse class ***/
 
     @Test
     public void testLoginResponseGetters() {
