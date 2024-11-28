@@ -267,7 +267,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private void initializeTextToSpeech(String ttsMessage) {
         tts = new TextToSpeech(getApplicationContext(), status -> {
             if (status == TextToSpeech.SUCCESS) {
-                int result = tts.setLanguage(Locale.CHINA);
+                int result = tts.setLanguage(Locale.US);
 
                 if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                     Log.e(TAG, "TTS Language is not supported or missing data.");
