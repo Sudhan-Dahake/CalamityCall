@@ -38,7 +38,7 @@ GROUP_7_API_URL = "https://group7.example.com/api/process-disaster-reports/"  # 
 
 
 # Fetch a disaster report by report_id
-@router.get("/disaster-reports/{report_id}")
+@router.get("/report/{report_id}")
 async def get_disaster_report(report_id: str):
     try:
         disaster_model = DisasterReportsModel()
@@ -51,7 +51,7 @@ async def get_disaster_report(report_id: str):
 
 
 # Submit a new disaster report
-@router.post("/disaster-reports/")
+@router.post("/report/", status_code=status.HTTP_201_CREATED)
 async def create_disaster_report(report: DisasterReport):
     try:
         disaster_model = DisasterReportsModel()
@@ -107,7 +107,7 @@ async def create_disaster_report(report: DisasterReport):
 
 
 # Retrieve all disaster reports
-@router.get("/disaster-reports/")
+@router.get("/report/")
 async def get_all_disaster_reports():
     try:
         disaster_model = DisasterReportsModel()
@@ -120,7 +120,7 @@ async def get_all_disaster_reports():
 
 
 # Update a disaster report
-@router.put("/disaster-reports/{report_id}")
+@router.put("/report/{report_id}")
 async def update_disaster_report(report_id: str, report: DisasterReport):
     try:
         disaster_model = DisasterReportsModel()
@@ -141,7 +141,7 @@ async def update_disaster_report(report_id: str, report: DisasterReport):
 
 
 # Delete a disaster report
-@router.delete("/disaster-reports/{report_id}")
+@router.delete("/report/{report_id}")
 async def delete_disaster_report(report_id: str):
     try:
         disaster_model = DisasterReportsModel()
