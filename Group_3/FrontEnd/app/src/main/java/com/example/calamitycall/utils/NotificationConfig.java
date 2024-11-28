@@ -142,6 +142,128 @@ public class NotificationConfig {
 
     }
 
+
+    @SuppressLint("QueryPermissionsNeeded")
+    public void sendPopupNotification(int level, String type, String city, String notifOrigin, Float latitude, Float longitude, String prepSteps, String activeSteps, String recoverySteps) {
+        SettingsPreferences settingsPreferences = new SettingsPreferences(context);
+
+        boolean isFlashingEnabled = false;
+        boolean isNotifEnabled = true;
+        int collapsedLayoutId = 0;
+        int expandedLayoutId = 0;
+        String lvlString = "Alert";
+
+        switch (level) {
+            case 1:
+                lvlString = "Watch Alert";
+                collapsedLayoutId = R.layout.basic_notif_watch_collapsed;
+                expandedLayoutId = R.layout.basic_notif_watch_expanded;
+                isFlashingEnabled = settingsPreferences.isWatchFlashingOn();
+                isNotifEnabled = settingsPreferences.isWatchNotificationOn();
+                break;
+
+            case 2:
+                lvlString = "Warning Alert";
+                collapsedLayoutId = R.layout.basic_notif_warning_collapsed;
+                expandedLayoutId = R.layout.basic_notif_warning_expanded;
+                isFlashingEnabled = settingsPreferences.isWarningFlashingOn();
+                isNotifEnabled = settingsPreferences.isWarningNotificationOn();
+                break;
+
+            case 3:
+                lvlString = "Urgent Alert";
+                collapsedLayoutId = R.layout.basic_notif_urgent_collapsed;
+                expandedLayoutId = R.layout.basic_notif_urgent_expanded;
+                isFlashingEnabled = settingsPreferences.isUrgentFlashingOn();
+                isNotifEnabled = settingsPreferences.isUrgentNotificationOn();
+                break;
+
+            case 4:
+                lvlString = "Critical Alert";
+                collapsedLayoutId = R.layout.basic_notif_critical_collapsed;
+                expandedLayoutId = R.layout.basic_notif_critical_expanded;
+                isFlashingEnabled = settingsPreferences.isCriticalFlashingOn();
+                isNotifEnabled = settingsPreferences.isCriticalNotificationOn();
+                break;
+        }
+
+        // Collapsed Layout
+        RemoteViews collapsedLayout = new RemoteViews(context.getPackageName(), collapsedLayoutId);
+        collapsedLayout.setTextViewText(R.id.disaster_level, lvlString);
+        collapsedLayout.setTextViewText(R.id.disaster_type, type);
+
+        // Expanded Layout
+        RemoteViews expandedLayout = new RemoteViews(context.getPackageName(), expandedLayoutId);
+        expandedLayout.setTextViewText(R.id.disaster_level, lvlString);
+        expandedLayout.setTextViewText(R.id.disaster_type, type);
+        expandedLayout.setTextViewText(R.id.notification_details, Html.fromHtml(
+        "<b>Location:</b> " + (city != null ? city + "<br>" : "Unknown") +
+                "<b>Notified From:</b> " + (notifOrigin != null ? notifOrigin + "<br>" : "Unknown") +
+                "<b>Longitude:</b> " + (longitude != null ? longitude + "<br>" : "Unknown") +
+                "<b>Latitude:</b> " + (latitude != null ? latitude + "<br>" : "Unknown") +
+                (prepSteps != null ? "<b>Preparation Steps:</b> " + prepSteps + "<br>" : "") +
+                (activeSteps != null ? "<b>Active Steps:</b> " + activeSteps + "<br>" : "") +
+                (recoverySteps != null ? "<b>Recovery Steps:</b> " + recoverySteps + "<br>" : ""),
+                Html.FROM_HTML_MODE_LEGACY
+        ));
+
+//        String notifDetails =
+//                "<b>Location:</b> " + (city != null ? city + "<br>" : "Unknown") +
+//                        "<b>Notified From:</b> " + (notifOrigin != null ? notifOrigin + "<br>" : "Unknown") +
+//                        "<b>Longitude:</b> " + (longitude != null ? longitude + "<br>" : "Unknown") +
+//                        "<b>Latitude:</b> " + (latitude != null ? latitude + "<br>" : "Unknown") +
+//                        (prepSteps != null ? "<b>Preparation Steps:</b> " + prepSteps + "<br>" : "") +
+//                        (activeSteps != null ? "<b>Active Steps:</b> " + activeSteps + "<br>" : "") +
+//                        (recoverySteps != null ? "<b>Recovery Steps:</b> " + recoverySteps + "<br>" : "");
+//
+//        expandedLayout.setTextViewText(R.id.notification_details, Html.fromHtml(notifDetails, Html.FROM_HTML_MODE_LEGACY));
+
+        // Intent for full-screen popup
+        Intent fullScreenIntent = new Intent(context, MainActivity.class);
+        fullScreenIntent.putExtra("disasterType", type);
+        fullScreenIntent.putExtra("city", city);
+        fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        PendingIntent fullScreenPendingIntent = PendingIntent.getActivity(
+                context, 0, fullScreenIntent, PendingIntent.FLAG_IMMUTABLE);
+
+        // Create notification channel
+        String channelId = "popup_channel";
+        createNotificationChannel(channelId, true);
+
+
+        // Build the popup notification
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId)
+                .setSmallIcon(R.drawable.logo)
+                .setCustomContentView(collapsedLayout)
+                .setCustomBigContentView(expandedLayout)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
+                .setFullScreenIntent(fullScreenPendingIntent, true)
+                .setAutoCancel(true)
+                .setDefaults(NotificationCompat.DEFAULT_ALL);
+
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (notificationManager != null && isNotifEnabled) {
+            notificationManager.notify(notificationId++, builder.build());
+
+            if (isFlashingEnabled) {
+                try {
+                    FlashNotification flashNotification = new FlashNotification(context);
+                    flashNotification.startFlashing(300, 300);
+
+                    new Handler(Looper.getMainLooper()).postDelayed(flashNotification::stopFlashing, 5000);
+                }
+
+                catch (CameraAccessException e) {
+                    Log.d("NotificationConfig", "Camera access error: " + e.getMessage());
+                }
+            }
+        }
+    }
+
+
     // **** THIS FUNCTION STAYS ****
     // Create the notification channel for Android 8.0 and above
     public void createNotificationChannel(String channelId, boolean isNoiseEnabled) {
