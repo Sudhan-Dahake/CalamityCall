@@ -51,7 +51,11 @@ public class HistoryPage extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Initialize notifications lists for each tab
-        initializeNotificationLists();
+        try {
+            initializeNotificationLists();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
 
 
         // Initialize the dropdown (AutoCompleteTextView) and set adapter for it
@@ -110,26 +114,7 @@ public class HistoryPage extends Fragment {
 
 
     // Initialize lists for Active and History notifications
-    private void initializeNotificationLists() {
-
-        // Create a list of dummy dates
-        List<Date> dummyDates = new ArrayList<>();
-
-
-        // Define the date format
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-
-        try {
-            // Adding dummy dates to simulate database values
-            dummyDates.add(dateFormat.parse("21-11-2023"));
-            dummyDates.add(dateFormat.parse("22-11-2023"));
-
-        } catch (ParseException e) {
-            //e.printStackTrace();
-            // In case of parsing issues, the current date will be added
-            dummyDates.add(new Date());
-        }
-
+    private void initializeNotificationLists() throws ParseException {
 
         // Active notifications
         activeNotifications = new ArrayList<>();
@@ -150,14 +135,14 @@ public class HistoryPage extends Fragment {
         // History notifications
         historyNotifications = new ArrayList<>();
 
-        // Creating Notification objects and setting their dates using the dummy dates list
-        Notification notification3 = new Notification();
-        notification3.HistoryNotificationSetter("Rainfall", 4, dummyDates.get(0));
-        historyNotifications.add(notification3);
-
-        Notification notification4 = new Notification();
-        notification4.HistoryNotificationSetter("Tornado", 1, dummyDates.get(1));
-        historyNotifications.add(notification4);
+//        // Creating Notification objects and setting their dates using the dummy dates list
+//        Notification notification3 = new Notification();
+//        notification3.HistoryNotificationSetter("Rainfall", 4, "2024-09-12");
+//        historyNotifications.add(notification3);
+//
+//        Notification notification4 = new Notification();
+//        notification4.HistoryNotificationSetter("Tornado", 1, "2024-09-12");
+//        historyNotifications.add(notification4);
     }
 
 

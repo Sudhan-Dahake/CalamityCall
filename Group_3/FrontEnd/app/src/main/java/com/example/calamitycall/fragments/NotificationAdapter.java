@@ -1,10 +1,10 @@
 package com.example.calamitycall.fragments;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -77,7 +77,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                     break;
                 }
             }
-            return new NotificationViewHolder(view);
+
+
+        return new NotificationViewHolder(view);
         }
 
 
@@ -89,39 +91,59 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             // This will enable the text for each alert to be changed dynamically based on the disaster type
             String levelText;
             String disasterTypeText;
+            String notifDate;
 
             switch (notification.getLevel()) {
                 case 4:
                     levelText = "Critical Alert";
                     disasterTypeText = notification.getDisasterType() + " Spotted";
+                    notifDate = notification.getDate();
                     break;
+
                 case 3:
                     levelText = "Urgent Alert";
                     disasterTypeText = "High Chance of " + notification.getDisasterType();
+                    notifDate = notification.getDate();
                     break;
+
                 case 2:
                     levelText = "Warning Alert";
                     disasterTypeText = "Medium Chance of " + notification.getDisasterType();
+                    notifDate = notification.getDate();
                     break;
+
                 case 1:
                     levelText = "Watch Alert";
                     disasterTypeText = "Low Chance of " + notification.getDisasterType();
+                    notifDate = notification.getDate();
                     break;
+
                 default:
                     levelText = "Alert";
                     disasterTypeText = notification.getDisasterType();
+                    notifDate = "00/00/0000";
                     break;
             }
 
             // Set the text on the views
             holder.disasterLevel.setText(levelText);
             holder.disasterType.setText(disasterTypeText);
-            //holder.alert_date.setText(notification.getDate().toString()); //Only want to display the date with no time attached
+
+
+
+            if (holder.alertDate != null) {
+                Log.e("NotificationAdapter", "alertDate is NOT null!");
+                holder.alertDate.setText(notifDate);
+            } else {
+                Log.e("NotificationAdapter", "alertDate is null!");
+            }
+
+
         }
 
 
         @Override
-        public int getItemViewType ( int position){
+        public int getItemViewType (int position){
             Notification notification = notifications.get(position);
             switch (notification.getLevel()) {
                 case 4: // Critical
@@ -130,6 +152,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                     return 2;
                 case 2: // Warning
                     return 3;
+
                 case 1: // Watch
                     return 4;
                 default:
@@ -144,15 +167,16 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         }
 
         public static class NotificationViewHolder extends RecyclerView.ViewHolder {
-            TextView disasterLevel, disasterType, alert_date;
-            ImageView icon;
+            TextView disasterLevel;
+            TextView disasterType;
+            TextView alertDate;
             View notificationLayout;
 
             public NotificationViewHolder(@NonNull View itemView) {
                 super(itemView);
                 disasterLevel = itemView.findViewById(R.id.disaster_level);
                 disasterType = itemView.findViewById(R.id.disaster_type);
-                alert_date = itemView.findViewById(R.id.alert_date);
+                alertDate = itemView.findViewById(R.id.alert_date);
                 notificationLayout = itemView.findViewById(R.id.notification_layout);
             }
         }
