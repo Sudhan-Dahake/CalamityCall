@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime
+import requests  # To send POST requests to Group 7
 from ...supabase_db.models.disaster_reports import DisasterReportsModel
 
 # Initialize router
@@ -32,8 +33,12 @@ class DisasterReport(BaseModel):
     # media: Optional[List[Media]] = []
 
 
+# Group 7's API endpoint
+GROUP_7_API_URL = "https://group7.example.com/api/process-disaster-reports/"  # Replace with actual URL
+
+
 # Fetch a disaster report by report_id
-@router.get("/disaster-reports/{report_id}")
+@router.get("/report/{report_id}")
 async def get_disaster_report(report_id: str):
     try:
         disaster_model = DisasterReportsModel()
@@ -46,7 +51,7 @@ async def get_disaster_report(report_id: str):
 
 
 # Submit a new disaster report
-@router.post("/disaster-reports/")
+@router.post("/report/", status_code=status.HTTP_201_CREATED)
 async def create_disaster_report(report: DisasterReport):
     try:
         disaster_model = DisasterReportsModel()
@@ -65,15 +70,44 @@ async def create_disaster_report(report: DisasterReport):
             weather_event_description=report.event.description,
             # media=media_data,  # Pass the media directly as a list (empty or with data)
         )
-        if not result:
-            raise HTTPException(status_code=400, detail="Failed to create disaster report")
-        return {"message": "Disaster report created successfully", "report_id": result['report_id']}
+       # Construct the JSON payload
+        group_7_payload = {
+            "disaster_reports": [
+                {
+                    "report_id": report.report_id,
+                    "user_id": report.user_id,
+                    "timestamp": report.created_at.isoformat(),
+                    "latitude": report.location.latitude,
+                    "longitude": report.location.longitude,
+                    "address": report.location.address,
+                    "weather_event_type": report.event.type,
+                    "weather_event_severity": report.event.severity,
+                    "weather_event_description": report.event.description,
+                    "created_at": datetime.utcnow().isoformat()  # Use the current timestamp for the "created_at" field
+                }
+            ]
+        }
+
+        # Send POST request to Group 7
+        group_7_response = requests.post(GROUP_7_API_URL, json=group_7_payload)
+
+        if group_7_response.status_code != 200:
+            raise HTTPException(
+                status_code=500,
+                detail=f"Failed to forward the report to Group 7. Response: {group_7_response.text}",
+            )
+
+        # Return success response
+        return {
+            "message": "Disaster report saved and forwarded successfully.",
+            "report_id": report.report_id,
+        }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
 
 
 # Retrieve all disaster reports
-@router.get("/disaster-reports/")
+@router.get("/report/")
 async def get_all_disaster_reports():
     try:
         disaster_model = DisasterReportsModel()
@@ -86,7 +120,7 @@ async def get_all_disaster_reports():
 
 
 # Update a disaster report
-@router.put("/disaster-reports/{report_id}")
+@router.put("/report/{report_id}")
 async def update_disaster_report(report_id: str, report: DisasterReport):
     try:
         disaster_model = DisasterReportsModel()
@@ -107,7 +141,7 @@ async def update_disaster_report(report_id: str, report: DisasterReport):
 
 
 # Delete a disaster report
-@router.delete("/disaster-reports/{report_id}")
+@router.delete("/report/{report_id}")
 async def delete_disaster_report(report_id: str):
     try:
         disaster_model = DisasterReportsModel()
