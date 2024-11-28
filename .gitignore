@@ -227,6 +227,8 @@ pyrightconfig.json
 [Ll]ib64
 [Ll]ocal
 [Ss]cripts
+!Group_3/scripts/
+!Group_3/scripts/keep_alive.sh
 pyvenv.cfg
 pip-selfcheck.json
 
@@ -373,3 +375,4 @@ fabric.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/android,androidstudio,visualstudiocode,python,venv
 
+Group_3/FrontEnd/build.gradle.kts
