@@ -8,7 +8,7 @@ public class Notification {
     private String origin;
     private String city;
     private Integer level;  // "critical", "urgent", "warning", "watch"
-    private Date timeframe;
+    private String date;
     private Float longitude;
     private Float latitude;
 
@@ -22,9 +22,17 @@ public class Notification {
         this.level = 0;
         this.longitude = 0.F;
         this.latitude = 0.F;
-        this.timeframe = new Date();
+        this.date = "0000-00-00";
 
     }
+
+    public Notification(String disaster_type, Integer level, String date)
+    {
+        this.disaster_type = disaster_type;
+        this.level = level;
+        this.date = date;
+    }
+
 
     public Notification(String disaster_type, Integer level)
     {
@@ -32,14 +40,13 @@ public class Notification {
         this.level = level;
     }
 
-
     // Constructor
-    public Notification(String disaster_type, String origin, String city,  Integer level,  Date timeframe, Float longitude, Float latitude) {
+    public Notification(String disaster_type, String origin, String city,  Integer level,  String date, Float longitude, Float latitude) {
         this.disaster_type = disaster_type;
         this.origin = origin;
         this.city = city;
         this.level = level;
-        this.timeframe = timeframe;
+        this.date = date;
         this.longitude = longitude;
         this.latitude = latitude;
     }
@@ -54,11 +61,11 @@ public class Notification {
     }
 
 
-    public void HistoryNotificationSetter(String disaster_type, Integer level, Date timeframe)
+    public void HistoryNotificationSetter(String disaster_type, Integer level, String date)
     {
         this.disaster_type = disaster_type;
         this.level = level;
-        this.timeframe = timeframe;
+        this.date = date;
     }
 
 
@@ -86,9 +93,9 @@ public class Notification {
     }
 
 
-    public void setDate(Date timestamp)
+    public void setDate(String date)
     {
-        this.timeframe = timeframe;
+        this.date = date;
     }
 
 
@@ -125,9 +132,9 @@ public class Notification {
     }
 
 
-    public Date getDate()
+    public String getDate()
     {
-        return this.timeframe;
+        return this.date;
     }
 
 
