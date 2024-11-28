@@ -13,7 +13,7 @@ COPY Group_3/scripts/ /app/scripts
 
 RUN chmod +x /app/scripts/keep_alive.sh
 
-RUN apt-get update && apt-get install -y supervisor && apt-get clean
+RUN apt-get update && apt-get install -y curl supervisor && apt-get clean
 
 EXPOSE 8000
 
