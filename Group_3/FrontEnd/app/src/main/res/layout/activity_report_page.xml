@@ -5,196 +5,188 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="0dp"
-    tools:context=".ReportActivity"
+    tools:context=".fragments.ReportPage"
     android:layout_marginTop="50dp">
 
     <!-- Including the header layout -->
     <include
         layout="@layout/header"
         android:layout_width="match_parent"
-        android:layout_height="115dp"/>
+        android:layout_height="115dp"
+        android:id="@+id/header"/>
 
+    <!-- ScrollView for the content -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <FrameLayout
+        android:layout_height="match_parent"
+        android:layout_below="@id/header"
+        android:padding="10dp">
+        
+        <!-- LinearLayout to hold all content inside the scrollable area -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <!-- Content: TextViews, Spinners, EditTexts, etc. -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="Report an Incident"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:gravity="center"
+                android:text="Incident Type"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/black" />
+
+            <!-- Incident Type Spinner -->
+            <Spinner
+                android:id="@+id/spinner_incident_type"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:paddingHorizontal="10dp"
+                android:background="@drawable/rounded_edittext"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Incident Severity"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/black" />
+
+            <Spinner
+                android:id="@+id/spinner_incident_severity"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:paddingHorizontal="10dp"
+                android:background="@drawable/rounded_edittext"
+                android:textColor="@color/black" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="810dp"
-                android:layout_marginTop="90dp"
-                android:background="#ffffff"
-                android:orientation="vertical"
-                android:padding="10dp"
-                android:paddingBottom="300dp"
-                tools:ignore="UselessParent">
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center"
-                    android:text="Report an Incident"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    tools:ignore="HardcodedText" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="13dp"
-                    android:gravity="center"
-                    android:text="Incident Type"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    tools:ignore="HardcodedText" />
-                <!-- Incident Type Spinner -->
-                <EditText
-                    android:id="@+id/spinner_incident_type"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/rounded_edittext"
-                    android:paddingHorizontal="10dp"
-                    android:textColor="@color/black"
-                    tools:ignore="Autofill,LabelFor,TextFields" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical">
+
+                <CheckBox
+                        android:id="@+id/checkbox_share_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/black" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:text="Incident Severity"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    tools:ignore="HardcodedText" />
-
-                <EditText
-                    android:id="@+id/spinner_incident_severity"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/rounded_edittext"
-                    android:paddingHorizontal="10dp"
-                    android:textColor="@color/black"
-                    tools:ignore="Autofill,LabelFor,TextFields" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:text="Location"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    tools:ignore="HardcodedText" />
-                <!-- Location Spinner -->
-                <EditText
-                    android:id="@+id/spinner_location"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/rounded_edittext"
-                    android:paddingHorizontal="10dp"
-                    android:textColor="@color/black"
-                    tools:ignore="Autofill,LabelFor,TextFields" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:text="Description"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    tools:ignore="HardcodedText" />
-
-                <!-- Description -->
-                <EditText
-                    android:id="@+id/edit_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="86dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/rounded_edittext"
-                    android:gravity="top"
-                    android:inputType="textMultiLine"
-                    android:padding="10dp"
-                    android:textColor="@color/black"
-                    tools:ignore="Autofill,LabelFor" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:text="Contact Information"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    tools:ignore="HardcodedText" />
-
-                <!-- Contact Information -->
-                <EditText
-                    android:id="@+id/edit_contact"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/rounded_edittext"
-                    android:inputType="text"
-                    android:paddingHorizontal="10dp"
-                    android:textColor="@color/black"
-                    tools:ignore="Autofill,LabelFor" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginStart="150dp"
-                    android:gravity="center"
-                    android:text="Upload Media"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    tools:ignore="HardcodedText" />
-
-                <!-- Media Upload Button -->
-                <Button
-
-                    android:id="@+id/upload_button"
-                    style="@drawable/rounded_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="58dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="15dp"
-                    android:backgroundTint="#050"
-                    android:padding="16dp"
-                    android:text="Upload photos/videos"
-                    android:textColor="#FFFFFF"
-                    tools:ignore="HardcodedText" />
-
-                <!-- Submit Report Button -->
-                <Button
-                    android:id="@+id/btn_submit_report"
-                    style="@drawable/rounded_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:backgroundTint="#7C0A02"
-                    android:paddingHorizontal="16dp"
-                    android:text="Submit Report"
-                    android:textColor="#FFFFFF"
-                    tools:ignore="HardcodedText" />
+                        android:id="@+id/text_share_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Share Location"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black" />
             </LinearLayout>
-        </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Description"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                tools:ignore="HardcodedText" />
+
+            <!-- Description -->
+            <EditText
+                android:id="@+id/edit_description"
+                android:layout_width="match_parent"
+                android:layout_height="86dp"
+                android:layout_marginTop="8dp"
+                android:inputType="textMultiLine"
+                android:background="@drawable/rounded_edittext"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:hint="Description of the incident" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Contact Information (Optional)"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                tools:ignore="HardcodedText" />
+
+            <!-- Contact Information -->
+            <EditText
+                android:id="@+id/edit_contact"
+                android:layout_width="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_height="48dp"
+                android:paddingHorizontal="10dp"
+                android:background="@drawable/rounded_edittext"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:hint="Contact information" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Upload Media"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/black" />
+
+            <!-- Media Upload Button -->
+            <Button
+                android:id="@+id/upload_button"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginTop="15dp"
+                style="@drawable/rounded_button"
+                android:backgroundTint="#050"
+                android:padding="16dp"
+                android:layout_gravity="center"
+                android:text="Upload photos/videos"
+                android:textColor="#FFFFFF" />
+
+            <!-- Submit Report Button -->
+            <Button
+                android:id="@+id/btn_submit_report"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginTop="32dp"
+                style="@drawable/rounded_button"
+                android:backgroundTint="#7C0A02"
+                android:paddingHorizontal="16dp"
+                android:layout_gravity="center"
+                android:text="Submit Report"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
     </ScrollView>
+
 </RelativeLayout>
+
+
