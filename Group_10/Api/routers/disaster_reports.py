@@ -88,17 +88,21 @@ async def create_disaster_report(report: DisasterReport):
         # Print the response for debugging
         print(f"Group 7 Response Status Code: {group_7_response.status_code}")
         print(f"Group 7 Response Body: {group_7_response.text}")
+
         if group_7_response.status_code != 200:
             raise HTTPException(
                 status_code=500,
                 detail=f"Failed to forward the report to Group 7. Response: {group_7_response.text}",
             )
 
-        # Return success response
-        return {
-            "message": "Disaster report saved and forwarded successfully.",
-            "report_id": report.report_id,
+        # Construct the response to send back to the user with more details
+        response_body = {
+            "message": "Report processed and is invalid, not sending to NWS",  # Example message
+            "reportJson": f'{group_7_payload}'  # Sending the exact JSON payload sent to Group 7
         }
+
+        return response_body
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
 
