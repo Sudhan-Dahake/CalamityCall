@@ -90,7 +90,9 @@ async def create_disaster_report(report: DisasterReport):
 
         # Send POST request to Group 7
         group_7_response = requests.post(GROUP_7_API_URL, json=group_7_payload)
-
+        # Print the response for debugging
+        print(f"Group 7 Response Status Code: {group_7_response.status_code}")
+        print(f"Group 7 Response Body: {group_7_response.text}")
         if group_7_response.status_code != 200:
             raise HTTPException(
                 status_code=500,
