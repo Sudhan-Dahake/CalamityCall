@@ -34,7 +34,7 @@ class DisasterReport(BaseModel):
 
 
 # Group 7's API endpoint
-GROUP_7_API_URL = "https://group7.example.com/api/process-disaster-reports/"  # Replace with actual URL
+GROUP_7_API_URL = "https://projectv-release1-0.onrender.com/api/UserReport/receive"  # Replace with actual URL
 
 
 # Fetch a disaster report by report_id

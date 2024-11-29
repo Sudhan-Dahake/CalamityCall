@@ -1,7 +1,7 @@
 import os
 from supabase import create_client, Client
 from dotenv import load_dotenv
-
+from datetime import datetime, timezone 
 load_dotenv()
 
 
@@ -12,11 +12,16 @@ class TopicModel:
         self.client: Client = create_client(self.supabase_url, self.supabase_key)
         self.tableName = tableName
 
-    def CreateTopic(self, user_id: int, title: str, description: str = ""):
+    def CreateTopic(self, user_id: int, title: str, description: str = "", created_at: datetime = None):
+        
+        if not created_at:
+            created_at = datetime.now(timezone.utc).replace(microsecond=0)
+        
         topic_data = {
             "user_id": user_id,
             "title": title,
-            "description": description
+            "description": description,
+            "created_at": created_at.isoformat()  # Use isoformat to ensure it's in correct string format
         }
         response = self.client.from_(self.tableName).insert(topic_data).execute()
 

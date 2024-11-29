@@ -1,7 +1,7 @@
 import os
 from supabase import create_client, Client
 from dotenv import load_dotenv
-
+from datetime import datetime, timezone
 load_dotenv()
 
 
@@ -12,12 +12,13 @@ class PostModel:
         self.client: Client = create_client(self.supabase_url, self.supabase_key)
         self.tableName = tableName
 
-    def CreatePost(self, user_id: int, topic_id: int, content: str, image_url: str = None):
+    def CreatePost(self, user_id: int, topic_id: int, content: str, image_url: str = None, created_at: datetime = None):
         post_data = {
             "user_id": user_id,
             "topic_id": topic_id,
             "content": content,
-            "image_url": image_url
+            "image_url": image_url,
+            "created_at": created_at or datetime.now(timezone.utc),  # Fix
         }
         response = self.client.from_(self.tableName).insert(post_data).execute()
 
