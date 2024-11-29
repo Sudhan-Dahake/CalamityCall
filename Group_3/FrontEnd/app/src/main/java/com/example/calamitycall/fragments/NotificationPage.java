@@ -139,7 +139,8 @@ public class NotificationPage extends Fragment {
                     for (NotificationResponse notificationResponse : historyResponse.getNotifications()) {
                         Notification notification = new Notification(
                                 notificationResponse.getDisastertype(),
-                                notificationResponse.getDisasterlevel()
+                                notificationResponse.getDisasterlevel(),
+                                notificationResponse.getNotifdate()
                         );
                         historyNotifications.add(notification);
                     }
@@ -171,11 +172,6 @@ public class NotificationPage extends Fragment {
         activeNotifications.add(new Notification("Tornado", 2));
         activeNotifications.add(new Notification("Rainfall", 3));
 
-        // History notifications
-//        historyNotifications = new ArrayList<>();
-//        historyNotifications.add(new Notification("Rainfall", 4));
-//        historyNotifications.add(new Notification("Tornado", 1));
-        // History notifications
         historyNotifications = new ArrayList<>(); // Start with an empty list
     }
 }

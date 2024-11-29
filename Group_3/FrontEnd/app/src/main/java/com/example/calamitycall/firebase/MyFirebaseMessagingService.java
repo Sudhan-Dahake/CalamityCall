@@ -232,6 +232,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             notificationConfig = new NotificationConfig(getApplicationContext());
 
             notificationConfig.sendNotification(fcmData.getDisasterLevel(), fcmData.getDisasterType(), fcmData.getCity(), fcmData.getNotifOrigin(), fcmData.getLatitude(), fcmData.getLongitude(), fcmData.getPreparationSteps(), fcmData.getActiveSteps(), fcmData.getRecoverySteps());
+
+            //notificationConfig.sendPopupNotification(fcmData.getDisasterLevel(), fcmData.getDisasterType(), fcmData.getCity(), fcmData.getNotifOrigin(), fcmData.getLatitude(), fcmData.getLongitude(), fcmData.getPreparationSteps(), fcmData.getActiveSteps(), fcmData.getRecoverySteps());
         }
     }
 
@@ -265,7 +267,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private void initializeTextToSpeech(String ttsMessage) {
         tts = new TextToSpeech(getApplicationContext(), status -> {
             if (status == TextToSpeech.SUCCESS) {
-                int result = tts.setLanguage(Locale.CHINA);
+                int result = tts.setLanguage(Locale.US);
 
                 if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                     Log.e(TAG, "TTS Language is not supported or missing data.");
