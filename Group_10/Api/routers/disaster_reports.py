@@ -72,20 +72,15 @@ async def create_disaster_report(report: DisasterReport):
         )
        # Construct the JSON payload
         group_7_payload = {
-            "disaster_reports": [
-                {
-                    "report_id": report.report_id,
-                    "user_id": report.user_id,
-                    "timestamp": report.created_at.isoformat(),
-                    "latitude": report.location.latitude,
-                    "longitude": report.location.longitude,
-                    "address": report.location.address,
-                    "weather_event_type": report.event.type,
-                    "weather_event_severity": report.event.severity,
-                    "weather_event_description": report.event.description,
-                    "created_at": datetime.utcnow().isoformat()  # Use the current timestamp for the "created_at" field
-                }
-            ]
+            "report_id": report.report_id,
+            "user_id": report.user_id,
+            "timestamp": report.created_at.isoformat(),
+            "latitude": report.location.latitude,
+            "longitude": report.location.longitude,
+            "address": report.location.address,
+            "weather_event_type": report.event.type,
+            "weather_event_severity": report.event.severity,
+            "weather_event_description": report.event.description,
         }
 
         # Send POST request to Group 7
