@@ -1,0 +1,16 @@
+name: Keep Server Alive
+
+on:
+  schedule:
+    - cron: "*/14 * * * *"
+  workflow_dispatch:
+
+jobs:
+  keep_alive:
+    runs-on: ubuntu-latest
+
+    steps:
+        - name: Send Ping Request
+          run: |
+            curl -s https://syncpoint-api.onrender.com > /dev/null
+            echo "Ping sent at $(date)"
