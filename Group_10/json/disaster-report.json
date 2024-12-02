@@ -1,5 +1,5 @@
 {
-    "report_id": "Unique report identifier",
+    "report_id": "Unique report identifier (UUID)",
     "user_id": "Unique user identifier",
     "created_at": "ISO-8601 timestamp, e.g. 2024-10-17T12:31:48Z",
     "location": {
