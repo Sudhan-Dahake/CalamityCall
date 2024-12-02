@@ -53,5 +53,37 @@ class TestPostModel(unittest.TestCase):
         result = self.post_model.DeletePost(99)
         self.assertFalse(result)
 
+    # Edge Test Cases
+    # Test creating a post with excessively long content
+    def test_create_post_long_content(self):
+        long_content = "x" * 10001  # Assume max content length is 10,000 characters
+        self.mock_client.from_().insert().execute.return_value = MagicMock(data=None)
+        response = self.post_model.CreatePost(user_id=1, topic_id=1, content=long_content)
+        self.assertIsNone(response)
+
+    # Test reading posts for a nonexistent user
+    def test_read_post_nonexistent_user(self):
+        self.mock_client.from_().select().eq().execute.return_value = MagicMock(data=None)
+        response = self.post_model.ReadPost(user_id=99999)  # Nonexistent user_id
+        self.assertIsNone(response)
+
+    # Test reading a post with an invalid Topic ID
+    def test_read_post_invalid_topic(self):
+        self.mock_client.from_().select().eq().execute.return_value = MagicMock(data=None)
+        response = self.post_model.ReadPost(topic_id=-1)  # Invalid topic ID
+        self.assertIsNone(response)    
+
+    # Test updating a post with invalid content
+    def test_update_post_invalid_content(self):
+        self.mock_client.from_().update().eq().execute.return_value = MagicMock(status_code=400)
+        result = self.post_model.UpdatePost(1, content=None)  # Null content
+        self.assertFalse(result)
+
+    # Test deleting a post with invalid ID type
+    def test_delete_post_invalid_type(self):
+        self.mock_client.from_().delete().eq().execute.return_value = MagicMock(status_code=400)
+        result = self.post_model.DeletePost("invalid_id")  # Invalid post_id type
+        self.assertFalse(result)
+
 if __name__ == '__main__':
     unittest.main()
