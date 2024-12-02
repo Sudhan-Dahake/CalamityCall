@@ -1,3 +1,1 @@
-from .supabase_db import TopicModel, PostModel, ReactionsModel, DisasterReportsModel
-
-
+# from .supabase_db import TopicModel, PostModel, DisasterReportsModel

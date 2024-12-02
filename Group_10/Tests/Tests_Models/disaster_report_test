@@ -1,46 +1,46 @@
-import os
-from supabase import create_client, Client
-from dotenv import load_dotenv
-import uuid
-from datetime import datetime
+# import os
+# from supabase import create_client, Client
+# from dotenv import load_dotenv
+# import uuid
+# from datetime import datetime
 
-# Load environment variables for Supabase
-load_dotenv()
+# # Load environment variables for Supabase
+# load_dotenv()
 
-supabase_url = os.getenv("SUPABASE_URL")
-supabase_key = os.getenv("SUPABASE_KEY")
-supabase: Client = create_client(supabase_url, supabase_key)
+# supabase_url = os.getenv("SUPABASE_URL")
+# supabase_key = os.getenv("SUPABASE_KEY")
+# supabase: Client = create_client(supabase_url, supabase_key)
 
-def add_disaster_report():
-    # Step 1: Retrieve an existing user ID
-    user_response = supabase.from_("useraccounts").select("userid").limit(1).execute()
-    if user_response.data:
-        user_id = user_response.data[0]['userid']
-        print(f"Using user ID: {user_id}")
-    else:
-        print("No users found in useraccounts. Please add a user first.")
-        return
+# def add_disaster_report():
+#     # Step 1: Retrieve an existing user ID
+#     user_response = supabase.from_("useraccounts").select("userid").limit(1).execute()
+#     if user_response.data:
+#         user_id = user_response.data[0]['userid']
+#         print(f"Using user ID: {user_id}")
+#     else:
+#         print("No users found in useraccounts. Please add a user first.")
+#         return
 
-    # Step 2: Add a disaster report with user ID
-    report_data = {
-        "report_id": str(uuid.uuid4()),  # Generate a unique UUID for the report
-        "user_id": user_id,  # Link report to user ID
-        "timestamp": datetime.now().isoformat(),  # Current timestamp
-        "latitude": 37.7749,
-        "longitude": -122.4194,
-        "address": "123 Main St",
-        "weather_event_type": "wildfire",
-        "weather_event_severity": "severe",
-        "weather_event_description": "Wildfire reported near the forest area. Evacuations are in progress."
-    }
+#     # Step 2: Add a disaster report with user ID
+#     report_data = {
+#         "report_id": str(uuid.uuid4()),  # Generate a unique UUID for the report
+#         "user_id": user_id,  # Link report to user ID
+#         "timestamp": datetime.now().isoformat(),  # Current timestamp
+#         "latitude": 37.7749,
+#         "longitude": -122.4194,
+#         "address": "123 Main St",
+#         "weather_event_type": "wildfire",
+#         "weather_event_severity": "severe",
+#         "weather_event_description": "Wildfire reported near the forest area. Evacuations are in progress."
+#     }
 
     
-    report_response = supabase.from_("disaster_reports").insert(report_data).execute()
+#     report_response = supabase.from_("disaster_reports").insert(report_data).execute()
 
-    if report_response.data:
-        print(f"Added disaster report with ID: {report_data['report_id']}")
-    else:
-        print("Error adding disaster report:", report_response.error)
+#     if report_response.data:
+#         print(f"Added disaster report with ID: {report_data['report_id']}")
+#     else:
+#         print("Error adding disaster report:", report_response.error)
 
-# Run the function to add a disaster report
-add_disaster_report()
+# # Run the function to add a disaster report
+# add_disaster_report()
