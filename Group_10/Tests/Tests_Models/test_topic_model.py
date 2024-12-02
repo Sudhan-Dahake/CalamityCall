@@ -1,11 +1,11 @@
 import unittest
 from unittest.mock import patch, MagicMock
 
-from Group_10.models.topics import TopicModel
+from Group_10 import TopicModel
 
 class TestTopicModel(unittest.TestCase):
 
-    @patch('Group_10.models.topics.create_client')
+    @patch('Group_10.supabase_db.models.topics.create_client')
     def setUp(self, mock_create_client):
         self.mock_client = MagicMock()
         mock_create_client.return_value = self.mock_client
