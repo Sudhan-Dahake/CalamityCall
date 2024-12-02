@@ -1,7 +1,13 @@
 import unittest
 from unittest.mock import patch, MagicMock
+import os
+import sys
 
-from Group_10.models.disaster_reports import DisasterReportsModel
+# Add the parent directory of Group_10 to sys.path
+sys.path.append(os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
+
+from Group_10 import DisasterReportsModel
 
 class TestDisasterReportsModel(unittest.TestCase):
 

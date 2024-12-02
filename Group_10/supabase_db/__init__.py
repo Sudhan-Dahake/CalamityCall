@@ -1,1 +1,1 @@
-from .models import TopicModel, PostModel, DisasterReportsModel, ReactionsModel
+from .models import TopicModel, PostModel, DisasterReportsModel
