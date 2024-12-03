@@ -6,23 +6,23 @@ import org.json.JSONObject;
 import java.util.List;
 
 public class DisasterReport {
-    private String reportId;
-    private String userId;
-    private String createdAt;
+    private String report_id;
+    private Integer user_id;
+    private String created_at;
     private Location location;
-    private String eventType;
+    private String type;
     private String severity;
     private String description;
     private String contact;
     private List<Media> media;
-
-    public void setLocation(double latitude, double longitude) {
+    public void setLocation(double latitude, double longitude, String address) {
         this.location.setLatitude(latitude);
         this.location.setLongitude(longitude);
+        this.location.setAddress(address);
     }
 
     public void setEventType(String eventType) {
-        this.eventType = eventType;
+        this.type = eventType;
     }
 
     public void setSeverity(String severity) {
@@ -82,12 +82,12 @@ public class DisasterReport {
     }
 
     // Getters and setters for DisasterReport
-    public String getReportId() { return reportId; }
-    public void setReportId(String reportId) { this.reportId = reportId; }
-    public String getUserId() { return userId; }
-    public void setUserId(String userId) { this.userId = userId; }
-    public String getCreatedAt() { return createdAt; }
-    public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }
+    public String getReport_id() { return report_id; }
+    public void setReport_id(String report_id) { this.report_id = report_id; }
+    public Integer getUser_id() { return user_id; }
+    public void setUser_id(Integer user_id) { this.user_id = user_id; }
+    public String getCreated_at() { return created_at; }
+    public void setCreated_at(String created_at) { this.created_at = created_at; }
     public Location getLocation() { return location; }
     public void setLocation(Location location) { this.location = location; }
     public List<Media> getMedia() { return media; }
@@ -95,17 +95,18 @@ public class DisasterReport {
 
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();
-        json.put("report_id", reportId);
-        json.put("user_id", userId);
-        json.put("created_at", createdAt);
+        json.put("report_id", report_id);
+        json.put("user_id", user_id);
+        json.put("created_at", created_at);
 
         JSONObject locationJson = new JSONObject();
-        locationJson.put("latitude", location.latitude);
-        locationJson.put("longitude", location.longitude);
+        locationJson.put("latitude", location.getLatitude());
+        locationJson.put("longitude", location.getLongitude());
+        locationJson.put("address", location.getAddress());
         json.put("location", locationJson);
 
         JSONObject eventJson = new JSONObject();
-        eventJson.put("type", eventType);
+        eventJson.put("type", type);
         eventJson.put("severity", severity);
         eventJson.put("description", description);
         json.put("event", eventJson);

@@ -2,16 +2,19 @@ package com.example.calamitycall.fragments;
 
 import com.example.calamitycall.DisasterReport;
 import com.example.calamitycall.R;
+import com.example.calamitycall.network.ApiClient;
+import com.example.calamitycall.network.DisasterRetrofitInstance;
+import com.example.calamitycall.network.RetrofitInstance;
+
 import androidx.annotation.NonNull;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +33,15 @@ import androidx.fragment.app.Fragment;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ReportPage extends Fragment {
 
@@ -125,10 +135,15 @@ public class ReportPage extends Fragment {
             String description = editDescription.getText().toString().trim();
             String contact = editContact.getText().toString().trim();
             disasterReport.setDescription(description);
-            disasterReport.setContact(contact);
-            disasterReport.setUserId(UUID.randomUUID().toString());
-            disasterReport.setReportId(UUID.randomUUID().toString());
-            disasterReport.setCreatedAt(java.time.ZonedDateTime.now().toString());
+            //disasterReport.setContact(contact);
+            disasterReport.setUser_id(null);
+            disasterReport.setReport_id(UUID.randomUUID().toString());
+            disasterReport.setCreated_at(java.time.ZonedDateTime.now(ZoneOffset.UTC).toString());
+
+            // Ensure location is not null
+            if (disasterReport.getLocation() == null) {
+                disasterReport.setLocation(new DisasterReport.Location());
+            }
 
             try {
                 JSONObject jsonReport = disasterReport.toJson();
@@ -142,20 +157,64 @@ public class ReportPage extends Fragment {
     }
 
     private void captureLocation() {
+        // Initialize location if it's null
+        if (disasterReport.getLocation() == null) {
+            disasterReport.setLocation(new DisasterReport.Location());
+        }
+
         // Fetch and set location data (latitude and longitude)
         LocationManager locationManager = (LocationManager) requireContext().getSystemService(getContext().LOCATION_SERVICE);
         if (locationManager != null && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (location != null) {
-                disasterReport.setLocation(location.getLatitude(), location.getLongitude());
-                Toast.makeText(getContext(), "Location captured", Toast.LENGTH_SHORT).show();
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
+
+                // Set latitude and longitude in disasterReport
+                disasterReport.setLocation(latitude, longitude, null);
+
+                // Fetch the address using Geocoder
+                Geocoder geocoder = new Geocoder(getContext());
+                try {
+                    List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                    if (addresses != null && !addresses.isEmpty()) {
+                        String address = addresses.get(0).getAddressLine(0); // Full address
+                        disasterReport.setLocation(latitude, longitude, address);
+                        Toast.makeText(getContext(), "Location captured: " + address, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "Unable to fetch address", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (IOException e) {
+                    Toast.makeText(getContext(), "Error fetching address: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(getContext(), "Unable to fetch location", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
+
     private void sendToServer(JSONObject jsonReport) {
-        // Simulated server call
-        Toast.makeText(getContext(), "Report submitted: " + jsonReport.toString(), Toast.LENGTH_SHORT).show();
+        ApiClient apiClient = DisasterRetrofitInstance.getDisasterRetrofitInstance().create(ApiClient.class);
+        Call<Void> call = apiClient.submitReport(disasterReport);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getContext(), "Report submitted successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    String errorMessage = "Error submitting report: " + response.code();
+                    Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                String errorMessage = "Network error: " + t.getMessage();
+                Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
