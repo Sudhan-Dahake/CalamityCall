@@ -35,6 +35,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -103,7 +104,7 @@ public class ReportPage extends Fragment {
         spinnerIncidentType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                disasterReport.setEventType(incidentTypes.get(position));
+                disasterReport.setEvent(incidentTypes.get(position),null,null);
             }
 
             @Override
@@ -112,7 +113,7 @@ public class ReportPage extends Fragment {
 
         // Severity spinner setup
         ArrayList<String> severityLevels = new ArrayList<>();
-        severityLevels.add("Watch");
+        severityLevels.add("Severe");
         severityLevels.add("Warning");
         severityLevels.add("Critical");
         severityLevels.add("Urgent");
@@ -123,7 +124,13 @@ public class ReportPage extends Fragment {
         spinnerIncidentSeverity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                disasterReport.setSeverity(severityLevels.get(position));
+                DisasterReport.Event currentEvent = disasterReport.getEvent();
+                disasterReport.setEvent(
+                        currentEvent != null ? currentEvent.getType() : null,
+                        severityLevels.get(position),
+                        currentEvent != null ? currentEvent.getDescription() : null
+                );
+
             }
 
             @Override
@@ -133,23 +140,34 @@ public class ReportPage extends Fragment {
         // Submit button click listener
         btnSubmitReport.setOnClickListener(v -> {
             String description = editDescription.getText().toString().trim();
-            String contact = editContact.getText().toString().trim();
-            disasterReport.setDescription(description);
-            //disasterReport.setContact(contact);
-            disasterReport.setUser_id(null);
-            disasterReport.setReport_id(UUID.randomUUID().toString());
-            disasterReport.setCreated_at(java.time.ZonedDateTime.now(ZoneOffset.UTC).toString());
 
-            // Ensure location is not null
-            if (disasterReport.getLocation() == null) {
-                disasterReport.setLocation(new DisasterReport.Location());
-            }
+            // Generate a unique report ID using UUID
+            String reportId = UUID.randomUUID().toString();
+            disasterReport.setReport_id(reportId);
+
+            // Set user ID
+            int userId = (int) (System.currentTimeMillis() % 100000);
+            String formattedUserId = String.format("%05d", userId);
+            disasterReport.setUser_id(Integer.parseInt(formattedUserId));
+
+            // Set created_at timestamp
+            disasterReport.setCreated_at(ZonedDateTime.now(ZoneOffset.UTC).toString());
+
+            // Set event details from spinners
+            disasterReport.setEvent(
+                    spinnerIncidentType.getSelectedItem().toString(),
+                    spinnerIncidentSeverity.getSelectedItem().toString(),
+                    description
+            );
+
+            // Optional: Set contact if needed
+            // disasterReport.setContact(editContact.getText().toString());
 
             try {
                 JSONObject jsonReport = disasterReport.toJson();
                 sendToServer(jsonReport);
             } catch (JSONException e) {
-                Toast.makeText(getContext(), "Error creating JSON object", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Error creating report", Toast.LENGTH_SHORT).show();
             }
         });
 
