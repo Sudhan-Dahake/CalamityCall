@@ -80,7 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:paddingTop="7dp"
-        android:text="21-11-2023"
+        android:text="2023-12-12"
         android:textColor="#000000"
         android:textSize="15sp"
         tools:ignore="HardcodedText" />

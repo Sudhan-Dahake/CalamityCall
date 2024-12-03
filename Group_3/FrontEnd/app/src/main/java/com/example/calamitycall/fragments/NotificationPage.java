@@ -163,14 +163,13 @@ public class NotificationPage extends Fragment {
     }
 
 
+
     // Initialize lists for Active and History notifications
     private void initializeNotificationLists() {
         // Active notifications
-
-
         activeNotifications = new ArrayList<>();
-        activeNotifications.add(new Notification("Tornado", 2));
-        activeNotifications.add(new Notification("Rainfall", 3));
+//        activeNotifications.add(new Notification("Tornado", 2));
+//        activeNotifications.add(new Notification("Rainfall", 3));
 
         historyNotifications = new ArrayList<>(); // Start with an empty list
     }
