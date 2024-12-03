@@ -124,6 +124,10 @@ public class NotificationPage extends Fragment {
         // Prepare request body
         NotificationHistoryRequest request = new NotificationHistoryRequest(timeframe);
 
+        // Clear the list and refresh the adapter before making the API call
+        historyNotifications.clear();
+        adapter.updateNotifications(new ArrayList<>(), true);
+
         // Make the API Call
         ApiClient apiClient = RetrofitInstance.getRetrofitInstance().create(ApiClient.class);
         Call<NotificationHistoryResponse> call = apiClient.getNotificationHistory(request);
