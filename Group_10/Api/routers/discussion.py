@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from schemas.discussion import TopicCreate, PostCreate
+from ..schemas.discussion import TopicCreate, PostCreate
 from ...supabase_db.models import TopicsModel, PostsModel
 
 router = APIRouter()
