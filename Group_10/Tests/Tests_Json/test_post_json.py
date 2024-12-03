@@ -70,6 +70,28 @@ class TestPostJSON(unittest.TestCase):
             self.fail("created_at is not a valid ISO-8601 timestamp")
 
     # Edge Test Cases
+    def test_post_json_empty_content(self):
+        invalid_post = self.post.copy()
+        invalid_post['content'] = ""
+        with self.assertRaises(ValidationError):
+            validate(instance=invalid_post, schema=self.schema)
+
+    def test_post_json_long_content(self):
+        long_content = 'A' * 4001  # Exceeding max length
+        invalid_post = self.post.copy()
+        invalid_post['content'] = long_content
+        with self.assertRaises(ValidationError):
+            validate(instance=invalid_post, schema=self.schema)
+
+    def test_post_json_invalid_image_url(self):
+        invalid_post = self.post.copy()
+        invalid_post['media'] = [{
+            'type': 'image',
+            'url': 'not_a_url',  # Invalid URL
+            'description': 'Test image'
+        }]
+        with self.assertRaises(ValidationError):
+            validate(instance=invalid_post, schema=self.schema)
 
 if __name__ == '__main__':
     unittest.main()

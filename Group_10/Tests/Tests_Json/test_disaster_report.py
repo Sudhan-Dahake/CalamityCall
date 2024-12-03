@@ -88,6 +88,52 @@ class TestDisasterReportJSON(unittest.TestCase):
                     self.assertIsInstance(media['description'], str)
 
     # Edge Test Cases
+    def test_disaster_report_json_empty_report_id(self):
+        invalid_report = self.disaster_report.copy()
+        invalid_report['report_id'] = ""
+        
+        with self.assertRaises(ValidationError):
+            validate(instance=invalid_report, schema=self.schema)
+    
+    def test_disaster_report_json_invalid_location_latitude_longitude(self): 
+        invalid_report = self.disaster_report.copy()
+        invalid_report['location']['latitude'] = 91.0  # Invalid latitude
+        
+        with self.assertRaises(ValidationError): 
+            validate(instance=invalid_report, schema=self.schema) 
+
+        invalid_report['location']['latitude'] = -91.0  # Invalid latitude
+        
+        with self.assertRaises(ValidationError): 
+            validate(instance=invalid_report, schema=self.schema) 
+
+        invalid_report['location']['longitude'] = -181.0  # Invalid longitude
+        
+        with self.assertRaises(ValidationError): 
+            validate(instance=invalid_report, schema=self.schema) 
+
+        invalid_report['location']['longitude'] = 181.0  # Invalid longitude
+        
+        with self.assertRaises(ValidationError): 
+            validate(instance=invalid_report, schema=self.schema)
+
+    def test_disaster_report_json_empty_address(self): 
+        invalid_report = self.disaster_report.copy() 
+        invalid_report["location"]["address"] = ""  
+         
+        with self.assertRaises(ValidationError): 
+            validate(instance=invalid_report, schema=self.schema) 
+
+    # Test empty event type and severity 
+    def test_disaster_event_empty_type_severity_description(self): 
+        invalid_event = { 
+            'event': {'type': '', 'severity': '', 'description': 'Valid description'}  
+        } 
+
+        invalid_report.update(invalid_event) 
+        
+        with self.assertRaises(ValidationError): 
+            validate(instance=invalid_report, schema=self.schema) 
 
 if __name__ == '__main__':
     unittest.main()
