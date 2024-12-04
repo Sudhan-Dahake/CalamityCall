@@ -1,14 +1,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="0dp">
+        android:padding="0dp"
+        tools:context=".fragments.ForumPage"
+        android:layout_marginTop="50dp">
 
     <!-- Including the header layout -->
     <include
             layout="@layout/header"
             android:layout_width="match_parent"
-            android:layout_height="115dp" />
+            android:layout_height="115dp"
+            android:id="@+id/header"/>
 
     <!-- Forum Threads List -->
     <androidx.recyclerview.widget.RecyclerView
@@ -18,15 +22,19 @@
             android:layout_weight="1"
             android:padding="8dp"/>
 
-    <!-- Button to create new post -->
+    <!-- Button to start new thread -->
     <Button
-            android:id="@+id/btn_create_post"
-            android:layout_width="wrap_content"
+            android:id="@+id/btn_start_new_thread"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Create Post"
+            android:text="Start New Thread"
             android:layout_gravity="center_horizontal"
+            android:layout_margin="16dp"
+            android:padding="16dp"
+            android:textSize="20sp"
             android:layout_marginBottom="20dp"
-            android:backgroundTint="#7C0A02"
+            android:backgroundTint="#00796B"
             android:textColor="#FFFFFF"
-            style="@drawable/rounded_button"/>
+            style="@drawable/rounded_button"
+            tools:ignore="HardcodedText" />
 </LinearLayout>

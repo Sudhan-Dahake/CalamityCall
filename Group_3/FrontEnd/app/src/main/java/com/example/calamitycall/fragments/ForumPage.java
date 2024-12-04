@@ -15,12 +15,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.calamitycall.ForumAdapter;
 import com.example.calamitycall.ForumThread;
 import com.example.calamitycall.R;
+import com.example.calamitycall.viewmodel.ForumViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ForumPage extends Fragment {
-    private ForumThread selectedThread;  // Declare selectedThread here
+import androidx.lifecycle.ViewModelProvider;
+
+public class ForumPage extends Fragment implements CreateThreadFragment.OnThreadCreatedListener {
+
+    private ForumViewModel viewModel;
+    private ForumAdapter adapter;
+    private ForumThread selectedThread;
 
     @Nullable
     @Override
@@ -28,37 +34,32 @@ public class ForumPage extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.forum_page, container, false);
 
+        // Get the ViewModel
+        viewModel = new ViewModelProvider(requireActivity()).get(ForumViewModel.class);
+
         // Set up RecyclerView
         RecyclerView recyclerView = rootView.findViewById(R.id.recyclerView_threads);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Dummy Data
-        List<ForumThread> threadList = new ArrayList<>();
-        threadList.add(new ForumThread("Heavy Rain Expected Tomorrow", "Discussion about tomorrow's rain forecast."));
-        threadList.add(new ForumThread("Sunny Week Ahead", "Discussing the sunny weather coming up."));
-        threadList.add(new ForumThread("Windstorm Warnings", "Local windstorm warnings for the region."));
-        threadList.add(new ForumThread("Snow in the Mountains", "Latest snow accumulation predictions for the mountains."));
-
-        // Set up adapter
-        // When a thread is clicked, set the selectedThread and open thread posts
-        ForumAdapter adapter = new ForumAdapter(threadList, new ForumAdapter.OnThreadClickListener() {
-            @Override
-            public void onThreadClick(ForumThread thread) {
-                // When a thread is clicked, set the selectedThread and open thread posts
-                selectedThread = thread;
-                openThreadPosts(thread);
-            }
+        // Use the ViewModel data
+        adapter = new ForumAdapter(viewModel.getThreadList(), thread -> {
+            selectedThread = thread;
+            openThreadPosts(thread);
         });
         recyclerView.setAdapter(adapter);
 
-        // Button to create post
-        Button btnCreatePost = rootView.findViewById(R.id.btn_create_post);
-        btnCreatePost.setOnClickListener(v -> {
-            // Logic to open create post dialog
-            createPost();
-        });
+        // Button to create new thread
+        Button btnStartNewThread = rootView.findViewById(R.id.btn_start_new_thread);
+        btnStartNewThread.setOnClickListener(v -> startNewThread());
 
         return rootView;
+    }
+
+    @Override
+    public void onThreadCreated(ForumThread newThread) {
+        // Add the newly created thread to the ViewModel data
+        viewModel.addThread(newThread);
+        adapter.notifyItemInserted(viewModel.getThreadList().size() - 1);  // Refresh RecyclerView
     }
 
     // Method to open posts for a selected thread
@@ -78,21 +79,11 @@ public class ForumPage extends Fragment {
         transaction.commit();
     }
 
-    private void createPost() {
-        if (selectedThread != null) {
-            // Create a new fragment for creating a post
-            CreatePostFragment createPostFragment = new CreatePostFragment();
-
-            // Pass selected thread to the CreatePostFragment
-            Bundle args = new Bundle();
-            args.putSerializable("selected_thread", selectedThread);  // Pass selected thread for context
-            createPostFragment.setArguments(args);
-
-            // Use FragmentTransaction to show the create post fragment
-            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, createPostFragment);
-            transaction.addToBackStack(null);  // Add to back stack so the user can return to the previous screen
-            transaction.commit();
-        }
+    private void startNewThread() {
+        CreateThreadFragment createThreadFragment = new CreateThreadFragment();
+        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, createThreadFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

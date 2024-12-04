@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ForumViewHolder> {
-    private List<ForumThread> threads;
-    private OnThreadClickListener listener;
+    private final List<ForumThread> threads;
+    private final OnThreadClickListener listener;
 
     public interface OnThreadClickListener {
         void onThreadClick(ForumThread thread);

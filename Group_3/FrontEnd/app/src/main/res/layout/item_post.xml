@@ -6,12 +6,13 @@
         android:padding="16dp"
         android:layout_marginBottom="16dp"
         android:background="?android:attr/selectableItemBackground">
+
     <TextView
             android:id="@+id/post_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Post Title"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@android:color/black" />
 
@@ -20,22 +21,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="by Author"
-            android:textSize="14sp"
-            android:textColor="@android:color/darker_gray" />
+            android:textSize="20sp"
+            android:textStyle="italic"
+            android:textColor="#444444" />
 
     <TextView
             android:id="@+id/post_timestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Timestamp"
-            android:textSize="12sp"
-            android:textColor="@android:color/darker_gray" />
+            android:textSize="20sp"
+            android:textColor="#444444" />
 
     <TextView
             android:id="@+id/post_content"
+            android:inputType="textMultiLine"
+            android:scrollHorizontally="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Content of the post..."
             android:textSize="16sp"
-            android:textColor="@android:color/black" />
+            android:textColor="#444444" />
 </LinearLayout>

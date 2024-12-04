@@ -6,9 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +24,7 @@ import java.util.List;
 import com.example.calamitycall.ForumThread;
 
 public class ThreadPostsFragment extends Fragment {
+    private ThreadPostAdapter.OnPostClickListener listener;
 
     @Nullable
     @Override
@@ -29,7 +32,10 @@ public class ThreadPostsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_thread_posts, container, false);
 
-        // Initialize RecyclerView
+        listener = post -> {
+            Toast.makeText(getContext(), "Clicked on: " + post.getTitle(), Toast.LENGTH_SHORT).show();
+        };
+
         RecyclerView recyclerView = rootView.findViewById(R.id.recyclerView_posts);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -39,25 +45,44 @@ public class ThreadPostsFragment extends Fragment {
         // Set thread title and description in the thread_info section
         TextView threadTitle = rootView.findViewById(R.id.thread_title);
         TextView threadDescription = rootView.findViewById(R.id.thread_description);
-        threadTitle.setText(thread.getTitle());
-        threadDescription.setText(thread.getDescription());
 
-        // Dummy Data for Posts
-        List<ThreadPost> postList = new ArrayList<>();
-        postList.add(new ThreadPost("Post Title 1", "by John Doe", "2 hours ago", "This is the content of the post. It describes a mundane local weather event, like a brief rainstorm..."));
-        postList.add(new ThreadPost("Post Title 2", "by Jane Doe", "1 day ago", "Another post discussing a local weather issue, perhaps a storm or heatwave..."));
+        if (thread != null) {
+            threadTitle.setText(thread.getTitle());
+            threadDescription.setText(thread.getDescription());
 
-        // Set up Adapter
-        ThreadPostAdapter adapter = new ThreadPostAdapter(postList);
-        recyclerView.setAdapter(adapter);
+            // Retrieve posts from the thread and set up the adapter
+            List<ThreadPost> postList = thread.getPosts();
+            ThreadPostAdapter adapter = new ThreadPostAdapter(postList, listener);
+            recyclerView.setAdapter(adapter);
+        } else {
+            threadTitle.setText("No thread selected");
+            threadDescription.setText("");
+        }
 
         // Button to create new post
         Button btnCreatePost = rootView.findViewById(R.id.btn_create_post);
-        btnCreatePost.setOnClickListener(v -> {
-            // Logic to create a new post (open a form or dialog, for instance)
-
-        });
+        btnCreatePost.setOnClickListener(v -> createPost());
 
         return rootView;
+    }
+
+    // Method to handle creating a new post
+    private void createPost() {
+        ForumThread thread = (ForumThread) getArguments().getSerializable("selected_thread");
+        if (thread != null) {
+            // Navigate to a fragment where the user can create a post within the thread
+            CreatePostFragment createPostFragment = new CreatePostFragment();
+
+            // Pass selected thread to CreatePostFragment
+            Bundle args = new Bundle();
+            args.putSerializable("selected_thread", thread);
+            createPostFragment.setArguments(args);
+
+            // Use FragmentTransaction to show the create post fragment
+            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, createPostFragment);
+            transaction.addToBackStack(null);  // Add to back stack so the user can return to the previous screen
+            transaction.commit();
+        }
     }
 }

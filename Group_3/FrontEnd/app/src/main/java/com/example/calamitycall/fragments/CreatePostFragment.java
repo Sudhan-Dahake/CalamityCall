@@ -6,11 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.calamitycall.ForumThread;
 import com.example.calamitycall.R;
+import com.example.calamitycall.ThreadPost;
 
 public class CreatePostFragment extends Fragment {
     private EditText postTitleEditText, postContentEditText;
@@ -37,9 +39,26 @@ public class CreatePostFragment extends Fragment {
     }
 
     private void submitPost() {
-        // Handle submitting the post
-        String title = postTitleEditText.getText().toString();
-        String content = postContentEditText.getText().toString();
-        // Do something with the title and content (e.g., send to server or save locally)
+        // Retrieve the thread from arguments
+        ForumThread thread = (ForumThread) getArguments().getSerializable("selected_thread");
+        if (thread != null) {
+            // Get user input
+            String title = postTitleEditText.getText().toString().trim();
+            String content = postContentEditText.getText().toString().trim();
+
+            // Validate input
+            if (title.isEmpty() || content.isEmpty()) {
+                Toast.makeText(getContext(), "Title and content cannot be empty", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Create a new post and add it to the thread
+            ThreadPost newPost = new ThreadPost(title, "Current User", "Just now", content); // Replace "Current User" with the logged-in user's name
+            thread.getPosts().add(newPost);
+
+            // Navigate back to the thread
+            requireActivity().getSupportFragmentManager().popBackStack();
+        }
     }
+
 }

@@ -12,23 +12,23 @@
             android:layout_width="match_parent"
             android:layout_height="115dp" />
 
-    <!-- Post Title Input -->
+    <!-- Thread Title Input -->
     <EditText
-            android:id="@+id/post_title"
+            android:id="@+id/et_thread_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Post Title"
+            android:hint="Thread Title"
             android:inputType="textCapSentences"
             android:padding="10dp"
             android:textSize="24sp"
             android:minHeight="60dp" />
 
-    <!-- Post Content Input -->
+    <!-- Thread Description Input -->
     <EditText
-            android:id="@+id/post_content"
+            android:id="@+id/et_thread_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Post Content..."
+            android:hint="Thread Description"
             android:inputType="textCapSentences"
             android:padding="10dp"
             android:textSize="20sp"
@@ -38,10 +38,10 @@
 
     <!-- Submit Button -->
     <Button
-            android:id="@+id/btn_submit_post"
+            android:id="@+id/btn_submit_thread"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Submit New Post"
+            android:text="Submit New Thread"
             android:layout_gravity="center_horizontal"
             android:layout_margin="16dp"
             android:padding="16dp"

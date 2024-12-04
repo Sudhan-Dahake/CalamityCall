@@ -12,9 +12,15 @@ import java.util.List;
 
 public class ThreadPostAdapter extends RecyclerView.Adapter<ThreadPostAdapter.ThreadPostViewHolder> {
     private List<ThreadPost> postList;
+    private final OnPostClickListener listener;
 
-    public ThreadPostAdapter(List<ThreadPost> postList) {
+    public interface OnPostClickListener {
+        void onPostClick(ThreadPost post);
+    }
+
+    public ThreadPostAdapter(List<ThreadPost> postList, OnPostClickListener listener) {
         this.postList = postList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -37,6 +43,14 @@ public class ThreadPostAdapter extends RecyclerView.Adapter<ThreadPostAdapter.Th
     @Override
     public int getItemCount() {
         return postList.size();
+    }
+
+    public void updatePosts(List<ThreadPost> newPosts) {
+        postList.clear();
+        postList.addAll(newPosts);
+
+        // Refresh RecyclerView
+        notifyDataSetChanged();
     }
 
     public static class ThreadPostViewHolder extends RecyclerView.ViewHolder {

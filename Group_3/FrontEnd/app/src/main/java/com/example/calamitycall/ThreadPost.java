@@ -29,17 +29,13 @@ public class ThreadPost implements Serializable {
         return author;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
+    public void setAuthor(String author) { this.author = author; }
 
     public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
-    }
+    public void setTimestamp(String timestamp) { this.timestamp = timestamp; }
 
     public String getContent() {
         return content;
