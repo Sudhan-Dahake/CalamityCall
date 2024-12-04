@@ -72,8 +72,6 @@ public class ReportPage extends Fragment {
             }
         };
 
-
-
         checkboxShareLocation.setOnClickListener(locationClickListener);
         textShareLocation.setOnClickListener(locationClickListener);
 
@@ -115,7 +113,7 @@ public class ReportPage extends Fragment {
 
         // Severity spinner setup
         ArrayList<String> severityLevels = new ArrayList<>();
-        severityLevels.add("Severe");
+        severityLevels.add("Watch");
         severityLevels.add("Warning");
         severityLevels.add("Critical");
         severityLevels.add("Urgent");
@@ -132,7 +130,6 @@ public class ReportPage extends Fragment {
                         severityLevels.get(position),
                         currentEvent != null ? currentEvent.getDescription() : null
                 );
-
             }
 
             @Override
@@ -175,7 +172,6 @@ public class ReportPage extends Fragment {
 
         return view;
     }
-
 
     private void captureLocation() {
         // Initialize location if it's null
