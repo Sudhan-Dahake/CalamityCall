@@ -8,16 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.calamitycall.R;
-
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +46,7 @@ public class NotificationPage extends Fragment {
     TextInputLayout dropdownLayout;
 
     TextView Last24Hours;
+    TextView NoResults;
 
     @Nullable
     @Override
@@ -72,6 +69,7 @@ public class NotificationPage extends Fragment {
         adapterItems = new ArrayAdapter<>(requireContext(), R.layout.timeframe_list_items, dropdownItems);
         timeframeDropdown.setAdapter(adapterItems);
         Last24Hours = view.findViewById(R.id.ActiveLabel);
+        NoResults = view.findViewById(R.id.NoResults);
 
         timeframeDropdown.setOnItemClickListener((adapterView, view1, i, l) -> {
             String selectedTimeFrame = adapterView.getItemAtPosition(i).toString();
@@ -87,6 +85,14 @@ public class NotificationPage extends Fragment {
         adapter = new NotificationAdapter(activeNotifications, false);
         recyclerView.setAdapter(adapter);
 
+        if(activeNotifications.isEmpty()) {
+            NoResults.setText("No Alerts Active");
+            NoResults.setVisibility(View.VISIBLE);
+        }
+        else{
+            NoResults.setVisibility(View.GONE);
+        }
+
         // Set up TabLayout listener to switch content
         TabLayout tabLayout = view.findViewById(R.id.tabLayout);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -95,12 +101,17 @@ public class NotificationPage extends Fragment {
                 switch (tab.getPosition()) {
                     case 0: // Active Tab
                         adapter.updateNotifications(activeNotifications, false);
+                        if(activeNotifications.isEmpty()) {
+                            NoResults.setText("No Alerts Active");
+                            NoResults.setVisibility(View.VISIBLE);
+                        }
                         dropdownLayout.setVisibility(View.GONE); // Hide dropdown
                         Last24Hours.setVisibility(View.VISIBLE);
                         Log.d("TabSelection", "Active tab selected, dropdown hidden");
                         break;
                     case 1: // History Tab
                         adapter.updateNotifications(historyNotifications, true);
+                        NoResults.setVisibility(View.GONE);
                         dropdownLayout.setVisibility(View.VISIBLE); // Show dropdown
                         Last24Hours.setVisibility(View.GONE);
                         Log.d("TabSelection", "History tab selected, dropdown shown");
@@ -152,9 +163,12 @@ public class NotificationPage extends Fragment {
                     // Notify the adapter of the updated data
                     adapter.updateNotifications(historyNotifications, true);
                     Log.d(TAG, "Successfully fetched and updated history notifications.");
+                    NoResults.setVisibility(View.GONE);
                 }
 
                 else {
+                    NoResults.setText("No Alerts Found");
+                    NoResults.setVisibility(View.VISIBLE);
                     Log.e(TAG, "Failed to fetch notifications. Response code: " + response.code());
                 }
             }

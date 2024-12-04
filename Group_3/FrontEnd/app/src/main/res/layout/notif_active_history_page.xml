@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".fragments.HistoryPage"
+    tools:context=".fragments.NotificationPage"
     android:layout_marginTop="50dp">
 
 
@@ -83,6 +83,14 @@
         android:textColor="@color/grey"
         android:visibility="visible"
         tools:ignore="HardcodedText" />
+    <TextView
+        android:id="@+id/NoResults"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="50dp"
+        android:layout_marginTop="0dp"
+        android:visibility="gone"
+        android:textColor="@color/black"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -91,6 +99,7 @@
         android:clipToPadding="false"
         android:padding="20dp"
         android:scrollbars="vertical" />
+
 
 
 </LinearLayout>

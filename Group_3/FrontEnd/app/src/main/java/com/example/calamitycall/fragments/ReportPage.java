@@ -4,7 +4,6 @@ import com.example.calamitycall.DisasterReport;
 import com.example.calamitycall.R;
 import com.example.calamitycall.network.ApiClient;
 import com.example.calamitycall.network.DisasterRetrofitInstance;
-import com.example.calamitycall.network.RetrofitInstance;
 
 import androidx.annotation.NonNull;
 
@@ -46,7 +45,7 @@ import retrofit2.Response;
 
 public class ReportPage extends Fragment {
 
-    private DisasterReport disasterReport = new DisasterReport();
+    private final DisasterReport disasterReport = new DisasterReport();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -98,7 +97,7 @@ public class ReportPage extends Fragment {
         incidentTypes.add("Volcano Eruption");
         incidentTypes.add("Wildfire");
 
-        ArrayAdapter<String> incidentAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, incidentTypes);
+        ArrayAdapter<String> incidentAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, incidentTypes);
         incidentAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerIncidentType.setAdapter(incidentAdapter);
         spinnerIncidentType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -115,10 +114,10 @@ public class ReportPage extends Fragment {
         ArrayList<String> severityLevels = new ArrayList<>();
         severityLevels.add("Watch");
         severityLevels.add("Warning");
-        severityLevels.add("Critical");
         severityLevels.add("Urgent");
+        severityLevels.add("Critical");
 
-        ArrayAdapter<String> severityAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, severityLevels);
+        ArrayAdapter<String> severityAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, severityLevels);
         severityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerIncidentSeverity.setAdapter(severityAdapter);
         spinnerIncidentSeverity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
