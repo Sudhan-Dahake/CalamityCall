@@ -32,6 +32,17 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    packaging {
+        resources {
+            excludes += "/META-INF/spring.tooling"
+            excludes += "/META-INF/versions/9"
+            excludes += "/META-INF/spring.handlers"
+            excludes += "/META-INF/spring.schemas"
+            excludes += "/META-INF/license.txt"
+            excludes += "/META-INF/DEPENDENCIES"
+            excludes += "/META-INF/notice.txt"
+        }
+    }
 }
 
 dependencies {
@@ -46,4 +57,11 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.appium.java.client) {
+        exclude(group = "org.seleniumhq.selenium", module = "selenium-api")
+        exclude(group = "commons-logging", module = "commons-logging")
+    }
+    androidTestImplementation(libs.androidx.test.uiautomator)
+
+
 }
