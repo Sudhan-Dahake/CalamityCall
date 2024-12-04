@@ -81,6 +81,7 @@ async def create_disaster_report(report: DisasterReport):
             "weather_event_type": report.event.type,
             "weather_event_severity": report.event.severity,
             "weather_event_description": report.event.description,
+            "created_at": report.created_at.isoformat()
         }
 
         # Send POST request to Group 7
