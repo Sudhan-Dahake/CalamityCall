@@ -72,6 +72,8 @@ public class ReportPage extends Fragment {
             }
         };
 
+
+
         checkboxShareLocation.setOnClickListener(locationClickListener);
         textShareLocation.setOnClickListener(locationClickListener);
 
@@ -174,6 +176,7 @@ public class ReportPage extends Fragment {
         return view;
     }
 
+
     private void captureLocation() {
         // Initialize location if it's null
         if (disasterReport.getLocation() == null) {
@@ -206,10 +209,25 @@ public class ReportPage extends Fragment {
                     Toast.makeText(getContext(), "Error fetching address: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(getContext(), "Unable to fetch location", Toast.LENGTH_SHORT).show();
+                // Fallback to default location if GPS data is unavailable
+                double defaultLatitude = 43.47941112830172;
+                double defaultLongitude = -80.51800929419305;
+                String defaultAddress = "108 University Ave E, Waterloo, ON N2J 2W2";
+
+                disasterReport.setLocation(defaultLatitude, defaultLongitude, defaultAddress);
+                Toast.makeText(getContext(), "Location set: " + defaultAddress, Toast.LENGTH_SHORT).show();
             }
+        } else {
+            // Handle the case where location services are unavailable
+            double defaultLatitude = 43.47941112830172;
+            double defaultLongitude = -80.51800929419305;
+            String defaultAddress = "108 University Ave E, Waterloo, ON N2J 2W2";
+
+            disasterReport.setLocation(defaultLatitude, defaultLongitude, defaultAddress);
+            Toast.makeText(getContext(), "Location permission denied. Location set: " + defaultAddress, Toast.LENGTH_SHORT).show();
         }
     }
+
 
 
     private void sendToServer(JSONObject jsonReport) {
