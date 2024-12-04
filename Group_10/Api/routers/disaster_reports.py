@@ -80,13 +80,15 @@ async def create_disaster_report(report: DisasterReport):
             "address": report.location.address,
             "weather_event_type": report.event.type,
             "weather_event_severity": report.event.severity,
-            "weather_event_description": report.event.description,
-            "created_at": report.created_at.isoformat()
+            "weather_event_description": report.event.description
+
     }
 
         # Send POST request to Group 7
         group_7_response = requests.post(GROUP_7_API_URL, json=group_7_payload)
         # Print the response for debugging
+        print(f"Payload sent to Group 7: {group_7_payload}")
+
         print(f"Group 7 Response Status Code: {group_7_response.status_code}")
         print(f"Group 7 Response Body: {group_7_response.text}")
 
