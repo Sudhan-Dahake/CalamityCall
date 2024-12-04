@@ -70,7 +70,6 @@ async def create_disaster_report(report: DisasterReport):
             weather_event_description=report.event.description,
             # media=media_data,  # Pass the media directly as a list (empty or with data)
         )
-       # Construct the JSON payload
         group_7_payload = {
             "report_id": report.report_id,
             "user_id": report.user_id,
@@ -81,6 +80,7 @@ async def create_disaster_report(report: DisasterReport):
             "weather_event_type": report.event.type,
             "weather_event_severity": report.event.severity,
             "weather_event_description": report.event.description,
+            "created_at": report.created_at.isoformat()  # Add this line
         }
 
         # Send POST request to Group 7

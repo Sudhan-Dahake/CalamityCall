@@ -21,4 +21,3 @@ public class ForumThread implements Serializable {
         return description;
     }
 }
-

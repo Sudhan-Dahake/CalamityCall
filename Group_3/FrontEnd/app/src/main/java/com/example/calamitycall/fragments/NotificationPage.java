@@ -124,6 +124,10 @@ public class NotificationPage extends Fragment {
         // Prepare request body
         NotificationHistoryRequest request = new NotificationHistoryRequest(timeframe);
 
+        // Clear the list and refresh the adapter before making the API call
+        historyNotifications.clear();
+        adapter.updateNotifications(new ArrayList<>(), true);
+
         // Make the API Call
         ApiClient apiClient = RetrofitInstance.getRetrofitInstance().create(ApiClient.class);
         Call<NotificationHistoryResponse> call = apiClient.getNotificationHistory(request);
@@ -163,14 +167,13 @@ public class NotificationPage extends Fragment {
     }
 
 
+
     // Initialize lists for Active and History notifications
     private void initializeNotificationLists() {
         // Active notifications
-
-
         activeNotifications = new ArrayList<>();
-        activeNotifications.add(new Notification("Tornado", 2));
-        activeNotifications.add(new Notification("Rainfall", 3));
+//        activeNotifications.add(new Notification("Tornado", 2));
+//        activeNotifications.add(new Notification("Rainfall", 3));
 
         historyNotifications = new ArrayList<>(); // Start with an empty list
     }

@@ -14,6 +14,7 @@ import com.example.calamitycall.models.token.TokenResponse;
 import com.example.calamitycall.models.preference.PreferenceUpdateRequest;
 import com.example.calamitycall.models.preference.PreferenceUpdateResponse;
 import com.example.calamitycall.models.token.VerifyTokenResponse;
+import com.example.calamitycall.DisasterReport;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -47,5 +48,9 @@ public interface ApiClient {
     @POST("/notifications/history")
     Call<NotificationHistoryResponse> getNotificationHistory(
             @Body NotificationHistoryRequest request
+    );
+    @POST("/report/report")
+    Call<Void> submitReport(
+            @Body DisasterReport report
     );
 }
