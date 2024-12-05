@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Medium Chance of Tornado"
-                android:textAlignment="center"
+                android:textAlignment="textStart"
                 android:textColor="#000000"
                 android:textSize="16sp" />
 
