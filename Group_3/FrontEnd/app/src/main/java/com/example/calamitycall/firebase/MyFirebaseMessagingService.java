@@ -112,48 +112,48 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             if (alertLevel == 1) {
                 if (settingsPreferences.isWatchNotificationOn()) {
+                    proceedWithNotification(remoteMessage, message);
+
                     if (settingsPreferences.isWatchTTSOn()) {
                         initializeTextToSpeech(message);
                     }
-
-                    proceedWithNotification(remoteMessage, message);
                 }
             }
 
             else if (alertLevel == 2) {
                 if (settingsPreferences.isWarningNotificationOn()) {
+                    proceedWithNotification(remoteMessage, message);
+
                     if (settingsPreferences.isWarningTTSOn()) {
                         initializeTextToSpeech(message);
                     }
-
-                    proceedWithNotification(remoteMessage, message);
                 }
             }
 
             else if (alertLevel == 3) {
                 if (settingsPreferences.isUrgentNotificationOn()) {
+                    proceedWithNotification(remoteMessage, message);
+
                     if (settingsPreferences.isUrgentTTSOn()) {
                         initializeTextToSpeech(message);
                     }
-
-                    proceedWithNotification(remoteMessage, message);
                 }
             }
 
             else if (alertLevel == 4) {
                 if (settingsPreferences.isCriticalNotificationOn()) {
+                    proceedWithNotification(remoteMessage, message);
+
                     if (settingsPreferences.isCriticalTTSOn()) {
                         initializeTextToSpeech(message);
                     }
-
-                    proceedWithNotification(remoteMessage, message);
                 }
             }
 
             else {
-                initializeTextToSpeech(message);
-
                 proceedWithNotification(remoteMessage, message);
+
+                initializeTextToSpeech(message);
             }
 
             return;
@@ -203,48 +203,48 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                     if (alertLevel == 1) {
                         if (preferenceResponse.getNotificationOn().getWatch()) {
+                            proceedWithNotification(remoteMessage, message);
+
                             if (preferenceResponse.getTextToSpeech().getWatch()) {
                                 initializeTextToSpeech(message);
                             }
-
-                            proceedWithNotification(remoteMessage, message);
                         }
                     }
 
                     else if (alertLevel == 2) {
                         if (preferenceResponse.getNotificationOn().getWarning()) {
+                            proceedWithNotification(remoteMessage, message);
+
                             if (preferenceResponse.getTextToSpeech().getWarning()) {
                                 initializeTextToSpeech(message);
                             }
-
-                            proceedWithNotification(remoteMessage, message);
                         }
                     }
 
                     else if (alertLevel == 3) {
                         if (preferenceResponse.getNotificationOn().getWatch()) {
+                            proceedWithNotification(remoteMessage, message);
+
                             if (preferenceResponse.getTextToSpeech().getUrgent()) {
                                 initializeTextToSpeech(message);
                             }
-
-                            proceedWithNotification(remoteMessage, message);
                         }
                     }
 
                     else if (alertLevel == 4) {
                         if (preferenceResponse.getNotificationOn().getWatch()) {
+                            proceedWithNotification(remoteMessage, message);
+
                             if (preferenceResponse.getTextToSpeech().getCritical()) {
                                 initializeTextToSpeech(message);
                             }
-
-                            proceedWithNotification(remoteMessage, message);
                         }
                     }
 
                     else {
-                        initializeTextToSpeech(message);
-
                         proceedWithNotification(remoteMessage, message);
+
+                        initializeTextToSpeech(message);
                     }
 
 
@@ -268,48 +268,48 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                 if (alertLevel == 1) {
                     if (settingsPreferences.isWatchNotificationOn()) {
+                        proceedWithNotification(remoteMessage, message);
+
                         if (settingsPreferences.isWatchTTSOn()) {
                             initializeTextToSpeech(message);
                         }
-
-                        proceedWithNotification(remoteMessage, message);
                     }
                 }
 
                 else if (alertLevel == 2) {
                     if (settingsPreferences.isWarningNotificationOn()) {
+                        proceedWithNotification(remoteMessage, message);
+
                         if (settingsPreferences.isWarningTTSOn()) {
                             initializeTextToSpeech(message);
                         }
-
-                        proceedWithNotification(remoteMessage, message);
                     }
                 }
 
                 else if (alertLevel == 3) {
                     if (settingsPreferences.isUrgentNotificationOn()) {
+                        proceedWithNotification(remoteMessage, message);
+
                         if (settingsPreferences.isUrgentTTSOn()) {
                             initializeTextToSpeech(message);
                         }
-
-                        proceedWithNotification(remoteMessage, message);
                     }
                 }
 
                 else if (alertLevel == 4) {
                     if (settingsPreferences.isCriticalNotificationOn()) {
+                        proceedWithNotification(remoteMessage, message);
+
                         if (settingsPreferences.isCriticalTTSOn()) {
                             initializeTextToSpeech(message);
                         }
-
-                        proceedWithNotification(remoteMessage, message);
                     }
                 }
 
                 else {
-                    initializeTextToSpeech(message);
-
                     proceedWithNotification(remoteMessage, message);
+
+                    initializeTextToSpeech(message);
                 }
             }
         });
@@ -326,50 +326,50 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             if (alertLevel == 1) {
                 if (settingsPreferences.isWatchNotificationOn()) {
+                    proceedWithNotification(remoteMessage, message);
+
                     if (settingsPreferences.isWatchTTSOn()) {
                         initializeTextToSpeech(message);
                     }
-
-                    proceedWithNotification(remoteMessage, message);
                 }
             }
 
             else if (alertLevel == 2) {
                 if (settingsPreferences.isWarningNotificationOn()) {
+                    proceedWithNotification(remoteMessage, message);
+
                     if (settingsPreferences.isWarningTTSOn()) {
                         initializeTextToSpeech(message);
                     }
-
-                    proceedWithNotification(remoteMessage, message);
                 }
             }
 
             else if (alertLevel == 3) {
                 if (settingsPreferences.isUrgentNotificationOn()) {
+                    proceedWithNotification(remoteMessage, message);
+
                     if (settingsPreferences.isUrgentTTSOn()) {
                         initializeTextToSpeech(message);
                     }
-
-                    proceedWithNotification(remoteMessage, message);
                 }
             }
 
             else if (alertLevel == 4) {
                 if (settingsPreferences.isCriticalNotificationOn()) {
+                    proceedWithNotification(remoteMessage, message);
+
                     if (settingsPreferences.isCriticalTTSOn()) {
                         initializeTextToSpeech(message);
                     }
-
-                    proceedWithNotification(remoteMessage, message);
                 }
             }
 
             else {
                 Log.d(TAG, "Default option for Notifications and TTS triggered");
 
-                initializeTextToSpeech(message);
-
                 proceedWithNotification(remoteMessage, message);
+
+                initializeTextToSpeech(message);
             }
 
             return;
@@ -398,48 +398,48 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                     if (alertLevel == 1) {
                         if (settingsPreferences.isWatchNotificationOn()) {
+                            proceedWithNotification(remoteMessage, message);
+
                             if (settingsPreferences.isWatchTTSOn()) {
                                 initializeTextToSpeech(message);
                             }
-
-                            proceedWithNotification(remoteMessage, message);
                         }
                     }
 
                     else if (alertLevel == 2) {
                         if (settingsPreferences.isWarningNotificationOn()) {
+                            proceedWithNotification(remoteMessage, message);
+
                             if (settingsPreferences.isWarningTTSOn()) {
                                 initializeTextToSpeech(message);
                             }
-
-                            proceedWithNotification(remoteMessage, message);
                         }
                     }
 
                     else if (alertLevel == 3) {
                         if (settingsPreferences.isUrgentNotificationOn()) {
+                            proceedWithNotification(remoteMessage, message);
+
                             if (settingsPreferences.isUrgentTTSOn()) {
                                 initializeTextToSpeech(message);
                             }
-
-                            proceedWithNotification(remoteMessage, message);
                         }
                     }
 
                     else if (alertLevel == 4) {
                         if (settingsPreferences.isCriticalNotificationOn()) {
+                            proceedWithNotification(remoteMessage, message);
+
                             if (settingsPreferences.isCriticalTTSOn()) {
                                 initializeTextToSpeech(message);
                             }
-
-                            proceedWithNotification(remoteMessage, message);
                         }
                     }
 
                     else {
-                        initializeTextToSpeech(message);
-
                         proceedWithNotification(remoteMessage, message);
+
+                        initializeTextToSpeech(message);
                     }
                 }
             }
@@ -453,48 +453,48 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                 if (alertLevel == 1) {
                     if (settingsPreferences.isWatchNotificationOn()) {
+                        proceedWithNotification(remoteMessage, message);
+
                         if (settingsPreferences.isWatchTTSOn()) {
                             initializeTextToSpeech(message);
                         }
-
-                        proceedWithNotification(remoteMessage, message);
                     }
                 }
 
                 else if (alertLevel == 2) {
                     if (settingsPreferences.isWarningNotificationOn()) {
+                        proceedWithNotification(remoteMessage, message);
+
                         if (settingsPreferences.isWarningTTSOn()) {
                             initializeTextToSpeech(message);
                         }
-
-                        proceedWithNotification(remoteMessage, message);
                     }
                 }
 
                 else if (alertLevel == 3) {
                     if (settingsPreferences.isUrgentNotificationOn()) {
+                        proceedWithNotification(remoteMessage, message);
+
                         if (settingsPreferences.isUrgentTTSOn()) {
                             initializeTextToSpeech(message);
                         }
-
-                        proceedWithNotification(remoteMessage, message);
                     }
                 }
 
                 else if (alertLevel == 4) {
                     if (settingsPreferences.isCriticalNotificationOn()) {
+                        proceedWithNotification(remoteMessage, message);
+
                         if (settingsPreferences.isCriticalTTSOn()) {
                             initializeTextToSpeech(message);
                         }
-
-                        proceedWithNotification(remoteMessage, message);
                     }
                 }
 
                 else {
-                    initializeTextToSpeech(message);
-
                     proceedWithNotification(remoteMessage, message);
+
+                    initializeTextToSpeech(message);
                 }
             }
         });
