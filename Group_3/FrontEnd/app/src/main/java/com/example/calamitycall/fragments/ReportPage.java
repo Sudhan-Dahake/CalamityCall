@@ -223,8 +223,6 @@ public class ReportPage extends Fragment {
         }
     }
 
-
-
     private void sendToServer(JSONObject jsonReport) {
         ApiClient apiClient = DisasterRetrofitInstance.getDisasterRetrofitInstance().create(ApiClient.class);
         Call<Void> call = apiClient.submitReport(disasterReport);
