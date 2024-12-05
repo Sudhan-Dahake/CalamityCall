@@ -47,31 +47,34 @@ public class SettingsPage extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate a placeholder view initially
-        view = inflater.inflate(R.layout.placeholder_layout, container, false);
+        view = inflater.inflate(R.layout.activity_settings_page, container, false);
+        // Initialize buttons and listeners
+        initializeButtons(view);
 
-        this.settingsPreferences = new SettingsPreferences(requireContext());
 
-        tokenStuff(() -> {
-            // After tokenStuff completes, inflate the actual layout
-            requireActivity().runOnUiThread(() -> {
-                // Inflate the main settings layout
-                View settingsView = inflater.inflate(R.layout.activity_settings_page, container, false);
+//        this.settingsPreferences = new SettingsPreferences(requireContext());
 
-                // Replace the placeholder view with the settings view
-                ViewGroup parent = (ViewGroup) view.getParent();
-                if (parent != null) {
-                    int index = parent.indexOfChild(view);
-                    parent.removeView(view);
-                    parent.addView(settingsView, index);
-                }
-
-                // Update the reference to the new view
-                view = settingsView;
-
-                // Initialize buttons and listeners
-                initializeButtons(settingsView);
-            });
-        });
+//        tokenStuff(() -> {
+//            // After tokenStuff completes, inflate the actual layout
+//            requireActivity().runOnUiThread(() -> {
+//                // Inflate the main settings layout
+//                View settingsView = inflater.inflate(R.layout.activity_settings_page, container, false);
+//
+//                // Replace the placeholder view with the settings view
+//                ViewGroup parent = (ViewGroup) view.getParent();
+//                if (parent != null) {
+//                    int index = parent.indexOfChild(view);
+//                    parent.removeView(view);
+//                    parent.addView(settingsView, index);
+//                }
+//
+//                // Update the reference to the new view
+//                view = settingsView;
+//
+//                // Initialize buttons and listeners
+//                initializeButtons(settingsView);
+//            });
+//        });
 
         return view;
     }
