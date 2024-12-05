@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException, status
 from .. import NotificationModel
 from ..schemas.Notifications import NotificationCreate
 from ..firebase.FirebaseNotificationManager import NotificationManager
+import pytz
 from datetime import datetime
 
 router = APIRouter()
@@ -20,7 +21,9 @@ async def CreateNotification(notification: NotificationCreate):
         notification.notiftime = time_part
 
     else:
-        notification.notiftime = datetime.now().strftime("%I:%M:%S %p")
+        canadian_time_zone = pytz.timezone('Canada/Eastern')
+
+        notification.notiftime = datetime.now(canadian_time_zone).strftime("%I:%M:%S %p")
 
 
     success = NotifModel.CreateNotification(**notification.model_dump(exclude_none=True))
@@ -48,7 +51,9 @@ async def CreateNotification(notification: NotificationCreate):
         notification.notiftime = time_part
 
     else:
-        notification.notiftime = datetime.now().strftime("%I:%M:%S %p")
+        canadian_time_zone = pytz.timezone('Canada/Eastern')
+
+        notification.notiftime = datetime.now(canadian_time_zone).strftime("%I:%M:%S %p")
 
     success = NotifModel.CreateNotification(**notification.model_dump(exclude_none=True))
 
