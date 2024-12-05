@@ -57,7 +57,7 @@ public class ReportPage extends Fragment {
         Spinner spinnerIncidentType = view.findViewById(R.id.spinner_incident_type);
         Spinner spinnerIncidentSeverity = view.findViewById(R.id.spinner_incident_severity);
         EditText editDescription = view.findViewById(R.id.edit_description);
-        EditText editContact = view.findViewById(R.id.edit_contact);
+//        EditText editContact = view.findViewById(R.id.edit_contact);
         Button btnSubmitReport = view.findViewById(R.id.btn_submit_report);
 
         // Location permission handler

@@ -126,52 +126,52 @@
                 android:textColor="@color/black"
                 android:hint="Description of the incident" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:text="Contact Information (Optional)"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                tools:ignore="HardcodedText" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:gravity="center"-->
+<!--                android:text="Contact Information (Optional)"-->
+<!--                android:textSize="15sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textColor="@color/black"-->
+<!--                tools:ignore="HardcodedText" />-->
 
-            <!-- Contact Information -->
-            <EditText
-                android:id="@+id/edit_contact"
-                android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_height="48dp"
-                android:textColorHint="@color/grey"
-                android:paddingHorizontal="10dp"
-                android:background="@drawable/rounded_edittext"
-                android:inputType="text"
-                android:textColor="@color/black"
-                android:hint="Contact information" />
+<!--            &lt;!&ndash; Contact Information &ndash;&gt;-->
+<!--            <EditText-->
+<!--                android:id="@+id/edit_contact"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_height="48dp"-->
+<!--                android:textColorHint="@color/grey"-->
+<!--                android:paddingHorizontal="10dp"-->
+<!--                android:background="@drawable/rounded_edittext"-->
+<!--                android:inputType="text"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:hint="Contact information" />-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:text="Upload Media"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="@color/black" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:gravity="center"-->
+<!--                android:text="Upload Media"-->
+<!--                android:textSize="15sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textColor="@color/black" />-->
 
-            <!-- Media Upload Button -->
-            <Button
-                android:id="@+id/upload_button"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_marginTop="16dp"
-                style="@drawable/rounded_button"
-                android:backgroundTint="#050"
-                android:padding="16dp"
-                android:layout_gravity="center"
-                android:text="Upload photos/videos"
-                android:textColor="#FFFFFF" />
+<!--            &lt;!&ndash; Media Upload Button &ndash;&gt;-->
+<!--            <Button-->
+<!--                android:id="@+id/upload_button"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                style="@drawable/rounded_button"-->
+<!--                android:backgroundTint="#050"-->
+<!--                android:padding="16dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:text="Upload photos/videos"-->
+<!--                android:textColor="#FFFFFF" />-->
 
             <!-- Submit Report Button -->
             <Button
