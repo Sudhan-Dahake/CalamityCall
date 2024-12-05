@@ -1,5 +1,6 @@
 package com.example.calamitycall.network;
 
+import com.example.calamitycall.models.NotificationHistory.ActiveNotificationResponse;
 import com.example.calamitycall.models.NotificationHistory.NotificationHistoryRequest;
 import com.example.calamitycall.models.NotificationHistory.NotificationHistoryResponse;
 import com.example.calamitycall.models.signup.SignupRequest;
@@ -49,6 +50,10 @@ public interface ApiClient {
     Call<NotificationHistoryResponse> getNotificationHistory(
             @Body NotificationHistoryRequest request
     );
+
+    @GET("/notifications/active")
+    Call<ActiveNotificationResponse> getActiveNotifications();
+
     @POST("/report/report")
     Call<Void> submitReport(
             @Body DisasterReport report

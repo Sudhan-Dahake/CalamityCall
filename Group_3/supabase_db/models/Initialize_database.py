@@ -19,13 +19,14 @@ def CreateTables():
     -- Table 1: notifications
     CREATE TABLE IF NOT EXISTS notifications (
         notifid SERIAL PRIMARY KEY,
-        notiforigin VARCHAR(30) NOT NULL,
+        notiforigin TEXT NOT NULL,
         longitude FLOAT NOT NULL,
         latitude FLOAT NOT NULL,
-        city VARCHAR(30) NOT NULL,
-        disastertype VARCHAR(30) NOT NULL,
+        city TEXT NOT NULL,
+        disastertype TEXT NOT NULL,
         disasterlevel INTEGER NOT NULL,
-        notifdate DATE NOT NULL,
+        notifdate TEXT NOT NULL,
+        notiftime TEXT,
         preparationsteps TEXT,
         activesteps TEXT,
         recoverysteps TEXT

@@ -70,6 +70,7 @@
                         android:hint="Username"
                         android:inputType="text"
                         android:maxLines="1"
+                        android:textColor="@android:color/black"
                         tools:ignore="Autofill,HardcodedText" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -89,6 +90,7 @@
                         android:hint="Password"
                         android:inputType="textPassword"
                         android:maxLines="1"
+                        android:textColor="@android:color/black"
                         tools:ignore="HardcodedText" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -108,6 +110,7 @@
                         android:hint="Confirm Password"
                         android:inputType="textPassword"
                         android:maxLines="1"
+                        android:textColor="@android:color/black"
                         tools:ignore="HardcodedText" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -126,6 +129,7 @@
                         android:hint="Age"
                         android:inputType="number"
                         android:maxLines="1"
+                        android:textColor="@android:color/black"
                         tools:ignore="Autofill,HardcodedText" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -144,6 +148,7 @@
                         android:hint="Address"
                         android:inputType="textPostalAddress"
                         android:maxLines="1"
+                        android:textColor="@android:color/black"
                         tools:ignore="Autofill,HardcodedText" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -162,6 +167,7 @@
                         android:hint="Zip/Postal Code"
                         android:inputType="textPostalAddress"
                         android:maxLines="1"
+                        android:textColor="@android:color/black"
                         tools:ignore="Autofill,HardcodedText" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -180,6 +186,7 @@
                         android:hint="City"
                         android:inputType="text"
                         android:maxLines="1"
+                        android:textColor="@android:color/black"
                         tools:ignore="Autofill,HardcodedText" />
                 </com.google.android.material.textfield.TextInputLayout>
 

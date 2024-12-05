@@ -13,6 +13,7 @@ class NotificationManagerSendNotification(BaseModel):
     disastertype: str
     disasterlevel: int
     notifdate: str
+    notiftime: str | None = None
     preparationsteps: str | None = None
     activesteps: str | None = None
     recoverysteps: str | None = None
@@ -25,6 +26,7 @@ class FCMClientSendNotification(BaseModel):
     disastertype: str
     disasterlevel: int
     notifdate: str
+    notiftime: str | None = None
     preparationsteps: str | None = None
     activesteps: str | None = None
     recoverysteps: str | None = None

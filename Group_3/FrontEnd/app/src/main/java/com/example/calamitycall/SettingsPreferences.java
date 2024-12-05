@@ -112,6 +112,11 @@ public class SettingsPreferences {
         sharedPreferences.edit().putBoolean(WATCH_NOTIFICATION_ON_KEY, isOn).apply();
     }
 
+
+    public void setWatchNotificationType(String type) {
+        sharedPreferences.edit().putString(WATCH_NOTIFICATION_TYPE_KEY, type).apply();
+    }
+
     public boolean isWarningNotificationTypePush() {
         String warning_result = sharedPreferences.getString(WARNING_NOTIFICATION_TYPE_KEY, "Push");
         boolean warningNotificationType = true;
@@ -163,6 +168,10 @@ public class SettingsPreferences {
 
     public void setWarningNotificationOn(boolean isOn) {
         sharedPreferences.edit().putBoolean(WARNING_NOTIFICATION_ON_KEY, isOn).apply();
+    }
+
+    public void setWarningNotificationType(String type) {
+        sharedPreferences.edit().putString(WARNING_NOTIFICATION_TYPE_KEY, type).apply();
     }
 
     public boolean isUrgentNotificationTypePush() {
@@ -224,6 +233,10 @@ public class SettingsPreferences {
 
     public void setUrgentNotificationOn(boolean isOn) {
         sharedPreferences.edit().putBoolean(URGENT_NOTIFICATION_ON_KEY, isOn).apply();
+    }
+
+    public void setUrgentNotificationType(String type) {
+        sharedPreferences.edit().putString(URGENT_NOTIFICATION_TYPE_KEY, type).apply();
     }
 
 

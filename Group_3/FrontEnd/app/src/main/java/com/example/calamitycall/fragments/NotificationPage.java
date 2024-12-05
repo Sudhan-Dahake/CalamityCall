@@ -17,6 +17,8 @@ import com.example.calamitycall.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.calamitycall.models.NotificationHistory.ActiveNotification;
+import com.example.calamitycall.models.NotificationHistory.ActiveNotificationResponse;
 import com.example.calamitycall.models.NotificationHistory.NotificationHistoryRequest;
 import com.example.calamitycall.models.NotificationHistory.NotificationHistoryResponse;
 import com.example.calamitycall.models.NotificationHistory.NotificationResponse;
@@ -74,24 +76,16 @@ public class NotificationPage extends Fragment {
         timeframeDropdown.setOnItemClickListener((adapterView, view1, i, l) -> {
             String selectedTimeFrame = adapterView.getItemAtPosition(i).toString();
             fetchNotificationHistory(selectedTimeFrame);
+            NoResults.setVisibility(View.GONE);
 
             //Toast.makeText(getContext(), "Item: " + item, Toast.LENGTH_SHORT).show();
         });
-
-
-
 
         // Set up the adapter with default values
         adapter = new NotificationAdapter(activeNotifications, false);
         recyclerView.setAdapter(adapter);
 
-        if(activeNotifications.isEmpty()) {
-            NoResults.setText("No Alerts Active");
-            NoResults.setVisibility(View.VISIBLE);
-        }
-        else{
-            NoResults.setVisibility(View.GONE);
-        }
+        fetchActiveNotifications();
 
         // Set up TabLayout listener to switch content
         TabLayout tabLayout = view.findViewById(R.id.tabLayout);
@@ -107,6 +101,9 @@ public class NotificationPage extends Fragment {
                         }
                         dropdownLayout.setVisibility(View.GONE); // Hide dropdown
                         Last24Hours.setVisibility(View.VISIBLE);
+                        fetchActiveNotifications();
+                        recyclerView.setAdapter(null); // Detach adapter
+                        recyclerView.setAdapter(adapter); // Reattach adapter
                         Log.d("TabSelection", "Active tab selected, dropdown hidden");
                         break;
                     case 1: // History Tab
@@ -114,6 +111,8 @@ public class NotificationPage extends Fragment {
                         NoResults.setVisibility(View.GONE);
                         dropdownLayout.setVisibility(View.VISIBLE); // Show dropdown
                         Last24Hours.setVisibility(View.GONE);
+                        recyclerView.setAdapter(null); // Detach adapter
+                        recyclerView.setAdapter(adapter); // Reattach adapter
                         Log.d("TabSelection", "History tab selected, dropdown shown");
                         break;
                 }
@@ -129,7 +128,51 @@ public class NotificationPage extends Fragment {
         return view;
     }
 
+    private void fetchActiveNotifications(){
 
+        // Make the API Call
+        ApiClient apiClient = RetrofitInstance.getRetrofitInstance().create(ApiClient.class);
+        Call<ActiveNotificationResponse> call = apiClient.getActiveNotifications();
+
+        call.enqueue(new Callback<ActiveNotificationResponse>() {
+            @Override
+            public void onResponse(Call<ActiveNotificationResponse> call, Response<ActiveNotificationResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    ActiveNotificationResponse historyResponse = response.body();
+
+                    activeNotifications.clear();
+
+                    for (ActiveNotification notificationResponse : historyResponse.getNotifications()) {
+                        Notification notification = new Notification(
+                                notificationResponse.getDisastertype(),
+                                notificationResponse.getDisasterlevel(),
+                                notificationResponse.getNotifdate(),
+                                notificationResponse.getNotiftime()
+                        );
+                        activeNotifications.add(notification);
+                    }
+
+                    // Notify the adapter of the updated data
+                    adapter.updateNotifications(activeNotifications, false);
+                    Log.d(TAG, "Successfully fetched and updated active notifications.");
+                    NoResults.setVisibility(View.GONE);
+                }
+
+                else {
+                    NoResults.setText("No Alerts Active");
+                    NoResults.setVisibility(View.VISIBLE);
+                    Log.e(TAG, "Failed to fetch notifications. Response code: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ActiveNotificationResponse> call, Throwable t) {
+                NoResults.setText("No Alerts Active");
+                NoResults.setVisibility(View.VISIBLE);
+                Log.e(TAG, "Error fetching notifications", t);
+            }
+        });
+    }
 
     private void fetchNotificationHistory(String timeframe) {
         // Prepare request body
@@ -175,6 +218,8 @@ public class NotificationPage extends Fragment {
 
             @Override
             public void onFailure(Call<NotificationHistoryResponse> call, Throwable t) {
+                NoResults.setText("No Alerts Found");
+                NoResults.setVisibility(View.VISIBLE);
                 Log.e(TAG, "Error fetching notifications", t);
             }
         });

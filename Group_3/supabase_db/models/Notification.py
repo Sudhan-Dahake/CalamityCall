@@ -2,6 +2,7 @@ import os
 from supabase import create_client, Client
 from dotenv import load_dotenv
 from datetime import datetime, timedelta, date
+from pytz import timezone
 
 load_dotenv()
 
@@ -31,6 +32,47 @@ class NotificationModel:
             print(f"Error storing Notification")
 
             return False
+
+    def GetActiveNotifications(self, tz_name: str = "Canada/Eastern"):
+        """
+        Fetches all notifications, calculates the time difference from now using the provided timezone,
+        and returns notifications from the last 24 hours in the desired JSON format.
+        """
+        # Fetch all notifications
+        response = self.client.from_(self.tableName).select(
+            "notifid, notiforigin, longitude, latitude, city, disastertype, disasterlevel, notifdate, notiftime, preparationsteps, activesteps, recoverysteps"
+        ).execute()
+
+        if not response.data:
+            print("No notifications found")
+            return {"Notifications": []}
+
+        # Get the current time in the specified Canadian timezone
+        canadian_tz = timezone(tz_name)
+        current_time = datetime.now(canadian_tz)
+
+        recent_notifications = []
+
+        for notification in response.data:
+            # Combine `notifdate` and `notiftime` to create a complete datetime object
+            notif_datetime_str = f"{notification['notifdate']} {notification['notiftime']}"
+            notif_datetime = datetime.strptime(
+                notif_datetime_str, "%Y-%m-%d %I:%M:%S %p")
+
+            # Localize the notification time to the Canadian timezone
+            notif_datetime = canadian_tz.localize(notif_datetime)
+
+            # Calculate the difference in hours
+            time_difference = (
+                current_time - notif_datetime).total_seconds() / 3600
+
+            # Check if the notification is within the last 24 hours
+            if time_difference <= 24:
+                recent_notifications.append(notification)
+
+        # Return the filtered notifications in the required JSON format
+        return {"Notifications": recent_notifications}
+
 
     def GetNotifToDisplayImmediately(self):
         # Fetch the latest notification based on highest NotifID

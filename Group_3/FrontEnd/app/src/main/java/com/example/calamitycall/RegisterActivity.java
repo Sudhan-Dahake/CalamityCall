@@ -19,6 +19,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText etUsername;
     private EditText etPassword;
+    private EditText etConfirmPassword;
     private EditText etAge;
     private EditText etAddress;
     private EditText etPostalCode;
@@ -36,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         this.etUsername = findViewById(R.id.editTextUsername);
         this.etPassword = findViewById(R.id.editTextPassword);
+        this.etConfirmPassword = findViewById(R.id.editTextConfirmPassword);
         this.etAge = findViewById(R.id.editTextAge);
         this.etAddress = findViewById(R.id.editTextAddress);
         this.etPostalCode = findViewById(R.id.editTextPostalCode);
@@ -56,32 +58,39 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void handleSignup() {
-        SignupRequest signupRequest = new SignupRequest(
-                this.etUsername.getText().toString().trim(),
-                this.etPassword.getText().toString().trim(),
-                Integer.parseInt(this.etAge.getText().toString().trim()),
-                this.etAddress.getText().toString().trim(),
-                this.etPostalCode.getText().toString().trim(),
-                this.etCity.getText().toString().trim()
+        String pass = etPassword.getText().toString();
+        String confirmPass = etConfirmPassword.getEditableText().toString();
+        if(pass.equals(confirmPass)) {
+            SignupRequest signupRequest = new SignupRequest(
+                    this.etUsername.getText().toString().trim(),
+                    this.etPassword.getText().toString().trim(),
+                    Integer.parseInt(this.etAge.getText().toString().trim()),
+                    this.etAddress.getText().toString().trim(),
+                    this.etPostalCode.getText().toString().trim(),
+                    this.etCity.getText().toString().trim()
 
-        );
+            );
 
-        signupService.signup(signupRequest, new SignupService.SignupCallback() {
-            @Override
-            public void onSuccess(SignupResponse signupResponse) {
-                // Handle successful signup, e.g., navigate to another screen or show success message
-                Toast.makeText(RegisterActivity.this, "Signup Successful!! Please Login Now", Toast.LENGTH_LONG).show();
+            signupService.signup(signupRequest, new SignupService.SignupCallback() {
+                @Override
+                public void onSuccess(SignupResponse signupResponse) {
+                    // Handle successful signup, e.g., navigate to another screen or show success message
+                    Toast.makeText(RegisterActivity.this, "Signup Successful!! Please Login Now", Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
+//                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+//                startActivity(intent);
+                    finish();
+                }
 
-            @Override
-            public void onError(Throwable throwable) {
-                // Handle signup error, e.g., show an error message to the user
-                Toast.makeText(RegisterActivity.this, "Signup failed: " + throwable.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+                @Override
+                public void onError(Throwable throwable) {
+                    // Handle signup error, e.g., show an error message to the user
+                    Toast.makeText(RegisterActivity.this, "Signup failed: " + throwable.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+        else{
+            Toast.makeText(RegisterActivity.this, "Signup failed: Passwords do not match", Toast.LENGTH_LONG).show();
+        }
     }
 }
