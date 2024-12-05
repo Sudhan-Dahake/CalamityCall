@@ -34,3 +34,21 @@ class NotificationHistoryRequest(BaseModel):
 
 class NotificationHistoryResponse(BaseModel):
     Notifications: list[NotificationResponse]
+
+
+class SingleNotificationActiveResponse(BaseModel):
+    notiforigin: str
+    longitude: float
+    latitude: float
+    city: str
+    disastertype: str
+    disasterlevel: int
+    notifdate: str
+    notiftime: str | None = None
+    preparationsteps: str | None = None
+    activesteps: str | None = None
+    recoverysteps: str | None = None
+
+
+class NotificationActiveResponse(BaseModel):
+    Notifications: list[SingleNotificationActiveResponse]
