@@ -9,6 +9,7 @@ router = APIRouter()
 
 notificationManager = NotificationManager()
 
+
 #Endpoint to receive Notifications from NWS
 @router.post("/NWS", status_code=status.HTTP_201_CREATED)
 async def CreateNotification(notification: NotificationCreate):
