@@ -222,7 +222,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     }
 
                     else if (alertLevel == 3) {
-                        if (preferenceResponse.getNotificationOn().getWatch()) {
+                        if (preferenceResponse.getNotificationOn().getUrgent()) {
                             proceedWithNotification(remoteMessage, message);
 
                             if (preferenceResponse.getTextToSpeech().getUrgent()) {
@@ -232,7 +232,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     }
 
                     else if (alertLevel == 4) {
-                        if (preferenceResponse.getNotificationOn().getWatch()) {
+                        Log.d(TAG, "Critical Alert Sent");
+                        if (preferenceResponse.getNotificationOn().getCritical()) {
                             proceedWithNotification(remoteMessage, message);
 
                             if (preferenceResponse.getTextToSpeech().getCritical()) {
@@ -482,7 +483,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 }
 
                 else if (alertLevel == 4) {
+                    Log.d("Firebase", "Got a Critical Notification");
                     if (settingsPreferences.isCriticalNotificationOn()) {
+                        Log.d("Firebase", "Proceeding...");
                         proceedWithNotification(remoteMessage, message);
 
                         if (settingsPreferences.isCriticalTTSOn()) {
