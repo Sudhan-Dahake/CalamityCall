@@ -13,7 +13,23 @@ COPY Group_3/scripts/ /app/scripts
 
 RUN chmod +x /app/scripts/keep_alive.sh
 
-RUN apt-get update && apt-get install -y curl supervisor && apt-get clean
+# Install dependencies
+RUN apt-get update && \
+  apt-get install -y --no-install-recommends \
+  curl \
+  ca-certificates \
+  cron \
+  supervisor && \
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists/*
+
+# Update CA certificates during the build
+RUN update-ca-certificates
+
+# Add a cron job for periodic certificate updates
+RUN echo "0 0 * * * root update-ca-certificates" > /etc/cron.d/update-certs && \
+  chmod 0644 /etc/cron.d/update-certs && \
+  crontab /etc/cron.d/update-certs
 
 EXPOSE 8000
 
