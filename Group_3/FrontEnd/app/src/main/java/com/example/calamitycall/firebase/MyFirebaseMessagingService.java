@@ -1,6 +1,7 @@
 package com.example.calamitycall.firebase;
 
 import com.example.calamitycall.MainActivity;
+import com.example.calamitycall.SettingsPreferences;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.example.calamitycall.models.FirebaseToken.RegisterTokenRequest;
@@ -41,6 +42,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private String message;
 
+    private SettingsPreferences settingsPreferences;
+
 
     @Override
     public void onCreate() {
@@ -61,6 +64,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
+
+        this.settingsPreferences = new SettingsPreferences(getApplicationContext());
 
 
         // Extract data from the notification
@@ -93,7 +98,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Build the TTS message
         message = "This is a " + severity + " alert for " + city + ". A " + disasterType + " has been detected. Please take necessary precautions.";
 
-        initializeTextToSpeech(message);
+        // initializeTextToSpeech(message);
 
 
         TokenManager tokenManager;
@@ -105,7 +110,51 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         catch (Exception e) {
             Log.e(TAG, "TokenManager Initialization Failed", e);
 
-            proceedWithNotification(remoteMessage, message);
+            if (alertLevel == 1) {
+                if (settingsPreferences.isWatchNotificationOn()) {
+                    if (settingsPreferences.isWatchTTSOn()) {
+                        initializeTextToSpeech(message);
+                    }
+
+                    proceedWithNotification(remoteMessage, message);
+                }
+            }
+
+            else if (alertLevel == 2) {
+                if (settingsPreferences.isWarningNotificationOn()) {
+                    if (settingsPreferences.isWarningTTSOn()) {
+                        initializeTextToSpeech(message);
+                    }
+
+                    proceedWithNotification(remoteMessage, message);
+                }
+            }
+
+            else if (alertLevel == 3) {
+                if (settingsPreferences.isUrgentNotificationOn()) {
+                    if (settingsPreferences.isUrgentTTSOn()) {
+                        initializeTextToSpeech(message);
+                    }
+
+                    proceedWithNotification(remoteMessage, message);
+                }
+            }
+
+            else if (alertLevel == 4) {
+                if (settingsPreferences.isCriticalNotificationOn()) {
+                    if (settingsPreferences.isCriticalTTSOn()) {
+                        initializeTextToSpeech(message);
+                    }
+
+                    proceedWithNotification(remoteMessage, message);
+                }
+            }
+
+            else {
+                initializeTextToSpeech(message);
+
+                proceedWithNotification(remoteMessage, message);
+            }
 
             return;
         }
@@ -148,8 +197,61 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                     Log.d(TAG, "Preferences Loaded Successfully");
 
+
+
+                    int alertLevel = Integer.parseInt(remoteMessage.getData().get("disasterlevel"));
+
+                    if (alertLevel == 1) {
+                        if (preferenceResponse.getNotificationOn().getWatch()) {
+                            if (preferenceResponse.getTextToSpeech().getWatch()) {
+                                initializeTextToSpeech(message);
+                            }
+
+                            proceedWithNotification(remoteMessage, message);
+                        }
+                    }
+
+                    else if (alertLevel == 2) {
+                        if (preferenceResponse.getNotificationOn().getWarning()) {
+                            if (preferenceResponse.getTextToSpeech().getWarning()) {
+                                initializeTextToSpeech(message);
+                            }
+
+                            proceedWithNotification(remoteMessage, message);
+                        }
+                    }
+
+                    else if (alertLevel == 3) {
+                        if (preferenceResponse.getNotificationOn().getWatch()) {
+                            if (preferenceResponse.getTextToSpeech().getUrgent()) {
+                                initializeTextToSpeech(message);
+                            }
+
+                            proceedWithNotification(remoteMessage, message);
+                        }
+                    }
+
+                    else if (alertLevel == 4) {
+                        if (preferenceResponse.getNotificationOn().getWatch()) {
+                            if (preferenceResponse.getTextToSpeech().getCritical()) {
+                                initializeTextToSpeech(message);
+                            }
+
+                            proceedWithNotification(remoteMessage, message);
+                        }
+                    }
+
+                    else {
+                        initializeTextToSpeech(message);
+
+                        proceedWithNotification(remoteMessage, message);
+                    }
+
+
+
+
                     //Placeholder for now.
-                    proceedWithNotification(remoteMessage, message);
+                    // proceedWithNotification(remoteMessage, message);
                 }
 
                 else if (response.code() == 401) {
@@ -162,7 +264,53 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             public void onFailure(Call<PreferenceResponse> call, Throwable t) {
                 Log.e(TAG, "Error fetching Preferences", t);
 
-                proceedWithNotification(remoteMessage, message);
+                int alertLevel = Integer.parseInt(remoteMessage.getData().get("disasterlevel"));
+
+                if (alertLevel == 1) {
+                    if (settingsPreferences.isWatchNotificationOn()) {
+                        if (settingsPreferences.isWatchTTSOn()) {
+                            initializeTextToSpeech(message);
+                        }
+
+                        proceedWithNotification(remoteMessage, message);
+                    }
+                }
+
+                else if (alertLevel == 2) {
+                    if (settingsPreferences.isWarningNotificationOn()) {
+                        if (settingsPreferences.isWarningTTSOn()) {
+                            initializeTextToSpeech(message);
+                        }
+
+                        proceedWithNotification(remoteMessage, message);
+                    }
+                }
+
+                else if (alertLevel == 3) {
+                    if (settingsPreferences.isUrgentNotificationOn()) {
+                        if (settingsPreferences.isUrgentTTSOn()) {
+                            initializeTextToSpeech(message);
+                        }
+
+                        proceedWithNotification(remoteMessage, message);
+                    }
+                }
+
+                else if (alertLevel == 4) {
+                    if (settingsPreferences.isCriticalNotificationOn()) {
+                        if (settingsPreferences.isCriticalTTSOn()) {
+                            initializeTextToSpeech(message);
+                        }
+
+                        proceedWithNotification(remoteMessage, message);
+                    }
+                }
+
+                else {
+                    initializeTextToSpeech(message);
+
+                    proceedWithNotification(remoteMessage, message);
+                }
             }
         });
     }
@@ -174,7 +322,55 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (refreshToken == null) {
             Log.d(TAG, "No refresh token available");
 
-            proceedWithNotification(remoteMessage, message);
+            int alertLevel = Integer.parseInt(remoteMessage.getData().get("disasterlevel"));
+
+            if (alertLevel == 1) {
+                if (settingsPreferences.isWatchNotificationOn()) {
+                    if (settingsPreferences.isWatchTTSOn()) {
+                        initializeTextToSpeech(message);
+                    }
+
+                    proceedWithNotification(remoteMessage, message);
+                }
+            }
+
+            else if (alertLevel == 2) {
+                if (settingsPreferences.isWarningNotificationOn()) {
+                    if (settingsPreferences.isWarningTTSOn()) {
+                        initializeTextToSpeech(message);
+                    }
+
+                    proceedWithNotification(remoteMessage, message);
+                }
+            }
+
+            else if (alertLevel == 3) {
+                if (settingsPreferences.isUrgentNotificationOn()) {
+                    if (settingsPreferences.isUrgentTTSOn()) {
+                        initializeTextToSpeech(message);
+                    }
+
+                    proceedWithNotification(remoteMessage, message);
+                }
+            }
+
+            else if (alertLevel == 4) {
+                if (settingsPreferences.isCriticalNotificationOn()) {
+                    if (settingsPreferences.isCriticalTTSOn()) {
+                        initializeTextToSpeech(message);
+                    }
+
+                    proceedWithNotification(remoteMessage, message);
+                }
+            }
+
+            else {
+                Log.d(TAG, "Default option for Notifications and TTS triggered");
+
+                initializeTextToSpeech(message);
+
+                proceedWithNotification(remoteMessage, message);
+            }
 
             return;
         }
@@ -198,7 +394,53 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 else {
                     Log.d(TAG, "Failed to refresh JWT token: " + response.code());
 
-                    proceedWithNotification(remoteMessage, message);
+                    int alertLevel = Integer.parseInt(remoteMessage.getData().get("disasterlevel"));
+
+                    if (alertLevel == 1) {
+                        if (settingsPreferences.isWatchNotificationOn()) {
+                            if (settingsPreferences.isWatchTTSOn()) {
+                                initializeTextToSpeech(message);
+                            }
+
+                            proceedWithNotification(remoteMessage, message);
+                        }
+                    }
+
+                    else if (alertLevel == 2) {
+                        if (settingsPreferences.isWarningNotificationOn()) {
+                            if (settingsPreferences.isWarningTTSOn()) {
+                                initializeTextToSpeech(message);
+                            }
+
+                            proceedWithNotification(remoteMessage, message);
+                        }
+                    }
+
+                    else if (alertLevel == 3) {
+                        if (settingsPreferences.isUrgentNotificationOn()) {
+                            if (settingsPreferences.isUrgentTTSOn()) {
+                                initializeTextToSpeech(message);
+                            }
+
+                            proceedWithNotification(remoteMessage, message);
+                        }
+                    }
+
+                    else if (alertLevel == 4) {
+                        if (settingsPreferences.isCriticalNotificationOn()) {
+                            if (settingsPreferences.isCriticalTTSOn()) {
+                                initializeTextToSpeech(message);
+                            }
+
+                            proceedWithNotification(remoteMessage, message);
+                        }
+                    }
+
+                    else {
+                        initializeTextToSpeech(message);
+
+                        proceedWithNotification(remoteMessage, message);
+                    }
                 }
             }
 
@@ -207,7 +449,53 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             public void onFailure(Call<TokenResponse> call, Throwable t) {
                 Log.e(TAG, "Error refreshing JWT Token", t);
 
-                proceedWithNotification(remoteMessage, message);
+                int alertLevel = Integer.parseInt(remoteMessage.getData().get("disasterlevel"));
+
+                if (alertLevel == 1) {
+                    if (settingsPreferences.isWatchNotificationOn()) {
+                        if (settingsPreferences.isWatchTTSOn()) {
+                            initializeTextToSpeech(message);
+                        }
+
+                        proceedWithNotification(remoteMessage, message);
+                    }
+                }
+
+                else if (alertLevel == 2) {
+                    if (settingsPreferences.isWarningNotificationOn()) {
+                        if (settingsPreferences.isWarningTTSOn()) {
+                            initializeTextToSpeech(message);
+                        }
+
+                        proceedWithNotification(remoteMessage, message);
+                    }
+                }
+
+                else if (alertLevel == 3) {
+                    if (settingsPreferences.isUrgentNotificationOn()) {
+                        if (settingsPreferences.isUrgentTTSOn()) {
+                            initializeTextToSpeech(message);
+                        }
+
+                        proceedWithNotification(remoteMessage, message);
+                    }
+                }
+
+                else if (alertLevel == 4) {
+                    if (settingsPreferences.isCriticalNotificationOn()) {
+                        if (settingsPreferences.isCriticalTTSOn()) {
+                            initializeTextToSpeech(message);
+                        }
+
+                        proceedWithNotification(remoteMessage, message);
+                    }
+                }
+
+                else {
+                    initializeTextToSpeech(message);
+
+                    proceedWithNotification(remoteMessage, message);
+                }
             }
         });
     }
