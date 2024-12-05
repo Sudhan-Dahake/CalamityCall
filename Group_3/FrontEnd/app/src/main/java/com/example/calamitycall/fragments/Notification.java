@@ -1,7 +1,5 @@
 package com.example.calamitycall.fragments;
 
-import java.util.Date;
-
 public class Notification {
 
     private String disaster_type;  // like tornado, etc.
@@ -9,13 +7,15 @@ public class Notification {
     private String city;
     private Integer level;  // "critical", "urgent", "warning", "watch"
     private String date;
+    private String time;
     private Float longitude;
     private Float latitude;
 
 
 
-    public Notification()
+    public Notification(String time)
     {
+        this.time = time;
         this.disaster_type = "";
         this.origin = "";
         this.city = "";
@@ -31,6 +31,13 @@ public class Notification {
         this.disaster_type = disaster_type;
         this.level = level;
         this.date = date;
+    }
+    public Notification(String disaster_type, Integer level, String date, String time)
+    {
+        this.disaster_type = disaster_type;
+        this.level = level;
+        this.date = date;
+        this.time = time;
     }
 
 
@@ -97,6 +104,10 @@ public class Notification {
     {
         this.date = date;
     }
+    public void setTime(String time)
+    {
+        this.time = time;
+    }
 
 
     public void setLongitude(Float longitude)
@@ -135,6 +146,10 @@ public class Notification {
     public String getDate()
     {
         return this.date;
+    }
+    public String getTime()
+    {
+        return this.time;
     }
 
 

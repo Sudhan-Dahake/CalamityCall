@@ -113,7 +113,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             String notifTime;
 
             notifDate = notification.getDate();
-            //notifTime = notification.getTime();
+            notifTime = notification.getTime();
 
             switch (notification.getLevel()) {
                 case 1:
@@ -140,7 +140,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                     levelText = "Alert";
                     disasterTypeText = notification.getDisasterType();
                     notifDate = "00/00/0000";
-                    //notifTime = "00:00 AM";
+                    notifTime = "00:00 AM";
                     break;
             }
 
@@ -160,7 +160,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
             if (holder.alertTime != null) {
                 Log.d("NotificationAdapter", "alertTime is NOT null!");
-                //holder.alertTime.setText(notifTime);
+                holder.alertTime.setText(notifTime);
             } else {
                 Log.e("NotificationAdapter", "alertTime is null!");
             }
