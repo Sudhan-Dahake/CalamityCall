@@ -74,6 +74,7 @@ public class NotificationPage extends Fragment {
         timeframeDropdown.setOnItemClickListener((adapterView, view1, i, l) -> {
             String selectedTimeFrame = adapterView.getItemAtPosition(i).toString();
             fetchNotificationHistory(selectedTimeFrame);
+            NoResults.setVisibility(View.GONE);
 
             //Toast.makeText(getContext(), "Item: " + item, Toast.LENGTH_SHORT).show();
         });
