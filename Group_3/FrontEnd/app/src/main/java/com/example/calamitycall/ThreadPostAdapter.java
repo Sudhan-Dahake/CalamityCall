@@ -27,7 +27,7 @@ public class ThreadPostAdapter extends RecyclerView.Adapter<ThreadPostAdapter.Th
     @Override
     public ThreadPostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_post, parent, false);
+                .inflate(R.layout.item_thread_post, parent, false);
         return new ThreadPostViewHolder(view);
     }
 
