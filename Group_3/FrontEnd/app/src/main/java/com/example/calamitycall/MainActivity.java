@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                     if (result.getResultCode() == RESULT_OK) {
                         Log.d("MainActivity", "Login Successful but activityPage opened");
                         // Login was successful, load the settingsPage fragment
-                        loadSettingsPage();
+                        loadSettingsPage(false);
                     }
 
                     else {
@@ -120,7 +120,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void loadSettingsPage() {
+    private void loadSettingsPage(boolean requireLoginPrompt) {
+        if (requireLoginPrompt) {
+            Log.d("MainActivity", "No Login required to load settings");
+            // Directly load the SettingsPage fragment without prompting login
+            Fragment settingsFragment = new SettingsPage();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, settingsFragment)
+                    .commit();
+            return;
+        }
+
+
         // Show the placeholder fragment in the fragment container
         Fragment placeholderFragment = new PlaceholderFragment(); // Create a new fragment for the loading page
         getSupportFragmentManager().beginTransaction()
@@ -277,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
 
                     Log.d(TAG, "JWT refreshed successfully, loading Settings Page");
 
-                    loadSettingsPage();
+                    loadSettingsPage(true);
                 }
 
                 else {
@@ -307,7 +318,7 @@ public class MainActivity extends AppCompatActivity {
                     // JWT is valid, load the settings page.
                     Log.d(TAG, "JWT is valid, loading Settings Page");
 
-                    loadSettingsPage();
+                    loadSettingsPage(true);
                 }
 
                 else if (response.code() == 401) {
