@@ -102,6 +102,8 @@ public class NotificationPage extends Fragment {
                         dropdownLayout.setVisibility(View.GONE); // Hide dropdown
                         Last24Hours.setVisibility(View.VISIBLE);
                         fetchActiveNotifications();
+                        recyclerView.setAdapter(null); // Detach adapter
+                        recyclerView.setAdapter(adapter); // Reattach adapter
                         Log.d("TabSelection", "Active tab selected, dropdown hidden");
                         break;
                     case 1: // History Tab
@@ -109,6 +111,8 @@ public class NotificationPage extends Fragment {
                         NoResults.setVisibility(View.GONE);
                         dropdownLayout.setVisibility(View.VISIBLE); // Show dropdown
                         Last24Hours.setVisibility(View.GONE);
+                        recyclerView.setAdapter(null); // Detach adapter
+                        recyclerView.setAdapter(adapter); // Reattach adapter
                         Log.d("TabSelection", "History tab selected, dropdown shown");
                         break;
                 }
