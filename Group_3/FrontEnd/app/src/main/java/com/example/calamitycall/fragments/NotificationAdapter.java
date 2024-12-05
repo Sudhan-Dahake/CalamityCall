@@ -110,37 +110,37 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             String levelText;
             String disasterTypeText;
             String notifDate;
+            String notifTime;
+
+            notifDate = notification.getDate();
+            //notifTime = notification.getTime();
 
             switch (notification.getLevel()) {
                 case 1:
                     levelText = "Watch Alert";
                     disasterTypeText = "Low Chance of " + notification.getDisasterType();
-                    notifDate = notification.getDate();
                     break;
 
                 case 2:
                     levelText = "Warning Alert";
                     disasterTypeText = "Medium Chance of " + notification.getDisasterType();
-                    notifDate = notification.getDate();
-//                    Log.d("onBindViewHolder", "Warning Date:" + notifDate);
                     break;
 
                 case 3:
                     levelText = "Urgent Alert";
                     disasterTypeText = "High Chance of " + notification.getDisasterType();
-                    notifDate = notification.getDate();
                     break;
 
                 case 4:
                     levelText = "Critical Alert";
                     disasterTypeText = notification.getDisasterType() + " Spotted";
-                    notifDate = notification.getDate();
                     break;
 
                 default:
                     levelText = "Alert";
                     disasterTypeText = notification.getDisasterType();
                     notifDate = "00/00/0000";
+                    //notifTime = "00:00 AM";
                     break;
             }
 
@@ -152,10 +152,17 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
 
             if (holder.alertDate != null) {
-                Log.e("NotificationAdapter", "alertDate is NOT null!");
+                Log.d("NotificationAdapter", "alertDate is NOT null!");
                 holder.alertDate.setText(notifDate);
             } else {
                 Log.e("NotificationAdapter", "alertDate is null!");
+            }
+
+            if (holder.alertTime != null) {
+                Log.d("NotificationAdapter", "alertTime is NOT null!");
+                //holder.alertTime.setText(notifTime);
+            } else {
+                Log.e("NotificationAdapter", "alertTime is null!");
             }
 
 
@@ -196,6 +203,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             TextView disasterLevel;
             TextView disasterType;
             TextView alertDate;
+            TextView alertTime;
             View notificationLayout;
 
             public NotificationViewHolder(@NonNull View itemView) {
@@ -203,8 +211,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 disasterLevel = itemView.findViewById(R.id.disaster_level);
                 disasterType = itemView.findViewById(R.id.disaster_type);
                 alertDate = itemView.findViewById(R.id.alert_date);
+                alertTime = itemView.findViewById(R.id.alert_time);
                 if (alertDate == null) {
                     Log.e("NotificationViewHolder", "alertDate is null in layout: " + itemView.getId());
+                }
+                if(alertTime == null){
+                    Log.e("NotificationViewHolder", "alertTime is null in layout: " + itemView.getId());
                 }
 
                 notificationLayout = itemView.findViewById(R.id.notification_layout);

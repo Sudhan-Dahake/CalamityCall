@@ -175,6 +175,8 @@ public class NotificationPage extends Fragment {
 
             @Override
             public void onFailure(Call<NotificationHistoryResponse> call, Throwable t) {
+                NoResults.setText("No Alerts Found");
+                NoResults.setVisibility(View.VISIBLE);
                 Log.e(TAG, "Error fetching notifications", t);
             }
         });
