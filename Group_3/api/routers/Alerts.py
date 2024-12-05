@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException, status
 from .. import NotificationModel
 from ..schemas.Notifications import NotificationCreate
 from ..firebase.FirebaseNotificationManager import NotificationManager
+from datetime import datetime
 
 router = APIRouter()
 
@@ -11,6 +12,16 @@ notificationManager = NotificationManager()
 @router.post("/NWS", status_code=status.HTTP_201_CREATED)
 async def CreateNotification(notification: NotificationCreate):
     NotifModel = NotificationModel()
+
+    if ' ' in notification.notifdate:
+        date_part, time_part = notification.notifdate.split(' ', 1)
+
+        notification.notifdate = date_part
+        notification.notiftime = time_part
+
+    else:
+        notification.notiftime = datetime.now().strftime("%I:%M:%S %p")
+
 
     success = NotifModel.CreateNotification(**notification.model_dump(exclude_none=True))
 
@@ -29,6 +40,15 @@ async def CreateNotification(notification: NotificationCreate):
 @router.post("/EMS", status_code=status.HTTP_201_CREATED)
 async def CreateNotification(notification: NotificationCreate):
     NotifModel = NotificationModel()
+
+    if ' ' in notification.notifdate:
+        date_part, time_part = notification.notifdate.split(' ', 1)
+
+        notification.notifdate = date_part
+        notification.notiftime = time_part
+
+    else:
+        notification.notiftime = datetime.now().strftime("%I:%M:%S %p")
 
     success = NotifModel.CreateNotification(**notification.model_dump(exclude_none=True))
 
