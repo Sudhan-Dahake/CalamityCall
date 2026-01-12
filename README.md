@@ -49,4 +49,4 @@ CalamityCall/
 
 ## ▶️ Running the App
 
-Download the APK and run either on an emulator or on an android phone (recommended)
+Download "CalamityCall.apk" and run either on an emulator or on an android phone (recommended)
